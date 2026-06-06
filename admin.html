@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · CV Víctor</title>
+<style>
+:root{
+  --bg:#0f1117; --surface:#181c27; --border:#2a2f3e; --accent:#2ce8d8;
+  --text:#e8eaf0; --muted:#7a8099; --red:#e85c5c; --green:#2ce898;
+  --yellow:#e8c42c; --radius:10px; --font:'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;display:flex;flex-direction:column;min-height:100vh}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.header h1{font-size:15px;font-weight:600;flex:1}.header h1 span{color:var(--accent)}
+.btn{padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:.15s}
+.btn-primary{background:var(--accent);color:#0f1117}
+.btn-primary:hover{opacity:.85}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+.btn-danger{background:transparent;color:var(--red);border:1px solid transparent;padding:5px 8px;font-size:12px}
+.btn-danger:hover{border-color:var(--red)}
+.btn-edit{background:transparent;color:var(--accent);border:1px solid transparent;padding:5px 8px;font-size:12px}
+.btn-edit:hover{border-color:var(--accent)}
+.save-status{font-size:12px;color:var(--green);opacity:0;transition:.3s}
+.save-status.show{opacity:1}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:180px;background:var(--surface);border-right:1px solid var(--border);padding:12px 8px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-item{padding:8px 12px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--muted);transition:.15s;white-space:nowrap}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-item.active{color:var(--accent);background:rgba(44,232,216,.08)}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;padding:24px}
+
+/* CARDS */
+.entries{display:flex;flex-direction:column;gap:8px}
+.entry-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:flex-start;gap:12px}
+.entry-card:hover{border-color:#3a3f50}
+.entry-body{flex:1;min-width:0}
+.entry-title{font-weight:500;font-size:13px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-sub{font-size:12px;color:var(--muted)}
+.entry-actions{display:flex;gap:4px;flex-shrink:0;margin-top:2px}
+.tag-pub{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:500;margin-left:8px}
+.tag-pub.published{background:rgba(44,232,152,.15);color:var(--green)}
+.tag-pub.indev{background:rgba(232,196,44,.12);color:var(--yellow)}
+
+/* FIELDS */
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:700px}
+.fields-grid.full{grid-template-columns:1fr}
+.field-group{display:flex;flex-direction:column;gap:5px}
+.field-group label{font-size:12px;color:var(--muted);font-weight:500}
+.field-group input,.field-group textarea,.field-group select{background:#0c0f18;border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:var(--font);transition:.15s;resize:vertical}
+.field-group input:focus,.field-group textarea:focus,.field-group select:focus{outline:none;border-color:var(--accent)}
+.field-group textarea{min-height:80px}
+.bilingual-pair{display:flex;flex-direction:column;gap:5px}
+.bilingual-pair label{font-size:12px;color:var(--muted);font-weight:500}
+.bilingual-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bilingual-inputs span{font-size:11px;color:var(--muted);display:block;margin-bottom:2px}
+.bilingual-inputs input,.bilingual-inputs textarea{width:100%;background:#0c0f18;border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:var(--font);resize:vertical}
+.bilingual-inputs input:focus,.bilingual-inputs textarea:focus{outline:none;border-color:var(--accent)}
+.bilingual-inputs textarea{min-height:80px}
+.section-divider{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.save-section-btn{margin-top:16px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.panel-title{font-size:16px;font-weight:600}
+.btn-add{background:rgba(44,232,216,.12);color:var(--accent);border:1px dashed rgba(44,232,216,.4);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;transition:.15s}
+.btn-add:hover{background:rgba(44,232,216,.2)}
+.btn-sm{padding:4px 8px;font-size:11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
+.btn-sm:hover{color:var(--text);border-color:var(--muted)}
+
+/* CHIP INPUT */
+.chip-input-area{display:flex;flex-wrap:wrap;gap:6px;background:#0c0f18;border:1px solid var(--border);border-radius:6px;padding:8px;min-height:42px;cursor:text}
+.chip-input-area:focus-within{border-color:var(--accent)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:rgba(44,232,216,.12);color:var(--accent);border-radius:4px;font-size:12px}
+.chip button{background:none;border:none;color:inherit;cursor:pointer;padding:0;line-height:1;opacity:.7}
+.chip button:hover{opacity:1}
+.chip-new{border:none;background:transparent;color:var(--text);font-size:13px;outline:none;min-width:80px;flex:1}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:min(680px,95vw);max-height:88vh;overflow-y:auto;padding:24px;transform:translateY(8px);transition:.2s;display:flex;flex-direction:column;gap:0}
+.overlay.open .modal{transform:translateY(0)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.modal-title{font-size:15px;font-weight:600}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;padding:4px}
+.modal-close:hover{color:var(--text)}
+.modal-body{display:flex;flex-direction:column;gap:14px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* COLLABORATORS */
+.collabs-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.collab-row{background:#0c0f18;border:1px solid var(--border);border-radius:6px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.collab-row .fields{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;flex:1}
+.collab-row .fields input{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:5px 8px;color:var(--text);font-size:12px;font-family:var(--font);width:100%}
+.collab-row .fields input:focus{outline:none;border-color:var(--accent)}
+
+/* RESOURCES */
+.res-cat-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.res-cat-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.res-cat-header input{flex:1;background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:6px 9px;color:var(--text);font-size:13px;font-family:var(--font)}
+.res-cat-header input:focus{outline:none;border-color:var(--accent)}
+.res-item-row{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.res-item-row input{background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-size:12px;font-family:var(--font)}
+.res-item-row input:focus{outline:none;border-color:var(--accent)}
+.res-item-row .ri-name{flex:1}
+.res-item-row .ri-kind{width:70px}
+</style>
+</head>
+<body>
+<!-- Pantalla de acceso (protección básica del lado del cliente) -->
+<div id="authGate" style="position:fixed;inset:0;z-index:99999;background:#0d1117;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif">
+  <form id="authForm" style="background:#161b22;padding:32px;border-radius:12px;border:1px solid #30363d;width:300px">
+    <h2 style="color:#e6edf3;margin:0 0 16px;font-size:18px">Panel de administración</h2>
+    <input id="authUser" placeholder="Usuario" autocomplete="username" style="width:100%;box-sizing:border-box;margin-bottom:10px;padding:9px;border-radius:6px;border:1px solid #30363d;background:#0d1117;color:#e6edf3">
+    <input id="authPass" type="password" placeholder="Contraseña" autocomplete="current-password" style="width:100%;box-sizing:border-box;margin-bottom:14px;padding:9px;border-radius:6px;border:1px solid #30363d;background:#0d1117;color:#e6edf3">
+    <button type="submit" style="width:100%;padding:9px;border:none;border-radius:6px;background:#238636;color:#fff;font-weight:600;cursor:pointer">Entrar</button>
+    <p id="authErr" style="color:#f85149;font-size:13px;min-height:16px;margin:10px 0 0"></p>
+  </form>
+</div>
+<script>
+(function(){
+  const U='fa30799d67714e78216c7cfc588b7d3f549798154bd4413162001535096f2a77';
+  const P='eeed1a0f2a27c69c9ac9ddb2321fe0355d17ea3d487766b1963d4c8fa2ef8578';
+  const gate=document.getElementById('authGate');
+  if(sessionStorage.getItem('vmcp-admin-auth')==='1'){ gate.remove(); return; }
+  async function h(s){
+    const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+  }
+  document.getElementById('authForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const u=await h(document.getElementById('authUser').value.trim());
+    const p=await h(document.getElementById('authPass').value);
+    if(u===U && p===P){ sessionStorage.setItem('vmcp-admin-auth','1'); gate.remove(); }
+    else document.getElementById('authErr').textContent='Usuario o contraseña incorrectos';
+  });
+})();
+</script>
+<div class="header">
+  <h1>Admin Panel · <span>CV Víctor</span></h1>
+  <span class="save-status" id="saveStatus">✓ Guardado</span>
+  <button class="btn btn-ghost" onclick="window.open('index.html','_blank')">Ver CV</button>
+  <button class="btn btn-ghost" onclick="exportData()">Exportar data.js</button>
+  <button class="btn btn-ghost" style="color:var(--red);border-color:var(--red)" onclick="if(confirm('¿Limpiar caché y recargar datos originales del data.js?')){localStorage.removeItem('vmcp-admin-data');location.reload();}">Limpiar caché</button>
+  <button class="btn btn-primary" onclick="saveAll()">Guardar todo</button>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="nav-item active" data-sec="meta">🏠 Hero</div>
+    <div class="nav-item" data-sec="about">👤 Sobre mí</div>
+    <div class="nav-item" data-sec="education">🎓 Formación</div>
+    <div class="nav-item" data-sec="experience">💼 Experiencia</div>
+    <div class="nav-item" data-sec="publications">📄 Publicaciones</div>
+    <div class="nav-item" data-sec="projects">🔬 Proyectos</div>
+    <div class="nav-item" data-sec="tech">💻 Desarrollos</div>
+    <div class="nav-item" data-sec="outreach">📢 Divulgación</div>
+    <div class="nav-item" data-sec="teaching">📚 Docencia</div>
+    <div class="nav-item" data-sec="resources">📁 Recursos</div>
+    <div class="nav-item" data-sec="news">📰 Noticias</div>
+  </nav>
+  <main class="main" id="main"></main>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Editar</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="modalSave()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+// ─── INIT ────────────────────────────────────────────────────────────────────
+const saved = localStorage.getItem('vmcp-admin-data');
+let D = saved ? (()=>{ try{ return JSON.parse(saved); }catch(e){ return null; } })() || deepCopy(window.DATA) : deepCopy(window.DATA);
+
+function deepCopy(o){ return JSON.parse(JSON.stringify(o)); }
+function bi(v){ return typeof v==='string' ? v : (v ? (v.es||'') : ''); }
+function biEn(v){ return typeof v==='string' ? v : (v ? (v.en||'') : ''); }
+function esc(s){ return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function gv(id){ const el=document.getElementById(id); return el ? el.value.trim() : ''; }
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+let currentSec = 'meta';
+document.getElementById('sidebar').addEventListener('click', e=>{
+  const item = e.target.closest('[data-sec]'); if(!item) return;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  item.classList.add('active');
+  currentSec = item.dataset.sec;
+  renderSection(currentSec);
+});
+
+function renderSection(sec){
+  const main = document.getElementById('main');
+  main.innerHTML = `<div class="section-panel active">${sections[sec]()}</div>`;
+  afterRender(sec);
+}
+
+// ─── PERSIST ────────────────────────────────────────────────────────────────
+function saveAll(){
+  collectCurrentSection();
+  localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
+  localStorage.setItem('vmcp-data-version', window.DATA_VERSION);
+  flash();
+}
+function flash(){
+  const s=document.getElementById('saveStatus');
+  s.classList.add('show');
+  setTimeout(()=>s.classList.remove('show'),2000);
+}
+
+// Auto-guardar al eliminar entradas con ✕
+function autoSave(){
+  localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
+  localStorage.setItem('vmcp-data-version', window.DATA_VERSION);
+  flash();
+}
+function exportData(){
+  collectCurrentSection();
+  const js='/* data.js — editado desde admin panel */\n'
+    + 'window.DATA_VERSION = "' + window.DATA_VERSION + '";\n'
+    + 'window.DATA = ' + JSON.stringify(D,null,2) + ';\n';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([js],{type:'text/javascript'}));
+  a.download='data.js'; a.click();
+}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+let _saveFn = null;
+function openModal(title, html, saveFn){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = html;
+  _saveFn = saveFn;
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+function modalSave(){
+  if(_saveFn) _saveFn();
+  // Auto-guardar a localStorage después de cada cambio en modal
+  setTimeout(()=>{
+    localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
+    localStorage.setItem('vmcp-data-version', window.DATA_VERSION);
+    flash();
+  }, 60);
+}
+document.getElementById('overlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeModal(); });
+
+// ─── FIELD HELPERS ────────────────────────────────────────────────────────────
+function fText(label,id,val,ph=''){
+  return `<div class="field-group"><label>${label}</label><input id="${id}" value="${esc(val||'')}" placeholder="${ph}"></div>`;
+}
+function fArea(label,id,val){
+  return `<div class="field-group"><label>${label}</label><textarea id="${id}">${esc(val||'')}</textarea></div>`;
+}
+function fBi(label,esId,enId,esVal,enVal){
+  return `<div class="bilingual-pair"><label>${label}</label>
+    <div class="bilingual-inputs">
+      <div><span>Español</span><input id="${esId}" value="${esc(esVal||'')}"></div>
+      <div><span>English</span><input id="${enId}" value="${esc(enVal||'')}"></div>
+    </div></div>`;
+}
+function fBiArea(label,esId,enId,esVal,enVal){
+  return `<div class="bilingual-pair"><label>${label}</label>
+    <div class="bilingual-inputs">
+      <div><span>Español</span><textarea id="${esId}">${esc(esVal||'')}</textarea></div>
+      <div><span>English</span><textarea id="${enId}">${esc(enVal||'')}</textarea></div>
+    </div></div>`;
+}
+function fSel(label,id,opts,cur){
+  const o=opts.map(x=>`<option value="${x.v}"${x.v===cur?' selected':''}>${x.l}</option>`).join('');
+  return `<div class="field-group"><label>${label}</label><select id="${id}">${o}</select></div>`;
+}
+
+// ─── COLLECT CURRENT ─────────────────────────────────────────────────────────
+function collectCurrentSection(){
+  if(currentSec==='meta') collectMeta();
+  else if(currentSec==='about') collectAbout();
+  else if(currentSec==='resources') collectResources();
+}
+
+// ─── SECTIONS ────────────────────────────────────────────────────────────────
+const sections = {
+
+  meta(){
+    const m=D.meta;
+    return `<div class="panel-header"><span class="panel-title">🏠 Hero & Datos personales</span></div>
+    <div class="section-divider">Identidad</div>
+    <div class="fields-grid">
+      ${fText('Nombre completo','m_name',m.name)}
+      ${fText('Email','m_email',m.email)}
+    </div>
+    <div style="margin-top:12px">${fBi('Cargo / Rol','m_role_es','m_role_en',bi(m.role),biEn(m.role))}</div>
+    <div style="margin-top:12px">${fBi('Institución','m_inst_es','m_inst_en',bi(m.institution),biEn(m.institution))}</div>
+    <div style="margin-top:12px">${fBi('Ubicación','m_loc_es','m_loc_en',bi(m.location),biEn(m.location))}</div>
+    <div style="margin-top:12px">${fBi('Distinción / SNI badge','m_sni_es','m_sni_en',bi(m.sni),biEn(m.sni))}</div>
+    <div style="margin-top:12px">${fBiArea('Tagline del hero','m_tag_es','m_tag_en',bi(m.tagline),biEn(m.tagline))}</div>
+    <div class="section-divider" style="margin-top:20px">Links académicos</div>
+    <div class="fields-grid">
+      ${fText('ORCID URL','m_orcid',m.links.orcid)}
+      ${fText('Google Scholar URL','m_scholar',m.links.scholar)}
+      ${fText('ResearchGate URL','m_rg',m.links.researchgate)}
+      ${fText('LinkedIn URL','m_li',m.links.linkedin)}
+    </div>
+    <button class="btn btn-primary save-section-btn" onclick="collectMeta();saveAll()">Guardar cambios</button>`;
+  },
+
+  about(){
+    const a=D.about;
+    const ints=a.interests.map((it,i)=>
+      `<div class="entry-card">
+        <div class="entry-body"><div class="entry-title">${esc(bi(it))} / ${esc(biEn(it))}</div></div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editInterest(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.about.interests.splice(${i},1);renderSection('about');autoSave()">✕</button>
+        </div></div>`).join('');
+    const dists=a.distinctions.map((d,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(d.es)}</div>
+          <div class="entry-sub">${esc(d.org)} · ${esc(d.years)}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editDist(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.about.distinctions.splice(${i},1);renderSection('about');autoSave()">✕</button>
+        </div></div>`).join('');
+    const tools=a.toolbox.map((t,i)=>
+      `<span class="chip">${esc(t)}<button onclick="D.about.toolbox.splice(${i},1);renderSection('about')">×</button></span>`).join('');
+
+    return `<div class="panel-header"><span class="panel-title">👤 Sobre mí</span></div>
+    <div class="section-divider">Biografía</div>
+    <div class="fields-grid full">
+      <div class="field-group"><label>Párrafos ES</label>
+        ${a.bio.es.map((p,i)=>`<textarea id="bio_es_${i}" style="margin-bottom:6px">${esc(p)}</textarea>`).join('')}
+        <button class="btn-sm" onclick="D.about.bio.es.push('');D.about.bio.en.push('');renderSection('about')">+ Párrafo</button>
+      </div>
+      <div class="field-group" style="margin-top:12px"><label>Paragraphs EN</label>
+        ${a.bio.en.map((p,i)=>`<textarea id="bio_en_${i}" style="margin-bottom:6px">${esc(p)}</textarea>`).join('')}
+      </div>
+    </div>
+    <div class="section-divider" style="margin-top:20px">Toolbox</div>
+    <div class="bilingual-pair"><label>Herramientas (clic para agregar)</label>
+      <div class="chip-input-area" onclick="document.getElementById('chip_toolbox').focus()">
+        ${tools}
+        <input class="chip-new" id="chip_toolbox" placeholder="Agregar y Enter">
+      </div></div>
+    <button class="btn btn-primary save-section-btn" onclick="collectAbout();saveAll()">Guardar bio y toolbox</button>
+    <div class="section-divider" style="margin-top:24px">Líneas de investigación</div>
+    <button class="btn-add" style="margin-bottom:12px" onclick="editInterest(-1)">+ Agregar línea</button>
+    <div class="entries">${ints}</div>
+    <div class="section-divider" style="margin-top:24px">Becas y distinciones</div>
+    <button class="btn-add" style="margin-bottom:12px" onclick="editDist(-1)">+ Agregar</button>
+    <div class="entries">${dists}</div>`;
+  },
+
+  education(){
+    const cards=D.education.map((e,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(e.degree))}</div>
+          <div class="entry-sub">${esc(e.org)} · ${esc(e.years)}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editEducation(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.education.splice(${i},1);renderSection('education');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">🎓 Formación académica</span>
+      <button class="btn-add" onclick="editEducation(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  experience(){
+    const cards=D.experience.map((e,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(e.role))}</div>
+          <div class="entry-sub">${esc(e.org)} · ${esc(e.years)}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editExperience(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.experience.splice(${i},1);renderSection('experience');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">💼 Experiencia</span>
+      <button class="btn-add" onclick="editExperience(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  publications(){
+    const cards=D.publications.map((p,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(p.title)}<span class="tag-pub ${p.state}">${p.state==='published'?'Publicado':'En desarrollo'}</span></div>
+          <div class="entry-sub">${esc(p.authors)} · ${esc(p.year)}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editPub(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.publications.splice(${i},1);renderSection('publications');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">📄 Publicaciones</span>
+      <button class="btn-add" onclick="editPub(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  projects(){
+    const cards=D.projects.map((p,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(p.name))}</div>
+          <div class="entry-sub">${esc(p.org)} · ${esc(p.years)} · ${p.active?'<span style="color:var(--green)">Activo</span>':'Concluido'}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editProject(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.projects.splice(${i},1);renderSection('projects');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">🔬 Proyectos</span>
+      <button class="btn-add" onclick="editProject(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  tech(){
+    const cards=D.tech.map((t,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(t.name))}</div>
+          <div class="entry-sub">${esc((t.stack||[]).join(', '))}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editTech(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.tech.splice(${i},1);renderSection('tech');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">💻 Desarrollos tecnológicos</span>
+      <button class="btn-add" onclick="editTech(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  outreach(){
+    const cards=D.outreach.map((o,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(o.title))}</div>
+          <div class="entry-sub">${esc(bi(o.tag))} · ${esc(o.when)}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editOutreach(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.outreach.splice(${i},1);renderSection('outreach');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">📢 Divulgación científica</span>
+      <button class="btn-add" onclick="editOutreach(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  teaching(){
+    const insts = D.teaching.map((inst, i) => {
+      const courseRows = inst.courses.map((c, ci) =>
+        `<div class="entry-card" style="margin-left:16px;border-left:2px solid var(--border)">
+          <div class="entry-body">
+            <div class="entry-title">${esc(bi(c.course))}</div>
+            <div class="entry-sub">${esc(bi(c.career))} · ${esc(bi(c.level))} · ${esc(c.period)}</div>
+          </div>
+          <div class="entry-actions">
+            <button class="btn-edit" onclick="editCourse(${i},${ci})">Editar</button>
+            <button class="btn-danger" onclick="D.teaching[${i}].courses.splice(${ci},1);renderSection('teaching')">✕</button>
+          </div></div>`).join('');
+      return `<div style="margin-bottom:16px">
+        <div class="entry-card" style="background:rgba(44,232,216,.05);border-color:rgba(44,232,216,.2)">
+          <div class="entry-body">
+            <div class="entry-title" style="color:var(--accent)">${esc(inst.org)}</div>
+            <div class="entry-sub">${esc(bi(inst.place))} · ${esc(inst.period)}</div>
+          </div>
+          <div class="entry-actions">
+            <button class="btn-edit" onclick="editInstitution(${i})">Editar inst.</button>
+            <button class="btn-edit" onclick="addCourse(${i})">+ Materia</button>
+            <button class="btn-danger" onclick="D.teaching.splice(${i},1);renderSection('teaching')">✕</button>
+          </div></div>
+        ${courseRows}
+      </div>`;
+    }).join('');
+    return `<div class="panel-header"><span class="panel-title">📚 Docencia</span>
+      <button class="btn-add" onclick="addInstitution()">+ Institución</button></div>
+    <div class="entries">${insts}</div>`;
+  },
+
+  resources(){
+    const cats=D.resources.map((cat,ci)=>{
+      const items=cat.items.map((it,ii)=>
+        `<div class="res-item-row">
+          <input class="ri-name" id="r_${ci}_${ii}_es" value="${esc(bi(it.name))}" placeholder="Nombre ES">
+          <input class="ri-name" id="r_${ci}_${ii}_en" value="${esc(biEn(it.name))}" placeholder="Name EN">
+          <input class="ri-kind" id="r_${ci}_${ii}_k" value="${esc(it.kind)}" placeholder="PDF">
+          <button class="btn-sm" onclick="D.resources[${ci}].items.splice(${ii},1);renderSection('resources')">✕</button>
+        </div>`).join('');
+      return `<div class="res-cat-block">
+        <div class="res-cat-header">
+          <input id="r_cat_${ci}_es" value="${esc(bi(cat.cat))}" placeholder="Categoría ES">
+          <input id="r_cat_${ci}_en" value="${esc(biEn(cat.cat))}" placeholder="Category EN">
+          <button class="btn-sm" onclick="D.resources.splice(${ci},1);renderSection('resources')">Eliminar</button>
+        </div>${items}
+        <button class="btn-sm" style="margin-top:6px" onclick="D.resources[${ci}].items.push({name:{es:'',en:''},kind:'PDF'});renderSection('resources')">+ Recurso</button>
+      </div>`;
+    }).join('');
+    return `<div class="panel-header"><span class="panel-title">📁 Recursos</span>
+      <button class="btn-add" onclick="D.resources.push({cat:{es:'Nueva categoría',en:'New category'},items:[]});renderSection('resources')">+ Categoría</button></div>
+    ${cats}
+    <button class="btn btn-primary save-section-btn" onclick="collectResources();saveAll()">Guardar recursos</button>`;
+  },
+
+  news(){
+    const cards=D.news.map((n,i)=>
+      `<div class="entry-card">
+        <div class="entry-body">
+          <div class="entry-title">${esc(bi(n.title))}</div>
+          <div class="entry-sub">${esc(n.date)} · ${esc(typeof n.tag==='string'?n.tag:bi(n.tag))}</div>
+        </div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="editNews(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.news.splice(${i},1);renderSection('news');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">📰 Noticias</span>
+      <button class="btn-add" onclick="editNews(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  }
+};
+
+// ─── AFTER RENDER ────────────────────────────────────────────────────────────
+function afterRender(sec){
+  if(sec==='about'){
+    const inp=document.getElementById('chip_toolbox');
+    if(inp) inp.addEventListener('keydown',e=>{
+      if(e.key==='Enter'&&inp.value.trim()){
+        D.about.toolbox.push(inp.value.trim());inp.value='';renderSection('about');
+      }
+      if(e.key==='Backspace'&&!inp.value&&D.about.toolbox.length){
+        D.about.toolbox.pop();renderSection('about');
+      }
+    });
+  }
+}
+
+// ─── COLLECT ─────────────────────────────────────────────────────────────────
+function collectMeta(){
+  const m=D.meta;
+  m.name=gv('m_name'); m.email=gv('m_email');
+  m.role={es:gv('m_role_es'),en:gv('m_role_en')};
+  m.institution={es:gv('m_inst_es'),en:gv('m_inst_en')};
+  m.location={es:gv('m_loc_es'),en:gv('m_loc_en')};
+  m.sni={es:gv('m_sni_es'),en:gv('m_sni_en')};
+  m.tagline={es:gv('m_tag_es'),en:gv('m_tag_en')};
+  m.links.orcid=gv('m_orcid'); m.links.scholar=gv('m_scholar');
+  m.links.researchgate=gv('m_rg'); m.links.linkedin=gv('m_li');
+}
+function collectAbout(){
+  D.about.bio.es.forEach((_,i)=>{ const el=document.getElementById('bio_es_'+i); if(el) D.about.bio.es[i]=el.value; });
+  D.about.bio.en.forEach((_,i)=>{ const el=document.getElementById('bio_en_'+i); if(el) D.about.bio.en[i]=el.value; });
+}
+function collectResources(){
+  D.resources.forEach((cat,ci)=>{
+    const es=document.getElementById(`r_cat_${ci}_es`),en=document.getElementById(`r_cat_${ci}_en`);
+    if(es) cat.cat={es:es.value,en:en?en.value:''};
+    cat.items.forEach((it,ii)=>{
+      const ies=document.getElementById(`r_${ci}_${ii}_es`),ien=document.getElementById(`r_${ci}_${ii}_en`),ik=document.getElementById(`r_${ci}_${ii}_k`);
+      if(ies) it.name={es:ies.value,en:ien?ien.value:''};
+      if(ik) it.kind=ik.value;
+    });
+  });
+}
+
+// ─── EDIT MODALS ─────────────────────────────────────────────────────────────
+function editInterest(i){
+  const it=i>=0?D.about.interests[i]:{es:'',en:''};
+  openModal(i>=0?'Editar línea':'Nueva línea de investigación',
+    fBi('Línea de investigación','it_es','it_en',bi(it),biEn(it)),
+    ()=>{ const o={es:gv('it_es'),en:gv('it_en')}; i>=0?D.about.interests[i]=o:D.about.interests.push(o); closeModal();renderSection('about'); });
+}
+
+function editDist(i){
+  const d=i>=0?D.about.distinctions[i]:{org:'',es:'',en:'',years:'',place:{es:'',en:''}};
+  openModal(i>=0?'Editar distinción':'Nueva distinción',
+    fText('Organización','d_org',d.org)+fBi('Nombre','d_es','d_en',d.es,d.en)+fText('Años','d_yrs',d.years,'2020–2024')+fBi('Lugar','d_pl_es','d_pl_en',bi(d.place),biEn(d.place)),
+    ()=>{ const o={org:gv('d_org'),es:gv('d_es'),en:gv('d_en'),years:gv('d_yrs'),place:{es:gv('d_pl_es'),en:gv('d_pl_en')}}; i>=0?D.about.distinctions[i]=o:D.about.distinctions.push(o); closeModal();renderSection('about'); });
+}
+
+function editEducation(i){
+  const e=i>=0?D.education[i]:{degree:{es:'',en:''},org:'',place:{es:'',en:''},years:'',detail:{es:'',en:''}};
+  openModal(i>=0?'Editar formación':'Nueva formación',
+    fBi('Grado/Título','ed_dg_es','ed_dg_en',bi(e.degree),biEn(e.degree))+fText('Institución','ed_org',e.org)+fBi('País','ed_pl_es','ed_pl_en',bi(e.place),biEn(e.place))+fText('Años','ed_yrs',e.years,'2010–2014')+fBiArea('Detalle/Tesis','ed_dt_es','ed_dt_en',bi(e.detail),biEn(e.detail)),
+    ()=>{ const o={degree:{es:gv('ed_dg_es'),en:gv('ed_dg_en')},org:gv('ed_org'),place:{es:gv('ed_pl_es'),en:gv('ed_pl_en')},years:gv('ed_yrs'),detail:{es:gv('ed_dt_es'),en:gv('ed_dt_en')}}; i>=0?D.education[i]=o:D.education.push(o); closeModal();renderSection('education'); });
+}
+
+function editExperience(i){
+  const e=i>=0?D.experience[i]:{role:{es:'',en:''},org:'',place:{es:'',en:''},years:'',yearsEn:'',detail:{es:'',en:''}};
+  openModal(i>=0?'Editar experiencia':'Nueva experiencia',
+    fBi('Cargo','ex_r_es','ex_r_en',bi(e.role),biEn(e.role))+fText('Institución','ex_org',e.org)+fBi('Lugar','ex_pl_es','ex_pl_en',bi(e.place),biEn(e.place))+fText('Periodo (ES)','ex_yrs',e.years,'2020 – actual')+fText('Period (EN)','ex_yen',e.yearsEn||'','2020 – present')+fBiArea('Detalle','ex_dt_es','ex_dt_en',bi(e.detail),biEn(e.detail)),
+    ()=>{ const o={role:{es:gv('ex_r_es'),en:gv('ex_r_en')},org:gv('ex_org'),place:{es:gv('ex_pl_es'),en:gv('ex_pl_en')},years:gv('ex_yrs'),yearsEn:gv('ex_yen'),detail:{es:gv('ex_dt_es'),en:gv('ex_dt_en')}}; i>=0?D.experience[i]=o:D.experience.push(o); closeModal();renderSection('experience'); });
+}
+
+function editPub(i){
+  const p=i>=0?D.publications[i]:{state:'published',year:new Date().getFullYear().toString(),type:{es:'Artículo',en:'Article'},title:'',authors:'',venue:'',doi:''};
+  const vEs=typeof p.venue==='string'?p.venue:bi(p.venue);
+  const vEn=typeof p.venue==='string'?p.venue:biEn(p.venue);
+  openModal(i>=0?'Editar publicación':'Nueva publicación',
+    fSel('Estado','pb_st',[{v:'published',l:'Publicado'},{v:'indev',l:'En desarrollo'}],p.state)+
+    fText('Año','pb_yr',p.year,'2026')+
+    fBi('Tipo','pb_tp_es','pb_tp_en',bi(p.type),biEn(p.type))+
+    fText('Título','pb_tl',p.title)+fText('Autores','pb_au',p.authors)+
+    fBi('Venue/Revista','pb_ve_es','pb_ve_en',vEs,vEn)+
+    fText('DOI','pb_doi',p.doi||'')+fText('ISBN (libros)','pb_isbn',p.isbn||''),
+    ()=>{
+      const ve=gv('pb_ve_es'),ven=gv('pb_ve_en');
+      const o={state:gv('pb_st'),year:gv('pb_yr'),type:{es:gv('pb_tp_es'),en:gv('pb_tp_en')},title:gv('pb_tl'),authors:gv('pb_au'),venue:ve===ven?ve:{es:ve,en:ven},doi:gv('pb_doi')};
+      const isbn=gv('pb_isbn'); if(isbn) o.isbn=isbn;
+      i>=0?D.publications[i]=o:D.publications.unshift(o);
+      closeModal();renderSection('publications');
+    });
+}
+
+function editProject(i){
+  const p=i>=0?D.projects[i]:{name:{es:'',en:''},org:'',years:'',active:true,desc:{es:'',en:''},collaborators:[],funding:{es:'',en:''}};
+  // _tc es global para que los onclick del HTML puedan accederla
+  window._tc = deepCopy(p.collaborators);
+
+  function collabsHtml(){
+    return window._tc.map((c,ci)=>
+      `<div class="collab-row"><div class="fields">
+        <input id="cl_${ci}_n" value="${esc(c.name)}" placeholder="Nombre">
+        <input id="cl_${ci}_i" value="${esc(c.inst)}" placeholder="Institución">
+        <input id="cl_${ci}_res" value="${esc(bi(c.role))}" placeholder="Rol ES">
+        <input id="cl_${ci}_ren" value="${esc(biEn(c.role))}" placeholder="Role EN">
+      </div><button class="btn-sm" onclick="_removeCollab(${ci})">✕</button></div>`).join('');
+  }
+
+  window._addCollab    = ()  => { window._tc.push({name:'',inst:'',role:{es:'',en:''}}); window._refreshC(); };
+  window._removeCollab = (ci)=> { window._tc.splice(ci,1); window._refreshC(); };
+  window._refreshC     = ()  => { const cl=document.getElementById('collabsList'); if(cl) cl.innerHTML=collabsHtml(); };
+
+  // outputs
+  window._to = deepCopy(p.outputs||[]);
+  function outputsHtml(){
+    return window._to.map((o,oi)=>
+      `<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center">
+        <select id="ot_${oi}_type" style="background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:5px 7px;color:var(--text);font-size:12px;width:110px">
+          ${['article','book','conference','thesis','indev'].map(t=>`<option value="${t}"${o.type===t?' selected':''}>${t}</option>`).join('')}
+        </select>
+        <input id="ot_${oi}_title" value="${esc(o.title||'')}" placeholder="Título" style="flex:1;background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-size:12px;font-family:var(--font)">
+        <input id="ot_${oi}_venue" value="${esc(o.venue||'')}" placeholder="Venue / Revista" style="flex:1;background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-size:12px;font-family:var(--font)">
+        <input id="ot_${oi}_doi" value="${esc(o.doi||'')}" placeholder="DOI" style="width:130px;background:#0c0f18;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-size:12px;font-family:var(--font)">
+        <button class="btn-sm" onclick="_removeOutput(${oi})">✕</button>
+      </div>`).join('');
+  }
+  window._addOutput    = ()  => { window._to.push({type:'article',title:'',venue:'',doi:''}); window._refreshO(); };
+  window._removeOutput = (oi)=> { window._to.splice(oi,1); window._refreshO(); };
+  window._refreshO     = ()  => { const ol=document.getElementById('outputsList'); if(ol) ol.innerHTML=outputsHtml(); };
+
+  openModal(i>=0?'Editar proyecto':'Nuevo proyecto',
+    fBi('Nombre del proyecto','pr_n_es','pr_n_en',bi(p.name),biEn(p.name))+
+    fText('Institución principal','pr_org',p.org)+
+    fText('Años','pr_yrs',p.years,'2024 – actual')+
+    fSel('Estado','pr_act',[{v:'true',l:'Activo'},{v:'false',l:'Concluido'}],String(p.active))+
+    fBiArea('Descripción','pr_d_es','pr_d_en',bi(p.desc),biEn(p.desc))+
+    fBi('Financiamiento','pr_f_es','pr_f_en',bi(p.funding),biEn(p.funding))+
+    `<div class="field-group"><label>Colaboradores</label>
+      <div class="collabs-list" id="collabsList">${collabsHtml()}</div>
+      <button class="btn-sm" style="margin-top:8px" onclick="_addCollab()">+ Colaborador</button>
+    </div>` +
+    `<div class="field-group" style="margin-top:14px"><label>Resultados / Outputs</label>
+      <div id="outputsList">${outputsHtml()}</div>
+      <button class="btn-sm" style="margin-top:8px" onclick="_addOutput()">+ Resultado</button>
+    </div>`,
+    ()=>{
+      window._tc = window._tc.map((_,ci)=>({
+        name: gv(`cl_${ci}_n`), inst: gv(`cl_${ci}_i`),
+        role: {es: gv(`cl_${ci}_res`), en: gv(`cl_${ci}_ren`)}
+      }));
+      window._to = window._to.map((_,oi)=>({
+        type: document.getElementById(`ot_${oi}_type`)?.value||'article',
+        title: gv(`ot_${oi}_title`), venue: gv(`ot_${oi}_venue`), doi: gv(`ot_${oi}_doi`)
+      }));
+      const o={name:{es:gv('pr_n_es'),en:gv('pr_n_en')},org:gv('pr_org'),years:gv('pr_yrs'),active:gv('pr_act')==='true',desc:{es:gv('pr_d_es'),en:gv('pr_d_en')},collaborators:window._tc,funding:{es:gv('pr_f_es'),en:gv('pr_f_en')},outputs:window._to};
+      i>=0?D.projects[i]=o:D.projects.push(o);
+      closeModal();renderSection('projects');
+    });
+}
+
+function editTech(i){
+  const t=i>=0?D.tech[i]:{name:{es:'',en:''},desc:{es:'',en:''},stack:[],link:'',placeholder:false};
+  openModal(i>=0?'Editar desarrollo':'Nuevo desarrollo',
+    fBi('Nombre','te_n_es','te_n_en',bi(t.name),biEn(t.name))+
+    fBiArea('Descripción','te_d_es','te_d_en',bi(t.desc),biEn(t.desc))+
+    fText('Stack (separado por comas)','te_st',(t.stack||[]).join(', '))+
+    fText('URL/Demo','te_lk',t.link||'')+
+    fSel('Disponibilidad','te_ph',[{v:'false',l:'Disponible'},{v:'true',l:'Próximamente'}],String(t.placeholder||false)),
+    ()=>{
+      const o={name:{es:gv('te_n_es'),en:gv('te_n_en')},desc:{es:gv('te_d_es'),en:gv('te_d_en')},stack:gv('te_st').split(',').map(s=>s.trim()).filter(Boolean),link:gv('te_lk'),placeholder:gv('te_ph')==='true'};
+      i>=0?D.tech[i]=o:D.tech.push(o);
+      closeModal();renderSection('tech');
+    });
+}
+
+function editOutreach(i){
+  const o=i>=0?D.outreach[i]:{tag:{es:'',en:''},title:{es:'',en:''},desc:{es:'',en:''},when:''};
+  openModal(i>=0?'Editar actividad':'Nueva actividad de divulgación',
+    fBi('Tipo/Tag','ou_tg_es','ou_tg_en',bi(o.tag),biEn(o.tag))+
+    fBi('Título','ou_t_es','ou_t_en',bi(o.title),biEn(o.title))+
+    fBiArea('Descripción','ou_d_es','ou_d_en',bi(o.desc),biEn(o.desc))+
+    fText('Cuándo','ou_w',o.when,'2024 –'),
+    ()=>{ const n={tag:{es:gv('ou_tg_es'),en:gv('ou_tg_en')},title:{es:gv('ou_t_es'),en:gv('ou_t_en')},desc:{es:gv('ou_d_es'),en:gv('ou_d_en')},when:gv('ou_w')}; i>=0?D.outreach[i]=n:D.outreach.push(n); closeModal();renderSection('outreach'); });
+}
+
+function addInstitution(){
+  openModal('Nueva institución',
+    fText('Nombre','ti_org','') +
+    fBi('Lugar','ti_pl_es','ti_pl_en','','') +
+    fText('Periodo','ti_per','','2025 –'),
+    ()=>{
+      D.teaching.push({org:gv('ti_org'),place:{es:gv('ti_pl_es'),en:gv('ti_pl_en')},period:gv('ti_per'),courses:[]});
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editInstitution(i){
+  const inst=D.teaching[i];
+  openModal('Editar instituci
