@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Víctor M. Chávez Pérez · Física Aplicada</title>
+<meta name="description" content="Profesor–Investigador en Física Aplicada y Educación Científica. Calentamientos súbitos estratosféricos, cambio climático, oceanografía física y divulgación de la ciencia.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="data.js"></script>
+  <script>
+    /* Usar datos del admin si existen y la versión coincide (o si data.js no tiene versión). */
+    const _saved        = localStorage.getItem('vmcp-admin-data');
+    const _savedVersion = localStorage.getItem('vmcp-data-version');
+    const _fileVersion  = window.DATA_VERSION || null;
+    if(_saved){
+      // Si data.js no tiene versión, o las versiones coinciden → usar admin data
+      if(!_fileVersion || _savedVersion === _fileVersion){
+        try{ window.DATA = JSON.parse(_saved); }catch(e){}
+      } else {
+        // data.js fue actualizado externamente → limpiar caché
+        localStorage.removeItem('vmcp-admin-data');
+        localStorage.removeItem('vmcp-data-version');
+      }
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
