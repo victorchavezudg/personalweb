@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0455";
+window.DATA_VERSION = "2026-06-15-0459";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -8,8 +8,8 @@ window.DATA = {
     "name": "Víctor Manuel Chávez Pérez",
     "short": "VMCP",
     "role": {
-      "es": "Profesor–Investigador · Física Aplicada y Educación Científica",
-      "en": "Professor–Researcher · Applied Physics & Science Education"
+      "es": "Profesor–Investigador · Física Aplicada, Ciencia de Datos y Educación Científica",
+      "en": "Professor–Researcher · Applied Physics, Data Science & Science Education"
     },
     "institution": {
       "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Universidad Tecnológica de Jalisco",
@@ -24,8 +24,8 @@ window.DATA = {
       "en": "National Researcher System · Candidate (SECIHTI) 2025–2029"
     },
     "tagline": {
-      "es": "Físico aplicado. Investigo la atmósfera, el clima y el océano con grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
-      "en": "Applied physicist. I research the atmosphere, climate and ocean with large-scale data; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
+      "es": "Físico aplicado con enfoque en ciencia de datos. Estudio la atmósfera, el clima y el océano aplicando aprendizaje automático y análisis de grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
+      "en": "Applied physicist with a focus on data science. I study the atmosphere, climate and ocean using machine learning and large-scale data analysis; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
     "cv": {
@@ -430,6 +430,10 @@ window.DATA = {
       {
         "es": "Óptica aplicada",
         "en": "Applied optics"
+      },
+      {
+        "es": "Ciencia de datos",
+        "en": "Data science"
       },
       {
         "es": "Cómputo de alto rendimiento",
