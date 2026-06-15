@@ -1,5 +1,9 @@
 /* data.js — editado desde admin panel */
+window.DATA_VERSION = "2026-06-11-5";
 window.DATA = {
+  "hidden_sections": [
+    "resources"
+  ],
   "meta": {
     "name": "Víctor Manuel Chávez Pérez",
     "short": "VMCP",
@@ -9,7 +13,7 @@ window.DATA = {
     },
     "institution": {
       "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Universidad Tecnológica de Jalisco",
-      "en": "University of Guadalajara · EPhysLab, University of Vigo"
+      "en": "Tlaquepaque University Center, University of Guadalajara · Technological University of Jalisco"
     },
     "location": {
       "es": "Zapopan, Jalisco · México",
@@ -24,9 +28,17 @@ window.DATA = {
       "en": "I research stratospheric dynamics and climate change; I explore generative AI to transform science education — and bring science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
+    "cv": {
+      "es": "assets/CV_Victor_Chavez_Perez_es.pdf",
+      "en": "assets/CV_Victor_Chavez_Perez_en.pdf"
+    },
+    "cv_short": {
+      "es": "assets/CV_Victor_Chavez_Perez_es_sintetico.pdf",
+      "en": "assets/CV_Victor_Chavez_Perez_en_short.pdf"
+    },
     "links": {
       "orcid": "https://orcid.org/0000-0002-6761-0730",
-      "scholar": "https://scholar.google.com/",
+      "scholar": "https://scholar.google.com/scholar?q=%22Ch%C3%A1vez-P%C3%A9rez+V.+M.%22",
       "researchgate": "https://www.researchgate.net/profile/Victor-Chavez-Perez-2",
       "linkedin": "https://www.linkedin.com/in/vmchavezp/"
     }
@@ -124,12 +136,12 @@ window.DATA = {
         "en": "09 · Open materials"
       },
       "news": {
-        "es": "10 · Bitácora",
-        "en": "10 · Logbook"
+        "es": "09 · Bitácora",
+        "en": "09 · Logbook"
       },
       "contact": {
-        "es": "11 · Hablemos",
-        "en": "11 · Let's talk"
+        "es": "10 · Hablemos",
+        "en": "10 · Let's talk"
       }
     },
     "section_title": {
@@ -272,6 +284,22 @@ window.DATA = {
       "outputs": {
         "es": "Resultados",
         "en": "Outputs"
+      },
+      "download_cv": {
+        "es": "Descargar CV (PDF)",
+        "en": "Download CV (PDF)"
+      },
+      "certifications": {
+        "es": "Certificaciones",
+        "en": "Certifications"
+      },
+      "cv_full": {
+        "es": "CV completo",
+        "en": "Full CV"
+      },
+      "cv_short": {
+        "es": "CV sintético (1 página)",
+        "en": "One-page CV"
       }
     },
     "contact": {
@@ -438,26 +466,6 @@ window.DATA = {
         }
       },
       {
-        "org": "IBM",
-        "es": "Certificación: What is Data Science?",
-        "en": "Certification: What is Data Science?",
-        "years": "2025",
-        "place": {
-          "es": "En línea",
-          "en": "Online"
-        }
-      },
-      {
-        "org": "Red de Universidades Anáhuac",
-        "es": "Certificación: AI para docentes — Transforma tu enseñanza con ChatGPT",
-        "en": "Certification: AI for Educators — Transform your teaching with ChatGPT",
-        "years": "2025",
-        "place": {
-          "es": "En línea",
-          "en": "Online"
-        }
-      },
-      {
         "org": "COECYTJAL",
         "es": "Incorporación al Sistema Estatal de Investigación",
         "en": "Admission to the State Research System",
@@ -465,6 +473,28 @@ window.DATA = {
         "place": {
           "es": "Jalisco, México",
           "en": "Jalisco, Mexico"
+        }
+      }
+    ],
+    "certifications": [
+      {
+        "org": "Red de Universidades Anáhuac",
+        "es": "AI para docentes — Transforma tu enseñanza con ChatGPT",
+        "en": "AI for Educators — Transform your teaching with ChatGPT",
+        "years": "2025",
+        "place": {
+          "es": "En línea",
+          "en": "Online"
+        }
+      },
+      {
+        "org": "IBM",
+        "es": "What is Data Science?",
+        "en": "What is Data Science?",
+        "years": "2025",
+        "place": {
+          "es": "En línea",
+          "en": "Online"
         }
       }
     ]
@@ -605,16 +635,33 @@ window.DATA = {
     },
     {
       "role": {
-        "es": "Investigador Predoctoral",
-        "en": "Predoctoral Researcher"
+        "es": "Investigador Colaborador Externo",
+        "en": "External Collaborating Researcher"
       },
       "org": "Universidade de Vigo · EPhysLab",
       "place": {
         "es": "Ourense, España",
         "en": "Ourense, Spain"
       },
-      "years": "2013 – 2024",
-      "yearsEn": "2013 – 2024",
+      "years": "2016 – 2024",
+      "yearsEn": "2016 – 2024",
+      "detail": {
+        "es": "Investigación doctoral sobre calentamientos súbitos estratosféricos en modelos CMIP5 y WACCM; análisis estadístico de grandes volúmenes de datos climáticos.",
+        "en": "Doctoral research on sudden stratospheric warmings in CMIP5 and WACCM models; statistical analysis of large climate datasets."
+      }
+    },
+    {
+      "role": {
+        "es": "Investigador Predoctoral (Ayuda FPI)",
+        "en": "Predoctoral Researcher (FPI Fellowship)"
+      },
+      "org": "Universidade de Vigo · EPhysLab",
+      "place": {
+        "es": "Ourense, España",
+        "en": "Ourense, Spain"
+      },
+      "years": "2012 – 2016",
+      "yearsEn": "2012 – 2016",
       "detail": {
         "es": "Análisis estadístico de datos de gran volumen para el estudio del cambio climático con modelos de circulación general.",
         "en": "Statistical analysis of large-volume data for climate-change research with general circulation models."
@@ -1176,57 +1223,6 @@ window.DATA = {
     }
   ],
   "tech": [
-    {
-      "name": {
-        "es": "Nodo receptor WWLLN",
-        "en": "WWLLN receiver node"
-      },
-      "desc": {
-        "es": "Estación de antena VLF para la red mundial de localización de rayos: captura y envío de datos en tiempo real.",
-        "en": "VLF antenna station for the global lightning location network: real-time data capture and upload."
-      },
-      "stack": [
-        "Python",
-        "Ubuntu",
-        "VLF"
-      ],
-      "link": "https://wwlln.net/",
-      "placeholder": false
-    },
-    {
-      "name": {
-        "es": "Detección y clasificación de SSW",
-        "en": "SSW detection & classification"
-      },
-      "desc": {
-        "es": "Rutinas para detectar y clasificar calentamientos súbitos estratosféricos en reanálisis y modelos CMIP5 / WACCM.",
-        "en": "Routines to detect and classify sudden stratospheric warmings across reanalyses and CMIP5 / WACCM models."
-      },
-      "stack": [
-        "NCL",
-        "Fortran",
-        "IDL",
-        "Python"
-      ],
-      "link": "",
-      "placeholder": false
-    },
-    {
-      "name": {
-        "es": "Procesamiento oceanográfico en paralelo",
-        "en": "Parallel oceanographic processing"
-      },
-      "desc": {
-        "es": "Cómputo de alto rendimiento para datos de percepción remota del Golfo de México mediante programación en paralelo.",
-        "en": "High-performance computing for Gulf of Mexico remote-sensing data using parallel programming."
-      },
-      "stack": [
-        "MatLab",
-        "MPI"
-      ],
-      "link": "",
-      "placeholder": false
-    },
     {
       "name": {
         "es": "Plataforma divulgativa Tlakakini",
