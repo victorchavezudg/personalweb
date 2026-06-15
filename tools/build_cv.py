@@ -241,8 +241,7 @@ def build_full(D, lang, path):
         s.append(row(d_['years'], [Paragraph(esc(L({'es':d_['es'],'en':d_['en']}, lang)), ST['title']),
                                    Paragraph(esc(d_['org']) + ' · ' + esc(L(d_['place'], lang)), ST['org'])]))
     if a.get('certifications'):
-        s.append(Spacer(1, 3))
-        s.append(Paragraph('<b>' + T['certs'][lang].title() + '</b>', ST['org']))
+        s += sec(T['certs'][lang])
         for d_ in a['certifications']:
             s.append(row(d_['years'], [Paragraph(esc(L({'es':d_['es'],'en':d_['en']}, lang)) +
                                                  ' — ' + esc(d_['org']), ST['detail'])]))
