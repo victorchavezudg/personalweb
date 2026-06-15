@@ -31,7 +31,9 @@
     scholar:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8z"/></svg>',
     rg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 0H4.4A4.4 4.4 0 0 0 0 4.4v15.2A4.4 4.4 0 0 0 4.4 24h15.2a4.4 4.4 0 0 0 4.4-4.4V4.4A4.4 4.4 0 0 0 19.6 0M9.8 13.1c-.5.5-1.2.8-2 .8-.9 0-1.6-.3-2.1-.9-.5-.6-.8-1.4-.8-2.5V9.3c0-1.1.3-2 .8-2.6.5-.6 1.2-.9 2.1-.9.8 0 1.5.2 1.9.7.5.4.7 1 .8 1.8H9.2c0-.4-.1-.7-.3-.9-.2-.2-.5-.3-.9-.3-.4 0-.8.2-1 .5-.2.3-.3.8-.3 1.5v1.3c0 .7.1 1.2.4 1.5.2.3.6.5 1.1.5.3 0 .6-.1.8-.2v-1.3H7.9V9.9h2.6v2.4zm6.5.7-1.7-3h-.8v3h-1.5V5.9h2.5c.8 0 1.4.2 1.9.6.4.4.7 1 .7 1.7 0 1-.4 1.7-1.2 2.1l1.9 3.2v.1z"/></svg>',
     li:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 0H3.6A3.6 3.6 0 0 0 0 3.6v16.8A3.6 3.6 0 0 0 3.6 24h16.8a3.6 3.6 0 0 0 3.6-3.6V3.6A3.6 3.6 0 0 0 20.4 0M7.2 20.4H3.6V9h3.6zM5.4 7.5A2.1 2.1 0 1 1 5.4 3a2.1 2.1 0 0 1 0 4.5m15 12.9h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.2V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5z"/></svg>',
-    print:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>'
+    print:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>',
+    sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+    moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'
   };
 
   /* ---------- section scaffold ---------- */
@@ -76,6 +78,13 @@
             <p class="tagline reveal" data-d="3">${tt(m.tagline)}</p>
             <div class="hero-cta reveal" data-d="3">
               <a class="btn btn-primary" href="#publications">${tt(D.ui.hero_cta_primary)} ${I.arrow}</a>
+              ${m.cv ? `<div class="cv-dd" id="cvDD">
+                <button class="btn btn-ghost btn-cv" id="cvBtn" type="button" aria-haspopup="true" aria-expanded="false">${I.dl} ${tt(D.ui.labels.download_cv || {es:'Descargar CV (PDF)',en:'Download CV (PDF)'})} <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                <div class="cv-menu" id="cvMenu" role="menu">
+                  <a id="cvFull" href="#" download role="menuitem">${I.dl} ${tt(D.ui.labels.cv_full || {es:'CV completo',en:'Full CV'})}</a>
+                  <a id="cvShort" href="#" download role="menuitem">${I.dl} ${tt(D.ui.labels.cv_short || {es:'CV sintético (1 página)',en:'One-page CV'})}</a>
+                </div>
+              </div>` : ''}
               <a class="btn btn-ghost" href="#contact">${tt(D.ui.hero_cta_secondary)}</a>
             </div>
             <div class="hero-social reveal" data-d="4">${social}</div>
@@ -98,6 +107,10 @@
         <span class="yr">${esc(d.years)}</span>
         <div><div class="d-name">${tt({es:d.es,en:d.en})}</div><div class="d-org">${esc(d.org)} · ${tt(d.place)}</div></div>
       </div>`).join('');
+    const certs = (a.certifications || []).map(d=>`<div class="dist">
+        <span class="yr">${esc(d.years)}</span>
+        <div><div class="d-name">${tt({es:d.es,en:d.en})}</div><div class="d-org">${esc(d.org)} · ${tt(d.place)}</div></div>
+      </div>`).join('');
 
     return `<section class="section" id="about">
       <div class="wrap">
@@ -112,6 +125,7 @@
           <div class="about-side reveal" data-d="1">
             <div class="panel"><h4>${tt(D.ui.labels.toolbox)}</h4><div class="chips">${tools}</div></div>
             <div class="panel"><h4>${tt(D.ui.labels.distinctions)}</h4><div class="dist-list">${dist}</div></div>
+            ${certs ? `<div class="panel"><h4>${tt(D.ui.labels.certifications || {es:'Certificaciones',en:'Certifications'})}</h4><div class="dist-list">${certs}</div></div>` : ''}
           </div>
         </div>
       </div>
@@ -346,7 +360,7 @@
       </a>
       <div class="ci-row">
         <span class="ci-ico">${I.inst}</span>
-        <span><span class="ci-lab">${plain({es:'Institución',en:'Institution'})}</span><br><span class="ci-val">${plain({es:'Centro de Ciencias Exactas e Ingenierías · CUCEI, UdeG',en:'Exact Sciences & Engineering Center · CUCEI, UdeG'})}</span></span>
+        <span><span class="ci-lab">${plain({es:'Institución',en:'Institution'})}</span><br><span class="ci-val">${plain({es:'Centro Universitario de Tlaquepaque · UdeG',en:'Tlaquepaque University Center · UdeG'})}</span></span>
       </div>
       <div class="ci-row">
         <span class="ci-ico">${I.pin}</span>
@@ -396,7 +410,9 @@
   }
 
   /* ====================== NAV ====================== */
-  const NAV_IDS = ['about','education','experience','publications','projects','tech','outreach','teaching','resources','news','contact'];
+  const HIDDEN = new Set(D.hidden_sections || []);
+  const NAV_IDS = ['about','education','experience','publications','projects','tech','outreach','teaching','resources','news','contact']
+    .filter(id => !HIDDEN.has(id));
   function renderNav(){
     const links = NAV_IDS.map(id=>`<a href="#${id}" data-id="${id}">${tt(D.ui.nav[id])}</a>`).join('');
     return `<nav class="nav" id="nav">
@@ -407,6 +423,7 @@
           <div class="lang" id="lang">
             <button data-lang="es">ES</button><button data-lang="en">EN</button>
           </div>
+          <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema" title="Tema claro / oscuro"><span class="ic-sun">${I.sun}</span><span class="ic-moon">${I.moon}</span></button>
           <button class="print-btn" onclick="window.print()" aria-label="Imprimir / Guardar PDF" title="Guardar como PDF">${I.print}</button>
           <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span></button>
         </div>
@@ -419,18 +436,22 @@
     document.documentElement.setAttribute('data-lang', LANG);
     document.documentElement.lang = LANG;
 
+    const SECTIONS = {
+      about:renderAbout, education:renderEducation, experience:renderExperience,
+      publications:renderPublications, projects:renderProjects, tech:renderTech,
+      outreach:renderOutreach, teaching:renderTeaching, resources:renderResources,
+      news:renderNews, contact:renderContact
+    };
     $('#app').innerHTML =
       renderNav() +
       renderHero() +
       `<main>` +
-      renderAbout() + renderEducation() + renderExperience() + renderPublications() +
-      renderProjects() + renderTech() + renderOutreach() + renderTeaching() +
-      renderResources() + renderNews() + renderContact() +
+      NAV_IDS.map(id => SECTIONS[id]()).join('') +
       `</main>` +
       renderFooter() +
       `<button class="totop" id="totop" aria-label="Top">${I.up}</button>`;
 
-    initLang(); initNav(); initReveal(); initParticles(); initFilters(); initContact(); initTopBtn(); initAvatar();
+    initLang(); initCvMenu(); initTheme(); initNav(); initReveal(); initParticles(); initFilters(); initContact(); initTopBtn(); initAvatar();
   }
 
   /* ---------- avatar: match the name's two-line height ---------- */
@@ -452,9 +473,40 @@
       document.documentElement.setAttribute('data-lang', l);
       document.documentElement.lang = l;
       $$('#lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
+      const cv = D.meta.cv, cvs = D.meta.cv_short;
+      const full = $('#cvFull'), short = $('#cvShort');
+      if(full && cv)  full.href  = typeof cv==='string'  ? cv  : (cv[l]  || cv.es);
+      if(short && cvs) short.href = typeof cvs==='string' ? cvs : (cvs[l] || cvs.es);
     };
     $$('#lang button').forEach(b=> b.addEventListener('click', ()=>setLang(b.dataset.lang)));
     setLang(LANG);
+  }
+
+  /* ---------- CV dropdown ---------- */
+  function initCvMenu(){
+    const dd = $('#cvDD'); if(!dd) return;
+    const btn = $('#cvBtn');
+    btn.addEventListener('click', e=>{
+      e.stopPropagation();
+      const open = dd.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', ()=>{ dd.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+  }
+
+  /* ---------- theme (dark / light) ---------- */
+  function initTheme(){
+    const btn = $('#themeBtn'); if(!btn) return;
+    const apply = t => {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('vmcp-theme', t);
+      if(window.__refreshParticles) window.__refreshParticles();
+    };
+    btn.addEventListener('click', ()=>{
+      const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      apply(cur === 'light' ? 'dark' : 'light');
+    });
+    apply(localStorage.getItem('vmcp-theme') || 'dark');
   }
 
   /* ---------- nav: scroll state, spy, mobile ---------- */
