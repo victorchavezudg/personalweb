@@ -221,6 +221,48 @@ function saveAll(){
   localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
   localStorage.setItem('vmcp-data-version', window.DATA_VERSION);
   flash();
+  publishToGitHub();
+}
+
+// ─── GUARDAR EN data.js (GitHub) ───────────────────────────────────────────────
+const GH_REPO = 'victorchavezudg/personalweb';
+function setStatus(msg, isErr){
+  const s=document.getElementById('saveStatus');
+  if(!s) return;
+  s.textContent=(isErr?'\u26a0 ':'\u2713 ')+msg;
+  s.style.color=isErr?'var(--red)':'var(--green)';
+  s.classList.add('show');
+  clearTimeout(s._t);
+  s._t=setTimeout(()=>s.classList.remove('show'), isErr?7000:3500);
+}
+async function publishToGitHub(){
+  let token=localStorage.getItem('vmcp-gh-token');
+  if(!token){
+    token=prompt('Para guardar en GitHub, pega tu token una sola vez (se queda solo en este navegador):');
+    if(!token){ setStatus('Guardado solo local (no diste token)', true); return; }
+    localStorage.setItem('vmcp-gh-token', token.trim());
+  }
+  token=token.trim();
+  setStatus('Guardando en GitHub...');
+  try{
+    const d=new Date(), p=n=>String(n).padStart(2,'0');
+    const v=d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes());
+    const js='/* data.js \u2014 editado desde admin panel */\n'
+      +'window.DATA_VERSION = "'+v+'";\n'
+      +'window.DATA = '+JSON.stringify(D,null,2)+';\n';
+    const g=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js',{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github+json'}});
+    if(g.status===401){ localStorage.removeItem('vmcp-gh-token'); setStatus('Token invalido (se borro). Guarda de nuevo para reingresarlo.', true); return; }
+    if(!g.ok){ setStatus('Error al leer GitHub ('+g.status+')', true); return; }
+    const sha=(await g.json()).sha;
+    const b64=btoa(unescape(encodeURIComponent(js)));
+    const r=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js',{method:'PUT',headers:{'Authorization':'token '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({message:'admin: guardar cambios desde el panel',content:b64,sha:sha})});
+    if(!r.ok){ const e=await r.json().catch(()=>({})); setStatus('Error al guardar: '+(e.message||r.status), true); return; }
+    window.DATA_VERSION=v;
+    localStorage.setItem('vmcp-data-version', v);
+    setStatus('Guardado en GitHub (recarga el sitio en 1-2 min)');
+  }catch(err){
+    setStatus('Error de red: '+err.message, true);
+  }
 }
 function flash(){
   const s=document.getElementById('saveStatus');
