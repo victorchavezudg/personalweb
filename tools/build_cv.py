@@ -141,6 +141,11 @@ def header(D, lang, story):
         parts.append('<a href="%s" color="#0d6e82">ORCID: %s</a>' % (links['orcid'], esc(links['orcid'].split('orcid.org/')[-1])))
     parts.append('<a href="%s" color="#0d6e82">victorchavezudg.github.io/personalweb</a>' % site)
     txt.append(Paragraph('  ·  '.join(p for p in parts if p), ST['contact']))
+    prof = []
+    if links.get('scholar'): prof.append('<a href="%s" color="#0d6e82">Google Scholar</a>' % links['scholar'])
+    if links.get('researchgate'): prof.append('<a href="%s" color="#0d6e82">ResearchGate</a>' % links['researchgate'])
+    if links.get('linkedin'): prof.append('<a href="%s" color="#0d6e82">LinkedIn</a>' % links['linkedin'])
+    if prof: txt.append(Paragraph('  ·  '.join(prof), ST['contact']))
     txt.append(Paragraph(esc(L(m['sni'], lang)), ST['contact']))
     photo = circular_photo()
     if photo:
