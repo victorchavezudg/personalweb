@@ -125,7 +125,6 @@
           <div class="about-side reveal" data-d="1">
             <div class="panel"><h4>${tt(D.ui.labels.toolbox)}</h4><div class="chips">${tools}</div></div>
             <div class="panel"><h4>${tt(D.ui.labels.distinctions)}</h4><div class="dist-list">${dist}</div></div>
-            ${certs ? `<div class="panel"><h4>${tt(D.ui.labels.certifications || {es:'Certificaciones',en:'Certifications'})}</h4><div class="dist-list">${certs}</div></div>` : ''}
           </div>
         </div>
       </div>
@@ -155,6 +154,7 @@
         <h3 class="tl-title">${tt(e.role)}</h3>
         <div class="tl-org">${esc(e.org)} <span class="place">· ${tt(e.place)}</span></div>
         <p class="tl-detail">${tt(e.detail)}</p>
+        ${e.courses && e.courses.length ? `<div class="tl-courses" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${e.courses.map(c=>`<span class="tc-chip">${tt(c)}</span>`).join('')}</div>` : ''}
       </div>`).join('');
     return `<section class="section" id="experience">
       <div class="wrap">${sectionHead('experience')}<div class="timeline">${items}</div></div>
@@ -269,6 +269,34 @@
     }).join('');
     return `<section class="section" id="conferences">
       <div class="wrap">${sectionHead('conferences')}<div class="grid cols-2">${cards}</div></div>
+    </section>`;
+  }
+
+  /* ====================== SERVICE ====================== */
+  function renderService(){
+    const s = D.service || {};
+    const panel = (label, rows) => rows ? `<div class="panel"><h4>${tt(label)}</h4><div class="dist-list">${rows}</div></div>` : '';
+    const thesis = (s.thesis||[]).map(t=>`<div class="dist"><span class="yr">${esc(t.year)}</span>
+        <div><div class="d-name">${esc(t.title)}</div><div class="d-org">${esc(t.student)} · ${tt(t.level)} · ${tt(t.role)} · ${esc(t.org)}</div></div></div>`).join('');
+    const review = (s.review||[]).map(r=>`<div class="dist"><span class="yr">${esc(r.years)}</span>
+        <div><div class="d-name">${esc(r.org)}</div><div class="d-org">${tt(r.detail)}</div></div></div>`).join('');
+    const evalr = (s.evaluation||[]).map(r=>`<div class="dist"><span class="yr">${esc(r.years)}</span>
+        <div><div class="d-name">${esc(r.org)}</div><div class="d-org">${tt(r.detail)}</div></div></div>`).join('');
+    return `<section class="section" id="service">
+      <div class="wrap">${sectionHead('service')}<div class="grid cols-3">
+        ${panel(D.ui.labels.thesis_h, thesis)}
+        ${panel(D.ui.labels.review_h, review)}
+        ${panel(D.ui.labels.eval_h, evalr)}
+      </div></div>
+    </section>`;
+  }
+
+  /* ====================== TRAINING ====================== */
+  function renderTraining(){
+    const items = (D.training||[]).map(t=>`<div class="dist"><span class="yr">${esc(t.years)}</span>
+        <div><div class="d-name">${esc(t.name)}</div><div class="d-org"><span class="tc-chip">${tt(t.kind)}</span> ${esc(t.org)}</div></div></div>`).join('');
+    return `<section class="section" id="training">
+      <div class="wrap">${sectionHead('training')}<div class="grid cols-2"><div class="dist-list">${items}</div></div></div>
     </section>`;
   }
 
@@ -426,7 +454,7 @@
 
   /* ====================== NAV ====================== */
   const HIDDEN = new Set(D.hidden_sections || []);
-  const NAV_IDS = ['about','education','experience','publications','conferences','projects','tech','outreach','teaching','resources','news','contact']
+  const NAV_IDS = ['about','education','experience','publications','conferences','projects','tech','service','training','outreach','resources','news','contact']
     .filter(id => !HIDDEN.has(id));
   function renderNav(){
     const links = NAV_IDS.map(id=>`<a href="#${id}" data-id="${id}">${tt(D.ui.nav[id])}</a>`).join('');
@@ -453,7 +481,7 @@
     const SECTIONS = {
       about:renderAbout, education:renderEducation, experience:renderExperience,
       publications:renderPublications, conferences:renderConferences, projects:renderProjects, tech:renderTech,
-      outreach:renderOutreach, teaching:renderTeaching, resources:renderResources,
+      outreach:renderOutreach, service:renderService, training:renderTraining, resources:renderResources,
       news:renderNews, contact:renderContact
     };
     $('#app').innerHTML =
