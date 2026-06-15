@@ -257,6 +257,21 @@
     </section>`;
   }
 
+  /* ====================== CONFERENCES ====================== */
+  function renderConferences(){
+    const cards = (D.conferences||[]).map((c,i)=>{
+      const talks = c.talks.map(t=>`<li>${esc(t)}</li>`).join('');
+      return `<article class="card conf-card reveal" data-d="${Math.min(i%3,4)}">
+        <div class="c-top"><span class="tag">${esc(c.when)}</span><span class="c-years">${tt(c.place)}</span></div>
+        <h3>${esc(c.name)}</h3>
+        <ul class="conf-talks">${talks}</ul>
+      </article>`;
+    }).join('');
+    return `<section class="section" id="conferences">
+      <div class="wrap">${sectionHead('conferences')}<div class="grid cols-2">${cards}</div></div>
+    </section>`;
+  }
+
   /* ====================== OUTREACH ====================== */
   function renderOutreach(){
     const cards = D.outreach.map((o,i)=>`<article class="card outreach-card reveal" data-d="${Math.min(i%3,4)}">
@@ -411,7 +426,7 @@
 
   /* ====================== NAV ====================== */
   const HIDDEN = new Set(D.hidden_sections || []);
-  const NAV_IDS = ['about','education','experience','publications','projects','tech','outreach','teaching','resources','news','contact']
+  const NAV_IDS = ['about','education','experience','publications','conferences','projects','tech','outreach','teaching','resources','news','contact']
     .filter(id => !HIDDEN.has(id));
   function renderNav(){
     const links = NAV_IDS.map(id=>`<a href="#${id}" data-id="${id}">${tt(D.ui.nav[id])}</a>`).join('');
@@ -437,7 +452,7 @@
 
     const SECTIONS = {
       about:renderAbout, education:renderEducation, experience:renderExperience,
-      publications:renderPublications, projects:renderProjects, tech:renderTech,
+      publications:renderPublications, conferences:renderConferences, projects:renderProjects, tech:renderTech,
       outreach:renderOutreach, teaching:renderTeaching, resources:renderResources,
       news:renderNews, contact:renderContact
     };
