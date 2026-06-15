@@ -718,3 +718,8 @@ a.out-badge:hover   { opacity:.8; transform:translateY(-1px); }
   .f-note{ font-size:8pt !important; color:var(--muted) !important; }
   .f-social svg{ width:14px; height:14px; color:var(--muted) !important; }
 }
+
+
+/* ---- Conferences ---- */
+.conf-card .conf-talks{ list-style:none; margin:12px 0 0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.conf-card .conf-talks li{ font-size:.85rem; line-height:1.45; padding-left:12px; border-left:2px solid var(--accent); opacity:.82; }
