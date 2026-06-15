@@ -77,6 +77,12 @@ T = {  # rótulos de sección
  'outreach':  {'es':'DIVULGACIÓN CIENTÍFICA','en':'SCIENCE OUTREACH'},
  'grants':    {'es':'BECAS Y DISTINCIONES','en':'GRANTS & HONORS'},
  'certs':     {'es':'CERTIFICACIONES','en':'CERTIFICATIONS'},
+ 'service':   {'es':'SERVICIO ACADÉMICO','en':'ACADEMIC SERVICE'},
+ 'training':  {'es':'FORMACIÓN CONTINUA','en':'CONTINUING EDUCATION'},
+ 'thesis_h':  {'es':'Dirección de tesis','en':'Thesis supervision'},
+ 'review_h':  {'es':'Arbitraje de revistas','en':'Journal peer review'},
+ 'eval_h':    {'es':'Evaluación de proyectos','en':'Project evaluation'},
+ 'courses_h': {'es':'Materias','en':'Courses'},
  'tools':     {'es':'HERRAMIENTAS','en':'TOOLBOX'},
  'thesis':    {'es':'Tesis','en':'Thesis'},
  'funding':   {'es':'Financiamiento','en':'Funding'},
@@ -128,8 +134,12 @@ def header(D, lang, story):
     txt = [Paragraph(esc(m['name']), ST['name']), Spacer(1, 2),
            Paragraph(esc(L(m['role'], lang)), ST['role']), Spacer(1, 3)]
     links = m.get('links', {})
-    parts = [esc(L(m['institution'], lang)), esc(L(m['location'], lang)), esc(m['email'])]
-    if links.get('orcid'): parts.append('ORCID: ' + esc(links['orcid'].split('orcid.org/')[-1]))
+    site = 'https://victorchavezudg.github.io/personalweb/'
+    parts = [esc(L(m['institution'], lang)), esc(L(m['location'], lang)),
+             '<a href="mailto:%s" color="#0d6e82">%s</a>' % (m['email'], esc(m['email']))]
+    if links.get('orcid'):
+        parts.append('<a href="%s" color="#0d6e82">ORCID: %s</a>' % (links['orcid'], esc(links['orcid'].split('orcid.org/')[-1])))
+    parts.append('<a href="%s" color="#0d6e82">victorchavezudg.github.io/personalweb</a>' % site)
     txt.append(Paragraph('  ·  '.join(p for p in parts if p), ST['contact']))
     txt.append(Paragraph(esc(L(m['sni'], lang)), ST['contact']))
     photo = circular_photo()
@@ -177,18 +187,27 @@ def build_full(D, lang, path):
 
     s += sec(T['experience'][lang])
     for e in D['experience']:
-        s.append(row(yrs(e, lang), [Paragraph(esc(L(e['role'], lang)), ST['title']),
-                                    Paragraph(esc(e['org']) + ' · ' + esc(L(e['place'], lang)), ST['org']),
-                                    Paragraph(esc(L(e['detail'], lang)), ST['detail'])]))
+        blk = [Paragraph(esc(L(e['role'], lang)), ST['title']),
+               Paragraph(esc(e['org']) + ' · ' + esc(L(e['place'], lang)), ST['org']),
+               Paragraph(esc(L(e['detail'], lang)), ST['detail'])]
+        if e.get('courses'):
+            mats = ' · '.join(L(co, lang) for co in e['courses'])
+            blk.append(Paragraph('<b>' + T['courses_h'][lang] + ':</b> ' + esc(mats), ST['small']))
+        s.append(row(yrs(e, lang), blk))
 
     s += sec(T['pubs'][lang])
     pubs = [p for p in D['publications'] if p['state'] == 'published']
     indev = [p for p in D['publications'] if p['state'] != 'published']
     for p in sorted(pubs, key=lambda x: x['year'], reverse=True):
-        ref = ('DOI: ' + p['doi']) if p.get('doi') else (('ISBN: ' + p['isbn']) if p.get('isbn') else '')
+        if p.get('doi'):
+            ref = '<a href="https://doi.org/%s" color="#0d6e82">DOI: %s</a>' % (p['doi'], esc(p['doi']))
+        elif p.get('isbn'):
+            ref = 'ISBN: ' + esc(p['isbn'])
+        else:
+            ref = ''
         s.append(row(p['year'], [Paragraph(esc(p['title']), ST['title']),
                                  Paragraph(esc(p['authors']) + ' · <i>' + esc(L(p['venue'], lang)) + '</i>'
-                                           + ((' · ' + esc(ref)) if ref else ''), ST['detail'])]))
+                                           + ((' · ' + ref) if ref else ''), ST['detail'])]))
     if indev:
         s.append(Spacer(1, 3))
         s.append(Paragraph('<b>' + T['indev'][lang] + '</b>', ST['org']))
@@ -225,11 +244,24 @@ def build_full(D, lang, path):
             block.append(Paragraph(esc(L(x['desc'], lang)), ST['detail']))
             s.append(KeepTogether(block))
 
-    s += sec(T['teaching'][lang])
-    for t in D['teaching']:
-        courses = ', '.join(L(c['course'], lang) for c in t['courses'])
-        s.append(Paragraph('<b>' + esc(t['org']) + '</b> · ' + esc(L(t['place'], lang))
-                           + ' — ' + esc(courses), ST['detail']))
+    svc = D.get('service', {})
+    if svc.get('thesis') or svc.get('review') or svc.get('evaluation'):
+        s += sec(T['service'][lang])
+        if svc.get('thesis'):
+            s.append(Paragraph('<b>' + T['thesis_h'][lang] + '</b>', ST['org']))
+            for t in svc['thesis']:
+                s.append(row(t.get('year',''), [Paragraph(esc(t['title']), ST['title']),
+                    Paragraph(esc(t['student']) + ' · ' + L(t['level'],lang) + ' · ' + L(t['role'],lang) + ' · ' + esc(t['org']), ST['detail'])]))
+        if svc.get('review'):
+            s.append(Spacer(1,3)); s.append(Paragraph('<b>' + T['review_h'][lang] + '</b>', ST['org']))
+            for r in svc['review']:
+                s.append(row(r.get('years',''), [Paragraph(esc(r['org']), ST['title']),
+                    Paragraph(esc(L(r['detail'],lang)), ST['detail'])]))
+        if svc.get('evaluation'):
+            s.append(Spacer(1,3)); s.append(Paragraph('<b>' + T['eval_h'][lang] + '</b>', ST['org']))
+            for r in svc['evaluation']:
+                s.append(row(r.get('years',''), [Paragraph(esc(r['org']), ST['title']),
+                    Paragraph(esc(L(r['detail'],lang)), ST['detail'])]))
 
     s += sec(T['outreach'][lang])
     for o in D['outreach']:
@@ -240,11 +272,11 @@ def build_full(D, lang, path):
     for d_ in a['distinctions']:
         s.append(row(d_['years'], [Paragraph(esc(L({'es':d_['es'],'en':d_['en']}, lang)), ST['title']),
                                    Paragraph(esc(d_['org']) + ' · ' + esc(L(d_['place'], lang)), ST['org'])]))
-    if a.get('certifications'):
-        s += sec(T['certs'][lang])
-        for d_ in a['certifications']:
-            s.append(row(d_['years'], [Paragraph(esc(L({'es':d_['es'],'en':d_['en']}, lang)) +
-                                                 ' — ' + esc(d_['org']), ST['detail'])]))
+    if D.get('training'):
+        s += sec(T['training'][lang])
+        for t in D['training']:
+            s.append(row(t.get('years',''), [Paragraph('<b>' + L(t['kind'],lang) + '</b> — ' + esc(t['name'])
+                                             + ' · <font color="#4b5a68">' + esc(t['org']) + '</font>', ST['detail'])]))
 
     s += sec(T['tools'][lang])
     s.append(Paragraph(esc(' · '.join(a['toolbox'])), ST['chips']))
@@ -275,9 +307,9 @@ def build_short(D, lang, path):
     pubs = sorted([p for p in D['publications'] if p['state'] == 'published'],
                   key=lambda x: x['year'], reverse=True)[:4]
     for p in pubs:
-        ref = (' · DOI: ' + p['doi']) if p.get('doi') else ''
+        ref = (' · <a href="https://doi.org/%s" color="#0d6e82">DOI: %s</a>' % (p['doi'], esc(p['doi']))) if p.get('doi') else ''
         s.append(row(p['year'], [Paragraph(esc(p['title']) + ' — <i>' + esc(L(p['venue'], lang))
-                                           + '</i>' + esc(ref), ST['detail'])], 20*mm))
+                                           + '</i>' + ref, ST['detail'])], 20*mm))
 
     s += sec(T['interests'][lang])
     s.append(Paragraph(esc('  ·  '.join(L(i, lang) for i in a['interests'][:8])), ST['chips']))
