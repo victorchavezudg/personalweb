@@ -304,7 +304,7 @@ function modalSave(){
     flash();
   }, 60);
 }
-document.getElementById('overlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeModal(); });
+/* clic fuera del modal NO lo cierra; solo el boton de cerrar o Cancelar */
 
 // ─── FIELD HELPERS ────────────────────────────────────────────────────────────
 function fText(label,id,val,ph=''){
