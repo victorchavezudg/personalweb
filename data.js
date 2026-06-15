@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-14-2221";
+window.DATA_VERSION = "2026-06-15-0436";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -24,8 +24,8 @@ window.DATA = {
       "en": "National Researcher System · Candidate (SECIHTI) 2025–2029"
     },
     "tagline": {
-      "es": "Investigo la dinámica estratosférica y el cambio climático; exploro la IA generativa para transformar la enseñanza de las ciencias — y acerco la ciencia a las nuevas generaciones.",
-      "en": "I research stratospheric dynamics and climate change; I explore generative AI to transform science education — and bring science closer to new generations."
+      "es": "Investigo la atmósfera, el clima y el océano con grandes volúmenes de datos; desarrollo sistemas de alerta temprana y exploro la IA generativa para transformar la enseñanza de las ciencias — y acerco la ciencia a las nuevas generaciones.",
+      "en": "I research the atmosphere, climate and ocean with large-scale data; I build early-warning systems and explore generative AI to transform science education — and bring science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
     "cv": {
@@ -88,6 +88,10 @@ window.DATA = {
       "contact": {
         "es": "Contacto",
         "en": "Contact"
+      },
+      "conferences": {
+        "es": "Congresos",
+        "en": "Conferences"
       }
     },
     "hero_cta_primary": {
@@ -142,6 +146,10 @@ window.DATA = {
       "contact": {
         "es": "10 · Hablemos",
         "en": "10 · Let's talk"
+      },
+      "conferences": {
+        "es": "Ponencias",
+        "en": "Talks"
       }
     },
     "section_title": {
@@ -188,6 +196,10 @@ window.DATA = {
       "contact": {
         "es": "Contacto",
         "en": "Contact"
+      },
+      "conferences": {
+        "es": "Congresos y ponencias",
+        "en": "Conferences & talks"
       }
     },
     "pub_filter": {
@@ -345,11 +357,13 @@ window.DATA = {
     "bio": {
       "es": [
         "Soy físico por la Universidad de Guadalajara y Doctor en Física Aplicada por la Universidade de Vigo. Mi investigación combina la física de la atmósfera y el clima con el análisis de grandes volúmenes de datos: estudio los calentamientos súbitos estratosféricos (SSW), la circulación de Brewer–Dobson y su respuesta ante distintos escenarios de cambio climático usando modelos como CMIP5 y WACCM.",
-        "Mi trabajo también recorre la oceanografía física, la percepción remota y la óptica aplicada. En paralelo, soy co-fundador del Club de Ciencia y Tecnología Tlakakini, dedicado a la divulgación científica para niñas y niños. Creo que la mejor ciencia es la que se comparte."
+        "Más allá de la investigación básica, llevo la física a problemas reales: desarrollo un sistema de alerta temprana de inundaciones para la Zona Metropolitana de Guadalajara que integra radar meteorológico, modelación hidrológica sobre relieve LiDAR de alta resolución y percepción remota. Mi trabajo también recorre la oceanografía física, la percepción remota y la óptica aplicada.",
+        "Me interesa además cómo la IA generativa puede transformar la enseñanza de las ciencias: diseño asistentes de aprendizaje y materiales didácticos que evalúo con los propios estudiantes. En paralelo, soy co-fundador del Club de Ciencia y Tecnología Tlakakini, dedicado a la divulgación científica para niñas y niños. Creo que la mejor ciencia es la que se comparte."
       ],
       "en": [
         "I am a physicist from the University of Guadalajara and hold a PhD in Applied Physics from the University of Vigo. My research blends atmospheric and climate physics with large-scale data analysis: I study sudden stratospheric warmings (SSW), the Brewer–Dobson circulation and their response under climate-change scenarios using models such as CMIP5 and WACCM.",
-        "My work also spans physical oceanography, remote sensing and applied optics. Alongside research, I co-founded the Tlakakini Science & Technology Club, devoted to science outreach for children. I believe the best science is the kind that gets shared."
+        "Beyond basic research, I bring physics to real-world problems: I am developing a flood early-warning system for the Guadalajara Metropolitan Area that integrates weather radar, hydrological runoff modeling over high-resolution LiDAR terrain and remote sensing. My work also spans physical oceanography, remote sensing and applied optics.",
+        "I am also interested in how generative AI can transform science education: I design learning assistants and teaching materials that I evaluate with students themselves. Alongside this, I co-founded the Tlakakini Science & Technology Club, devoted to science outreach for children. I believe the best science is the kind that gets shared."
       ]
     },
     "interests": [
@@ -1711,6 +1725,162 @@ window.DATA = {
         "es": "Las niñas y niños descubrieron el infrarrojo y el ultravioleta a través de experimentos sencillos con luz invisible.",
         "en": "Children discovered infrared and ultraviolet light through simple hands-on experiments."
       }
+    }
+  ],
+  "conferences": [
+    {
+      "name": "LXV Congreso Nacional de Física",
+      "place": {
+        "es": "Zacatecas, México",
+        "en": "Zacatecas, Mexico"
+      },
+      "when": "2022",
+      "date": "2–7 oct 2022",
+      "talks": [
+        "Análisis de la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos en el Hemisferio Sur en los modelos de altura estratosférica del CMIP5",
+        "Caracterización óptica de resina transparente de impresión 3D"
+      ]
+    },
+    {
+      "name": "LXIII Congreso Nacional de Física",
+      "place": {
+        "es": "En línea",
+        "en": "Online"
+      },
+      "when": "2020",
+      "date": "4–9 oct 2020",
+      "talks": [
+        "Impacto en las significancias de las características básicas de los SSW al comparar modelos del CMIP5 con datos de reanálisis en periodos pre-satelital y pos-satelital",
+        "Impacto en la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos principales en distintos escenarios de cambio climático usando CMIP5"
+      ]
+    },
+    {
+      "name": "American Geophysical Union (AGU) Fall Meeting 2018",
+      "place": {
+        "es": "Washington, EE. UU.",
+        "en": "Washington, USA"
+      },
+      "when": "2018",
+      "date": "10–14 dic 2018",
+      "talks": [
+        "Impact of Increased Vertical Resolution in WACCM on the Climatology of Major Stratospheric Sudden Warmings"
+      ]
+    },
+    {
+      "name": "Reunión Anual de la Unión Geofísica Mexicana",
+      "place": {
+        "es": "Puerto Vallarta, México",
+        "en": "Puerto Vallarta, Mexico"
+      },
+      "when": "2018",
+      "date": "28 oct–2 nov 2018",
+      "talks": [
+        "Cambios en la climatología de los calentamientos súbitos estratosféricos principales usando WACCM con alta resolución vertical",
+        "Evaluación de la capacidad de reproducción de los calentamientos súbitos estratosféricos principales en el conjunto de datos históricos de CMIP5",
+        "Calentamientos súbitos estratosféricos principales bajo escenarios de cambio climático con CMIP5"
+      ]
+    },
+    {
+      "name": "European Geosciences Union (EGU) General Assembly 2017",
+      "place": {
+        "es": "Viena, Austria",
+        "en": "Vienna, Austria"
+      },
+      "when": "2017",
+      "date": "23–28 abr 2017",
+      "talks": [
+        "Estimation of the variability of dust aerosol optical depth over several European regions based on forecast model data"
+      ]
+    },
+    {
+      "name": "LIX Congreso Nacional de Física (SMF)",
+      "place": {
+        "es": "León, México",
+        "en": "León, Mexico"
+      },
+      "when": "2016",
+      "date": "2–7 oct 2016",
+      "talks": [
+        "Teleconexión estratosférica y los calentamientos súbitos estratosféricos",
+        "Patrones característicos en las variables estratosféricas de la Oscilación Cuasi-Bienal",
+        "Anomalías estratosféricas antes y después de los calentamientos súbitos estratosféricos para las distintas fases de la Oscilación Cuasi-Bienal"
+      ]
+    },
+    {
+      "name": "SPARC Workshop SHARP 2016 — Stratospheric Change and its Role for Climate Prediction",
+      "place": {
+        "es": "Berlín, Alemania",
+        "en": "Berlin, Germany"
+      },
+      "when": "2016",
+      "date": "11–15 jul 2016",
+      "talks": [
+        "Changes in the stratosphere before and after SSW events in the different phases of the Equatorial QBO",
+        "Differences in the detection and classification of the Stratospheric Sudden Warming over the three reanalyses for the period 1979–2014"
+      ]
+    },
+    {
+      "name": "European Geosciences Union (EGU) General Assembly",
+      "place": {
+        "es": "Viena, Austria",
+        "en": "Vienna, Austria"
+      },
+      "when": "2015",
+      "date": "12–17 abr 2015",
+      "talks": [
+        "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+      ]
+    },
+    {
+      "name": "SPARC Regional Workshop — Role of the stratosphere in climate variability and prediction",
+      "place": {
+        "es": "Granada, España",
+        "en": "Granada, Spain"
+      },
+      "when": "2015",
+      "date": "12–13 ene 2015",
+      "talks": [
+        "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+      ]
+    },
+    {
+      "name": "Reunión Anual de la Unión Geofísica Mexicana",
+      "place": {
+        "es": "Puerto Vallarta, México",
+        "en": "Puerto Vallarta, Mexico"
+      },
+      "when": "2010",
+      "date": "7–12 nov 2010",
+      "talks": [
+        "Estacionalidad y anomalías de las variables de percepción remota oceanográficas en el Golfo de México",
+        "Estacionalidad y anomalías de la superficie del nivel del mar en el Mar Caribe por medio de datos de altimetría",
+        "Alternativa para el procesamiento de datos oceanográficos de gran cómputo mediante programación en paralelo con MatLab"
+      ]
+    },
+    {
+      "name": "LIII Congreso Nacional de Física",
+      "place": {
+        "es": "Boca del Río, Veracruz, México",
+        "en": "Boca del Río, Veracruz, Mexico"
+      },
+      "when": "2010",
+      "date": "25–29 oct 2010",
+      "talks": [
+        "Supercómputo aplicado a programación en paralelo para optimizar procesos en Astrofísica y Oceanografía Física"
+      ]
+    },
+    {
+      "name": "LII Congreso Nacional de Física (SMF)",
+      "place": {
+        "es": "Acapulco, Guerrero, México",
+        "en": "Acapulco, Guerrero, Mexico"
+      },
+      "when": "2009",
+      "date": "26–30 oct 2009",
+      "talks": [
+        "Espectros de frecuencias de datos meteorológicos de Isla María Madre",
+        "Comparación del viento costero y marino de la zona costera de San Blas, Nayarit (1999–2002)"
+      ]
     }
   ]
 };
