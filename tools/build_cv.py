@@ -71,6 +71,7 @@ T = {  # rótulos de sección
  'pubs':      {'es':'PUBLICACIONES','en':'PUBLICATIONS'},
  'indev':     {'es':'En preparación','en':'In preparation'},
  'projects':  {'es':'PROYECTOS DE INVESTIGACIÓN ACTIVOS','en':'ACTIVE RESEARCH PROJECTS'},
+ 'conferences':{'es':'CONGRESOS Y PONENCIAS','en':'CONFERENCES & TALKS'},
  'tech':      {'es':'DESARROLLOS TECNOLÓGICOS','en':'TECH DEVELOPMENTS'},
  'teaching':  {'es':'DOCENCIA','en':'TEACHING'},
  'outreach':  {'es':'DIVULGACIÓN CIENTÍFICA','en':'SCIENCE OUTREACH'},
@@ -194,6 +195,15 @@ def build_full(D, lang, path):
         for p in indev:
             s.append(row(p['year'], [Paragraph(esc(p['title']), ST['detail']),
                                      Paragraph(esc(p['authors']), ST['small'])]))
+
+    if D.get('conferences'):
+        s += sec(T['conferences'][lang])
+        for c in D['conferences']:
+            blk = [Paragraph(esc(c['name']), ST['title']),
+                   Paragraph(esc(c.get('date','')) + ' · ' + esc(L(c['place'], lang)), ST['org'])]
+            for tk in c.get('talks', []):
+                blk.append(Paragraph('• ' + esc(tk), ST['detail']))
+            s.append(KeepTogether(row(c.get('when',''), blk)))
 
     s += sec(T['projects'][lang])
     for p in [x for x in D['projects'] if x.get('active')]:
