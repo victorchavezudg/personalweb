@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-11-5";
+window.DATA_VERSION = "2026-06-15-0339";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -859,6 +859,34 @@ window.DATA = {
   "projects": [
     {
       "name": {
+        "es": "Sistema de alerta temprana de inundaciones para la Zona Metropolitana de Guadalajara",
+        "en": "Flood early-warning system for the Guadalajara Metropolitan Area"
+      },
+      "org": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara",
+      "years": "2026 – actual",
+      "active": true,
+      "desc": {
+        "es": "Desarrollo de un sistema de alerta temprana de inundaciones urbanas que combina percepción remota (radar meteorológico del IAM-UdeG), modelación hidrológica de escurrimiento sobre relieve LiDAR de alta resolución e inventarios oficiales de inundación. El sistema clasifica el riesgo por microcuenca en tiempo real y estima el tiempo de llegada del agua, con miras a calibrar umbrales mediante un análisis retrospectivo con registros históricos de Protección Civil/Bomberos.",
+        "en": "Development of an urban flood early-warning system that combines remote sensing (IAM-UdeG weather radar), hydrological runoff modeling over high-resolution LiDAR terrain, and official flood inventories. The system classifies risk by sub-basin in real time and estimates water arrival time, aiming to calibrate thresholds through a retrospective analysis with historical Civil Protection/Fire Department records."
+      },
+      "collaborators": [
+        {
+          "name": "Dr. Víctor M. Chávez Pérez",
+          "inst": "CUTLAQUE (UDG)",
+          "role": {
+            "es": "Investigador principal",
+            "en": "Principal investigator"
+          }
+        }
+      ],
+      "funding": {
+        "es": "Sin financiamiento externo",
+        "en": "No external funding"
+      },
+      "outputs": []
+    },
+    {
+      "name": {
         "es": "IA generativa para reportes de prácticas de laboratorio (Google Gems)",
         "en": "Generative AI for lab practice reports (Google Gems)"
       },
@@ -1223,6 +1251,28 @@ window.DATA = {
     }
   ],
   "tech": [
+    {
+      "name": {
+        "es": "Sistema de alerta temprana de inundaciones · ZMG",
+        "en": "Flood early-warning system · Guadalajara Metro Area"
+      },
+      "desc": {
+        "es": "Plataforma web en tiempo real que anticipa inundaciones urbanas en la Zona Metropolitana de Guadalajara. Integra el radar meteorológico del IAM-UdeG (un barrido por minuto) con un modelo hidrológico de escurrimiento construido sobre relieve LiDAR 5 m y DEM Copernicus, y con el inventario oficial de inundaciones del IMEPLAN (363 sitios recurrentes). Genera un semáforo de riesgo por zona —calibrado con tirantes oficiales— y una malla de riesgo continua que rutea la lluvia ladera abajo, con tiempo de concentración y ETA de «agua en camino». Incluye vista en vivo y repetición histórica. Desplegada en producción.",
+        "en": "Real-time web platform that anticipates urban flooding in the Guadalajara Metropolitan Area. It fuses the IAM-UdeG weather radar (one scan per minute) with a hydrological runoff model built on 5 m LiDAR and Copernicus DEM terrain, plus the IMEPLAN official flood inventory (363 recurrent sites). It produces a per-zone risk light —calibrated against official water-depth records— and a continuous risk grid that routes rainfall downslope, with concentration time and a \"water incoming\" ETA. Includes live and historical-replay views. Deployed in production."
+      },
+      "stack": [
+        "Python",
+        "FastAPI",
+        "Leaflet",
+        "NumPy",
+        "pysheds",
+        "rasterio",
+        "GDAL",
+        "Docker"
+      ],
+      "link": "",
+      "placeholder": false
+    },
     {
       "name": {
         "es": "Plataforma divulgativa Tlakakini",
