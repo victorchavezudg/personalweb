@@ -245,49 +245,44 @@ function exportData(){
   a.download='data.js'; a.click();
 }
 
-// ─── PUBLICAR EN GITHUB ────────────────────────────────────────────────────────
+// PUBLICAR EN GITHUB
 const GH_REPO = 'victorchavezudg/personalweb';
 async function publishToGitHub(){
   collectCurrentSection();
   let token = localStorage.getItem('vmcp-gh-token');
   if(!token){
-    token = prompt('Pega tu token de GitHub (se guarda solo en este navegador, no se sube a internet):');
+    token = prompt('Pega tu token de GitHub (se guarda solo en este navegador):');
     if(!token) return;
     localStorage.setItem('vmcp-gh-token', token.trim());
   }
   token = token.trim();
   const btn = document.querySelector('button[onclick="publishToGitHub()"]');
   const orig = btn ? btn.textContent : '';
-  if(btn){ btn.disabled = true; btn.textContent = '⏳ Publicando…'; }
+  if(btn){ btn.disabled = true; btn.textContent = 'Publicando...'; }
   try {
-    // 1) versión nueva basada en fecha/hora (evita conflictos de caché)
     const d = new Date();
-    const pad = n => String(n).padStart(2,'0');
-    const newVersion = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
-    // 2) armar el contenido del archivo data.js
-    const js = '/* data.js — editado desde admin panel */\n'
+    const p = n => String(n).padStart(2,'0');
+    const newVersion = d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes());
+    const js = '/* data.js \u2014 editado desde admin panel */\n'
       + 'window.DATA_VERSION = "' + newVersion + '";\n'
       + 'window.DATA = ' + JSON.stringify(D,null,2) + ';\n';
-    // 3) obtener el SHA actual del archivo en GitHub
-    const getR = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/data.js`, {
+    const getR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js', {
       headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
     });
-    if(getR.status === 401){ localStorage.removeItem('vmcp-gh-token'); alert('Token inválido o expirado. Vuelve a darle Publicar e ingresa un token válido.'); return; }
-    if(!getR.ok){ alert('No se pudo leer el archivo en GitHub (código ' + getR.status + ').'); return; }
+    if(getR.status === 401){ localStorage.removeItem('vmcp-gh-token'); alert('Token invalido o expirado. Vuelve a darle Publicar e ingresa uno valido.'); return; }
+    if(!getR.ok){ alert('No se pudo leer el archivo en GitHub (codigo ' + getR.status + ').'); return; }
     const sha = (await getR.json()).sha;
-    // 4) subir (PUT) el nuevo contenido — base64 seguro para UTF-8
     const b64 = btoa(unescape(encodeURIComponent(js)));
-    const putR = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/data.js`, {
+    const putR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js', {
       method: 'PUT',
       headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: 'admin: publicar cambios desde el panel', content: b64, sha: sha })
     });
     if(!putR.ok){ const e = await putR.json().catch(()=>({})); alert('Error al publicar: ' + (e.message || putR.status)); return; }
-    // 5) sincronizar versión local para mantener coherencia de caché
     window.DATA_VERSION = newVersion;
     localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
     localStorage.setItem('vmcp-data-version', newVersion);
-    alert('✅ ¡Publicado en GitHub! Espera 1–2 min y recarga el sitio con Ctrl+F5.');
+    alert('Publicado en GitHub. Espera 1-2 min y recarga el sitio con Ctrl+F5.');
   } catch(err){
     alert('Error de red al publicar: ' + err.message);
   } finally {
@@ -767,4 +762,77 @@ function editTech(i){
 function editOutreach(i){
   const o=i>=0?D.outreach[i]:{tag:{es:'',en:''},title:{es:'',en:''},desc:{es:'',en:''},when:''};
   openModal(i>=0?'Editar actividad':'Nueva actividad de divulgación',
-    fBi(
+    fBi('Tipo/Tag','ou_tg_es','ou_tg_en',bi(o.tag),biEn(o.tag))+
+    fBi('Título','ou_t_es','ou_t_en',bi(o.title),biEn(o.title))+
+    fBiArea('Descripción','ou_d_es','ou_d_en',bi(o.desc),biEn(o.desc))+
+    fText('Cuándo','ou_w',o.when,'2024 –'),
+    ()=>{ const n={tag:{es:gv('ou_tg_es'),en:gv('ou_tg_en')},title:{es:gv('ou_t_es'),en:gv('ou_t_en')},desc:{es:gv('ou_d_es'),en:gv('ou_d_en')},when:gv('ou_w')}; i>=0?D.outreach[i]=n:D.outreach.push(n); closeModal();renderSection('outreach'); });
+}
+
+function addInstitution(){
+  openModal('Nueva institución',
+    fText('Nombre','ti_org','') +
+    fBi('Lugar','ti_pl_es','ti_pl_en','','') +
+    fText('Periodo','ti_per','','2025 –'),
+    ()=>{
+      D.teaching.push({org:gv('ti_org'),place:{es:gv('ti_pl_es'),en:gv('ti_pl_en')},period:gv('ti_per'),courses:[]});
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editInstitution(i){
+  const inst=D.teaching[i];
+  openModal('Editar institución',
+    fText('Nombre','ti_org',inst.org) +
+    fBi('Lugar','ti_pl_es','ti_pl_en',bi(inst.place),biEn(inst.place)) +
+    fText('Periodo','ti_per',inst.period,'2019 –'),
+    ()=>{
+      inst.org=gv('ti_org');
+      inst.place={es:gv('ti_pl_es'),en:gv('ti_pl_en')};
+      inst.period=gv('ti_per');
+      closeModal();renderSection('teaching');
+    });
+}
+
+function addCourse(i){
+  openModal('Nueva materia — ' + D.teaching[i].org,
+    fBi('Materia','tc_c_es','tc_c_en','','') +
+    fBi('Carrera / Programa','tc_ca_es','tc_ca_en','',''),
+    ()=>{
+      D.teaching[i].courses.push({
+        course:{es:gv('tc_c_es'),en:gv('tc_c_en')},
+        career:{es:gv('tc_ca_es'),en:gv('tc_ca_en')}
+      });
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editCourse(i, ci){
+  const c=D.teaching[i].courses[ci];
+  openModal('Editar materia — ' + D.teaching[i].org,
+    fBi('Materia','tc_c_es','tc_c_en',bi(c.course),biEn(c.course)) +
+    fBi('Carrera / Programa','tc_ca_es','tc_ca_en',bi(c.career),biEn(c.career)),
+    ()=>{
+      D.teaching[i].courses[ci]={
+        course:{es:gv('tc_c_es'),en:gv('tc_c_en')},
+        career:{es:gv('tc_ca_es'),en:gv('tc_ca_en')}
+      };
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editNews(i){
+  const n=i>=0?D.news[i]:{date:'',tag:'Tlakakini',title:{es:'',en:''},desc:{es:'',en:''}};
+  openModal(i>=0?'Editar noticia':'Nueva noticia',
+    fText('Fecha','nw_d',n.date,'2026-01-15')+
+    fText('Tag','nw_tg',typeof n.tag==='string'?n.tag:bi(n.tag))+
+    fBi('Título','nw_t_es','nw_t_en',bi(n.title),biEn(n.title))+
+    fBiArea('Descripción','nw_dc_es','nw_dc_en',bi(n.desc),biEn(n.desc)),
+    ()=>{ const o={date:gv('nw_d'),tag:gv('nw_tg'),title:{es:gv('nw_t_es'),en:gv('nw_t_en')},desc:{es:gv('nw_dc_es'),en:gv('nw_dc_en')}}; i>=0?D.news[i]=o:D.news.unshift(o); closeModal();renderSection('news'); });
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+renderSection('meta');
+</script>
+</body>
+</html>
