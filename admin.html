@@ -153,7 +153,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
   <button class="btn btn-ghost" onclick="exportData()">Exportar data.js</button>
   <button class="btn btn-ghost" style="color:var(--red);border-color:var(--red)" onclick="if(confirm('¿Limpiar caché y recargar datos originales del data.js?')){localStorage.removeItem('vmcp-admin-data');location.reload();}">Limpiar caché</button>
   <button class="btn btn-primary" onclick="saveAll()">Guardar todo</button>
-  <button class="btn btn-primary" style="background:#2da44e;border-color:#2da44e" onclick="publishToGitHub()">⬆ Publicar en GitHub</button>
 </div>
 
 <div class="layout">
@@ -243,51 +242,6 @@ function exportData(){
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([js],{type:'text/javascript'}));
   a.download='data.js'; a.click();
-}
-
-// PUBLICAR EN GITHUB
-const GH_REPO = 'victorchavezudg/personalweb';
-async function publishToGitHub(){
-  collectCurrentSection();
-  let token = localStorage.getItem('vmcp-gh-token');
-  if(!token){
-    token = prompt('Pega tu token de GitHub (se guarda solo en este navegador):');
-    if(!token) return;
-    localStorage.setItem('vmcp-gh-token', token.trim());
-  }
-  token = token.trim();
-  const btn = document.querySelector('button[onclick="publishToGitHub()"]');
-  const orig = btn ? btn.textContent : '';
-  if(btn){ btn.disabled = true; btn.textContent = 'Publicando...'; }
-  try {
-    const d = new Date();
-    const p = n => String(n).padStart(2,'0');
-    const newVersion = d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes());
-    const js = '/* data.js \u2014 editado desde admin panel */\n'
-      + 'window.DATA_VERSION = "' + newVersion + '";\n'
-      + 'window.DATA = ' + JSON.stringify(D,null,2) + ';\n';
-    const getR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js', {
-      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
-    });
-    if(getR.status === 401){ localStorage.removeItem('vmcp-gh-token'); alert('Token invalido o expirado. Vuelve a darle Publicar e ingresa uno valido.'); return; }
-    if(!getR.ok){ alert('No se pudo leer el archivo en GitHub (codigo ' + getR.status + ').'); return; }
-    const sha = (await getR.json()).sha;
-    const b64 = btoa(unescape(encodeURIComponent(js)));
-    const putR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/data.js', {
-      method: 'PUT',
-      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'admin: publicar cambios desde el panel', content: b64, sha: sha })
-    });
-    if(!putR.ok){ const e = await putR.json().catch(()=>({})); alert('Error al publicar: ' + (e.message || putR.status)); return; }
-    window.DATA_VERSION = newVersion;
-    localStorage.setItem('vmcp-admin-data', JSON.stringify(D));
-    localStorage.setItem('vmcp-data-version', newVersion);
-    alert('Publicado en GitHub. Espera 1-2 min y recarga el sitio con Ctrl+F5.');
-  } catch(err){
-    alert('Error de red al publicar: ' + err.message);
-  } finally {
-    if(btn){ btn.disabled = false; btn.textContent = orig; }
-  }
 }
 
 // ─── MODAL ───────────────────────────────────────────────────────────────────
