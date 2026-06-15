@@ -91,7 +91,7 @@
           </div>
         </div>
       </div>
-      <div class="scroll-hint"><span>scroll</span><span class="bar"></span></div>
+      <div class="scroll-hint"><span class="bar"></span></div>
     </header>`;
   }
 
@@ -684,3 +684,4 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
 })();
+                   
