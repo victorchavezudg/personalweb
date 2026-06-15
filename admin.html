@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Admin · CV Víctor</title>
 <style>
 :root{
@@ -735,4 +736,57 @@ function addInstitution(){
 
 function editInstitution(i){
   const inst=D.teaching[i];
-  openModal('Editar instituci
+  openModal('Editar institución',
+    fText('Nombre','ti_org',inst.org) +
+    fBi('Lugar','ti_pl_es','ti_pl_en',bi(inst.place),biEn(inst.place)) +
+    fText('Periodo','ti_per',inst.period,'2019 –'),
+    ()=>{
+      inst.org=gv('ti_org');
+      inst.place={es:gv('ti_pl_es'),en:gv('ti_pl_en')};
+      inst.period=gv('ti_per');
+      closeModal();renderSection('teaching');
+    });
+}
+
+function addCourse(i){
+  openModal('Nueva materia — ' + D.teaching[i].org,
+    fBi('Materia','tc_c_es','tc_c_en','','') +
+    fBi('Carrera / Programa','tc_ca_es','tc_ca_en','',''),
+    ()=>{
+      D.teaching[i].courses.push({
+        course:{es:gv('tc_c_es'),en:gv('tc_c_en')},
+        career:{es:gv('tc_ca_es'),en:gv('tc_ca_en')}
+      });
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editCourse(i, ci){
+  const c=D.teaching[i].courses[ci];
+  openModal('Editar materia — ' + D.teaching[i].org,
+    fBi('Materia','tc_c_es','tc_c_en',bi(c.course),biEn(c.course)) +
+    fBi('Carrera / Programa','tc_ca_es','tc_ca_en',bi(c.career),biEn(c.career)),
+    ()=>{
+      D.teaching[i].courses[ci]={
+        course:{es:gv('tc_c_es'),en:gv('tc_c_en')},
+        career:{es:gv('tc_ca_es'),en:gv('tc_ca_en')}
+      };
+      closeModal();renderSection('teaching');
+    });
+}
+
+function editNews(i){
+  const n=i>=0?D.news[i]:{date:'',tag:'Tlakakini',title:{es:'',en:''},desc:{es:'',en:''}};
+  openModal(i>=0?'Editar noticia':'Nueva noticia',
+    fText('Fecha','nw_d',n.date,'2026-01-15')+
+    fText('Tag','nw_tg',typeof n.tag==='string'?n.tag:bi(n.tag))+
+    fBi('Título','nw_t_es','nw_t_en',bi(n.title),biEn(n.title))+
+    fBiArea('Descripción','nw_dc_es','nw_dc_en',bi(n.desc),biEn(n.desc)),
+    ()=>{ const o={date:gv('nw_d'),tag:gv('nw_tg'),title:{es:gv('nw_t_es'),en:gv('nw_t_en')},desc:{es:gv('nw_dc_es'),en:gv('nw_dc_en')}}; i>=0?D.news[i]=o:D.news.unshift(o); closeModal();renderSection('news'); });
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+renderSection('meta');
+</script>
+</body>
+</html>
