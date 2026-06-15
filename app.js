@@ -293,10 +293,21 @@
 
   /* ====================== TRAINING ====================== */
   function renderTraining(){
-    const items = (D.training||[]).map(t=>`<div class="dist"><span class="yr">${esc(t.years)}</span>
-        <div><div class="d-name">${esc(t.name)}</div><div class="d-org"><span class="tc-chip">${tt(t.kind)}</span> ${esc(t.org)}</div></div></div>`).join('');
+    const groups = {};
+    (D.training||[]).forEach(t=>{ (groups[t.org] = groups[t.org] || []).push(t); });
+    const cards = Object.keys(groups).map((org,i)=>{
+      const rows = groups[org].map(t=>`<div class="tr-row">
+          <span class="tag">${tt(t.kind)}</span>
+          <span class="tr-name">${esc(t.name)}</span>
+          <span class="tr-yr">${esc(t.years)}</span>
+        </div>`).join('');
+      return `<article class="card train-card reveal" data-d="${Math.min(i%3,4)}">
+        <h3 class="train-org">${esc(org)}</h3>
+        <div class="tr-list">${rows}</div>
+      </article>`;
+    }).join('');
     return `<section class="section" id="training">
-      <div class="wrap">${sectionHead('training')}<div class="grid cols-2"><div class="dist-list">${items}</div></div></div>
+      <div class="wrap">${sectionHead('training')}<div class="grid cols-2">${cards}</div></div>
     </section>`;
   }
 
