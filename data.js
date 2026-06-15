@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0436";
+window.DATA_VERSION = "2026-06-15-0455";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -24,8 +24,8 @@ window.DATA = {
       "en": "National Researcher System · Candidate (SECIHTI) 2025–2029"
     },
     "tagline": {
-      "es": "Investigo la atmósfera, el clima y el océano con grandes volúmenes de datos; desarrollo sistemas de alerta temprana y exploro la IA generativa para transformar la enseñanza de las ciencias — y acerco la ciencia a las nuevas generaciones.",
-      "en": "I research the atmosphere, climate and ocean with large-scale data; I build early-warning systems and explore generative AI to transform science education — and bring science closer to new generations."
+      "es": "Físico aplicado. Investigo la atmósfera, el clima y el océano con grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
+      "en": "Applied physicist. I research the atmosphere, climate and ocean with large-scale data; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
     "cv": {
@@ -92,6 +92,14 @@ window.DATA = {
       "conferences": {
         "es": "Congresos",
         "en": "Conferences"
+      },
+      "service": {
+        "es": "Servicio académico",
+        "en": "Academic service"
+      },
+      "training": {
+        "es": "Formación continua",
+        "en": "Continuing education"
       }
     },
     "hero_cta_primary": {
@@ -150,6 +158,14 @@ window.DATA = {
       "conferences": {
         "es": "Ponencias",
         "en": "Talks"
+      },
+      "service": {
+        "es": "Contribución a la comunidad",
+        "en": "Community contribution"
+      },
+      "training": {
+        "es": "Aprendizaje continuo",
+        "en": "Lifelong learning"
       }
     },
     "section_title": {
@@ -200,6 +216,14 @@ window.DATA = {
       "conferences": {
         "es": "Congresos y ponencias",
         "en": "Conferences & talks"
+      },
+      "service": {
+        "es": "Servicio académico",
+        "en": "Academic service"
+      },
+      "training": {
+        "es": "Formación continua",
+        "en": "Continuing education"
       }
     },
     "pub_filter": {
@@ -312,6 +336,22 @@ window.DATA = {
       "cv_short": {
         "es": "CV sintético (1 página)",
         "en": "One-page CV"
+      },
+      "thesis_h": {
+        "es": "Dirección de tesis",
+        "en": "Thesis supervision"
+      },
+      "review_h": {
+        "es": "Arbitraje de revistas",
+        "en": "Journal peer review"
+      },
+      "eval_h": {
+        "es": "Evaluación de proyectos",
+        "en": "Project evaluation"
+      },
+      "courses_h": {
+        "es": "Materias",
+        "en": "Courses taught"
       }
     },
     "contact": {
@@ -609,9 +649,35 @@ window.DATA = {
       "years": "2025 – actual",
       "yearsEn": "2025 – present",
       "detail": {
-        "es": "Departamento de Ciencias Básicas: Física y Matemáticas.",
-        "en": "Department of Basic Sciences: Physics and Mathematics."
-      }
+        "es": "Departamento de Ciencias Básicas. Presidente de la Academia de Ciencias Básicas.",
+        "en": "Department of Basic Sciences. Chair of the Basic Sciences Academic Board."
+      },
+      "courses": [
+        {
+          "es": "Probabilidad",
+          "en": "Probability"
+        },
+        {
+          "es": "Laboratorio de Electromagnetismo",
+          "en": "Electromagnetism Lab"
+        },
+        {
+          "es": "Matemáticas Discretas",
+          "en": "Discrete Mathematics"
+        },
+        {
+          "es": "Métodos Numéricos",
+          "en": "Numerical Methods"
+        },
+        {
+          "es": "Cálculo",
+          "en": "Calculus"
+        },
+        {
+          "es": "Cálculo Avanzado",
+          "en": "Advanced Calculus"
+        }
+      ]
     },
     {
       "role": {
@@ -628,7 +694,17 @@ window.DATA = {
       "detail": {
         "es": "Doctorado en Ingeniería Aeroespacial: Metodología de la Investigación y Mecánica de Fluidos.",
         "en": "PhD in Aerospace Engineering: Research Methodology and Fluid Mechanics."
-      }
+      },
+      "courses": [
+        {
+          "es": "Metodología de la Investigación",
+          "en": "Research Methodology"
+        },
+        {
+          "es": "Mecánica de Fluidos",
+          "en": "Fluid Mechanics"
+        }
+      ]
     },
     {
       "role": {
@@ -645,7 +721,87 @@ window.DATA = {
       "detail": {
         "es": "División de Mecatrónica — Ciencias Básicas.",
         "en": "Mechatronics Division — Basic Sciences."
-      }
+      },
+      "courses": [
+        {
+          "es": "Física para Ingeniería",
+          "en": "Engineering Physics"
+        },
+        {
+          "es": "Matemáticas para Ingeniería I y II",
+          "en": "Engineering Mathematics I & II"
+        },
+        {
+          "es": "Probabilidad y Estadística",
+          "en": "Probability & Statistics"
+        },
+        {
+          "es": "Cálculo Integral",
+          "en": "Integral Calculus"
+        },
+        {
+          "es": "Estadística Aplicada a la Ingeniería",
+          "en": "Applied Engineering Statistics"
+        },
+        {
+          "es": "Termodinámica",
+          "en": "Thermodynamics"
+        }
+      ]
+    },
+    {
+      "role": {
+        "es": "Profesor de Cátedra",
+        "en": "Faculty Lecturer"
+      },
+      "org": "Tecmilenio · Campus Guadalajara",
+      "place": {
+        "es": "Guadalajara, México",
+        "en": "Guadalajara, Mexico"
+      },
+      "years": "2019 – 2020",
+      "yearsEn": "2019 – 2020",
+      "detail": {
+        "es": "Bachillerato: Materia y Energía, Cálculo Integral, Ciencia y Tecnología.",
+        "en": "High school: Matter & Energy, Integral Calculus, Science & Technology."
+      },
+      "courses": [
+        {
+          "es": "Materia y Energía",
+          "en": "Matter & Energy"
+        },
+        {
+          "es": "Cálculo Integral",
+          "en": "Integral Calculus"
+        },
+        {
+          "es": "Ciencia y Tecnología",
+          "en": "Science & Technology"
+        }
+      ]
+    },
+    {
+      "role": {
+        "es": "Docente de Física",
+        "en": "Physics Instructor"
+      },
+      "org": "UNITEC · Campus Guadalajara",
+      "place": {
+        "es": "Guadalajara, México",
+        "en": "Guadalajara, Mexico"
+      },
+      "years": "2019",
+      "yearsEn": "2019",
+      "detail": {
+        "es": "Ingenierías: Estática.",
+        "en": "Engineering programs: Statics."
+      },
+      "courses": [
+        {
+          "es": "Estática",
+          "en": "Statics"
+        }
+      ]
     },
     {
       "role": {
@@ -662,6 +818,40 @@ window.DATA = {
       "detail": {
         "es": "Investigación doctoral sobre calentamientos súbitos estratosféricos en modelos CMIP5 y WACCM; análisis estadístico de grandes volúmenes de datos climáticos.",
         "en": "Doctoral research on sudden stratospheric warmings in CMIP5 and WACCM models; statistical analysis of large climate datasets."
+      }
+    },
+    {
+      "role": {
+        "es": "Estancia de movilidad predoctoral",
+        "en": "Predoctoral mobility stay"
+      },
+      "org": "Universidad Pablo de Olavide",
+      "place": {
+        "es": "Sevilla, España",
+        "en": "Seville, Spain"
+      },
+      "years": "2015",
+      "yearsEn": "2015",
+      "detail": {
+        "es": "Estancia breve de investigación en centros de I+D; resultados presentados en congresos internacionales.",
+        "en": "Short research stay at R&D centers; results presented at international conferences."
+      }
+    },
+    {
+      "role": {
+        "es": "Estancia predoctoral",
+        "en": "Predoctoral research stay"
+      },
+      "org": "Universidad de Guadalajara",
+      "place": {
+        "es": "Guadalajara, México",
+        "en": "Guadalajara, Mexico"
+      },
+      "years": "2013 – 2014",
+      "yearsEn": "2013 – 2014",
+      "detail": {
+        "es": "Estancia académica de investigación en análisis de cambio climático.",
+        "en": "Academic research stay on climate-change analysis."
       }
     },
     {
@@ -683,40 +873,6 @@ window.DATA = {
     },
     {
       "role": {
-        "es": "Profesor de Cátedra",
-        "en": "Faculty Lecturer"
-      },
-      "org": "Tecmilenio · Campus Guadalajara",
-      "place": {
-        "es": "Guadalajara, México",
-        "en": "Guadalajara, Mexico"
-      },
-      "years": "2019 – 2020",
-      "yearsEn": "2019 – 2020",
-      "detail": {
-        "es": "Bachillerato: Materia y Energía, Cálculo Integral, Ciencia y Tecnología.",
-        "en": "High school: Matter & Energy, Integral Calculus, Science & Technology."
-      }
-    },
-    {
-      "role": {
-        "es": "Docente de Física",
-        "en": "Physics Instructor"
-      },
-      "org": "UNITEC · Campus Guadalajara",
-      "place": {
-        "es": "Guadalajara, México",
-        "en": "Guadalajara, Mexico"
-      },
-      "years": "2019",
-      "yearsEn": "2019",
-      "detail": {
-        "es": "Ingenierías: Estática.",
-        "en": "Engineering programs: Statics."
-      }
-    },
-    {
-      "role": {
         "es": "Docente de Física y Matemáticas",
         "en": "Physics & Math Instructor"
       },
@@ -730,7 +886,56 @@ window.DATA = {
       "detail": {
         "es": "Mecánica, Introducción a la Física y Electromagnetismo.",
         "en": "Mechanics, Introduction to Physics and Electromagnetism."
-      }
+      },
+      "courses": [
+        {
+          "es": "Mecánica",
+          "en": "Mechanics"
+        },
+        {
+          "es": "Introducción a la Física",
+          "en": "Intro to Physics"
+        },
+        {
+          "es": "Electromagnetismo",
+          "en": "Electromagnetism"
+        }
+      ]
+    },
+    {
+      "role": {
+        "es": "Docente de Física y Matemáticas",
+        "en": "Physics & Math Instructor"
+      },
+      "org": "Centro de Enseñanza Técnica Industrial (CETI Colomos)",
+      "place": {
+        "es": "Guadalajara, México",
+        "en": "Guadalajara, Mexico"
+      },
+      "years": "2010 – 2011",
+      "yearsEn": "2010 – 2011",
+      "detail": {
+        "es": "Ingenierías.",
+        "en": "Engineering programs."
+      },
+      "courses": [
+        {
+          "es": "Cálculo Diferencial e Integral",
+          "en": "Differential & Integral Calculus"
+        },
+        {
+          "es": "Estática",
+          "en": "Statics"
+        },
+        {
+          "es": "Dinámica",
+          "en": "Dynamics"
+        },
+        {
+          "es": "Matemáticas",
+          "en": "Mathematics"
+        }
+      ]
     },
     {
       "role": {
@@ -747,7 +952,25 @@ window.DATA = {
       "detail": {
         "es": "Matemáticas en ingenierías; cómputo en paralelo aplicado a oceanografía.",
         "en": "Mathematics for engineering; parallel computing applied to oceanography."
-      }
+      },
+      "courses": [
+        {
+          "es": "Física (Mecánica, Electricidad y Magnetismo)",
+          "en": "Physics (Mechanics, E&M)"
+        },
+        {
+          "es": "Cálculo Diferencial e Integral",
+          "en": "Differential & Integral Calculus"
+        },
+        {
+          "es": "Ecuaciones Diferenciales",
+          "en": "Differential Equations"
+        },
+        {
+          "es": "Dinámica",
+          "en": "Dynamics"
+        }
+      ]
     }
   ],
   "publications": [
@@ -1881,6 +2104,183 @@ window.DATA = {
         "Espectros de frecuencias de datos meteorológicos de Isla María Madre",
         "Comparación del viento costero y marino de la zona costera de San Blas, Nayarit (1999–2002)"
       ]
+    }
+  ],
+  "service": {
+    "thesis": [
+      {
+        "student": "Lilia Lizeth Sierra Romero",
+        "level": {
+          "es": "Licenciatura",
+          "en": "Bachelor's"
+        },
+        "title": "Estacionalidad y anomalías del nivel del mar en el Caribe por medio de datos de altimetría",
+        "role": {
+          "es": "Co-director",
+          "en": "Co-advisor"
+        },
+        "org": "Universidad de Guadalajara",
+        "year": "2011",
+        "state": {
+          "es": "Concluida",
+          "en": "Completed"
+        }
+      }
+    ],
+    "review": [
+      {
+        "org": "IEEE Latin America Transactions",
+        "detail": {
+          "es": "Revisor — revista Q2, doble ciego",
+          "en": "Reviewer — Q2 journal, double-blind"
+        },
+        "years": "2025"
+      },
+      {
+        "org": "Int. J. of Environment and Pollution (Inderscience)",
+        "detail": {
+          "es": "Revisor — revista Q4, doble ciego",
+          "en": "Reviewer — Q4 journal, double-blind"
+        },
+        "years": "2024–2025"
+      },
+      {
+        "org": "Congreso de Ingeniería, Ciencia y Gestión Ambiental (AMICA)",
+        "detail": {
+          "es": "Revisor del comité científico",
+          "en": "Scientific committee reviewer"
+        },
+        "years": "2025"
+      }
+    ],
+    "evaluation": [
+      {
+        "org": "SECIHTI",
+        "detail": {
+          "es": "Evaluador externo — Convocatoria Nacional 2026, Ciencia Básica y de Frontera (3 propuestas)",
+          "en": "External evaluator — 2026 National Call, Basic & Frontier Science (3 proposals)"
+        },
+        "years": "2025–2026"
+      }
+    ]
+  },
+  "training": [
+    {
+      "kind": {
+        "es": "Diplomado",
+        "en": "Diploma"
+      },
+      "name": "Estrategias tecnopedagógicas para el desarrollo de habilidades del siglo XXI",
+      "org": "Universidad de Guadalajara",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Inteligencia Artificial para la docencia",
+      "org": "Universidad de Guadalajara",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Inteligencia Artificial Generativa para Docentes",
+      "org": "Universidad Anáhuac",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "IA Generativa en el aula",
+      "org": "UNAM",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Python for Data Science, AI & Development",
+      "org": "IBM",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Certificación",
+        "en": "Certification"
+      },
+      "name": "What is Data Science?",
+      "org": "IBM",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Cálculo Diferencial para Data Science e IA",
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Estadística y Probabilidad",
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Fundamentos de Ingeniería de Software",
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Introducción a la Terminal y Línea de Comandos",
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "OOP in Atmospheric and Oceanic Model Development",
+      "org": "Universidade de Vigo",
+      "years": "2014"
+    },
+    {
+      "kind": {
+        "es": "Diplomado",
+        "en": "Diploma"
+      },
+      "name": "Competencias Docentes: Inducción al Bachillerato General",
+      "org": "Universidad de Guadalajara",
+      "years": "2011"
+    },
+    {
+      "kind": {
+        "es": "Taller",
+        "en": "Workshop"
+      },
+      "name": "Formación de Divulgadores de la Ciencia",
+      "org": "Universidad de Guadalajara",
+      "years": "2005"
     }
   ]
 };
