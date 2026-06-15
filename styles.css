@@ -723,3 +723,12 @@ a.out-badge:hover   { opacity:.8; transform:translateY(-1px); }
 /* ---- Conferences ---- */
 .conf-card .conf-talks{ list-style:none; margin:12px 0 0; padding:0; display:flex; flex-direction:column; gap:7px; }
 .conf-card .conf-talks li{ font-size:.85rem; line-height:1.45; padding-left:12px; border-left:2px solid var(--accent); opacity:.82; }
+
+
+/* ---- Formación continua (agrupada por institución) ---- */
+.train-card .train-org{ font-size:1rem; font-weight:600; margin-bottom:12px; }
+.train-card .tr-list{ display:flex; flex-direction:column; gap:9px; }
+.train-card .tr-row{ display:grid; grid-template-columns:auto 1fr auto; gap:9px; align-items:start; }
+.train-card .tr-row .tag{ font-size:.68rem; }
+.train-card .tr-name{ font-size:.86rem; line-height:1.38; }
+.train-card .tr-yr{ color:var(--accent); font-size:.76rem; font-weight:600; white-space:nowrap; }
