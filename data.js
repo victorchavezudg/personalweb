@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-14-2200";
+window.DATA_VERSION = "2026-06-14-2203";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1072,14 +1072,25 @@ window.DATA = {
       "collaborators": [
         {
           "name": "Dr. Víctor M. Chávez Pérez",
-          "inst": "UdeG",
+          "inst": "CUTLAQUE (UDG)",
           "role": {
             "es": "Colaborador · responsable de antena",
             "en": "Collaborator · antenna lead"
           }
+        },
+        {
+          "name": "Dra. Citlalli Almaguer Gómez",
+          "inst": "CUCEI (UDG)",
+          "role": {
+            "es": "Colaboradora",
+            "en": ""
+          }
         }
       ],
-      "funding": "University of Washington",
+      "funding": {
+        "es": "University of Washington",
+        "en": "University of Washington"
+      },
       "outputs": [
         {
           "type": "indev",
