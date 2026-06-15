@@ -424,7 +424,7 @@
             <button data-lang="es">ES</button><button data-lang="en">EN</button>
           </div>
           <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema" title="Tema claro / oscuro"><span class="ic-sun">${I.sun}</span><span class="ic-moon">${I.moon}</span></button>
-          <button class="print-btn" onclick="window.print()" aria-label="Imprimir / Guardar PDF" title="Guardar como PDF">${I.print}</button>
+
           <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span></button>
         </div>
       </div>
@@ -685,3 +685,4 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
 })();
+                                                                                                                                             
