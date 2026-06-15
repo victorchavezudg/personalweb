@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-14-2203";
+window.DATA_VERSION = "2026-06-15-0406";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -24,7 +24,7 @@ window.DATA = {
       "en": "National Researcher System · Candidate (SECIHTI) 2025–2029"
     },
     "tagline": {
-      "es": "Investigo la dinámica estratosférica y el cambio climático; exploro la IA generativa para transformar la enseñanza de las ciencias — y acerco la ciencia a las nuevas generaciones. Soy superman",
+      "es": "Investigo la dinámica estratosférica y el cambio climático; exploro la IA generativa para transformar la enseñanza de las ciencias — y acerco la ciencia a las nuevas generaciones.",
       "en": "I research stratospheric dynamics and climate change; I explore generative AI to transform science education — and bring science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
@@ -1083,7 +1083,7 @@ window.DATA = {
           "inst": "CUCEI (UDG)",
           "role": {
             "es": "Colaboradora",
-            "en": ""
+            "en": "Collaborator"
           }
         }
       ],
