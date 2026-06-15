@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0503";
+window.DATA_VERSION = "2026-06-15-0515";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -38,7 +38,7 @@ window.DATA = {
     },
     "links": {
       "orcid": "https://orcid.org/0000-0002-6761-0730",
-      "scholar": "https://scholar.google.com/scholar?q=%22Ch%C3%A1vez-P%C3%A9rez+V.+M.%22",
+      "scholar": "https://scholar.google.com/citations?user=TKFODC4AAAAJ&hl=es",
       "researchgate": "https://www.researchgate.net/profile/Victor-Chavez-Perez-2",
       "linkedin": "https://www.linkedin.com/in/vmchavezp/"
     }
