@@ -71,6 +71,7 @@ T = {  # rótulos de sección
  'pubs':      {'es':'PUBLICACIONES','en':'PUBLICATIONS'},
  'indev':     {'es':'En preparación','en':'In preparation'},
  'projects':  {'es':'PROYECTOS DE INVESTIGACIÓN ACTIVOS','en':'ACTIVE RESEARCH PROJECTS'},
+ 'tech':      {'es':'DESARROLLOS TECNOLÓGICOS','en':'TECH DEVELOPMENTS'},
  'teaching':  {'es':'DOCENCIA','en':'TEACHING'},
  'outreach':  {'es':'DIVULGACIÓN CIENTÍFICA','en':'SCIENCE OUTREACH'},
  'grants':    {'es':'BECAS Y DISTINCIONES','en':'GRANTS & HONORS'},
@@ -202,6 +203,17 @@ def build_full(D, lang, path):
             Paragraph(esc(L(p['name'], lang)) + esc(role), ST['title']),
             Paragraph(esc(p['org']) + ' · ' + T['funding'][lang] + ': ' + esc(L(p.get('funding',''), lang)), ST['org']),
             Paragraph(esc(L(p['desc'], lang)), ST['detail'])])))
+
+    tech_items = [x for x in D.get('tech', []) if not x.get('placeholder')]
+    if tech_items:
+        s += sec(T['tech'][lang])
+        for x in tech_items:
+            block = [Paragraph(esc(L(x['name'], lang)), ST['title'])]
+            stack = ' · '.join(x.get('stack', []))
+            if stack:
+                block.append(Paragraph(esc(stack), ST['org']))
+            block.append(Paragraph(esc(L(x['desc'], lang)), ST['detail']))
+            s.append(KeepTogether(block))
 
     s += sec(T['teaching'][lang])
     for t in D['teaching']:
