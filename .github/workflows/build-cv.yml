@@ -1,0 +1,33 @@
+name: Regenerar CV PDFs
+
+on:
+  push:
+    paths:
+      - 'data.js'
+      - 'tools/build_cv.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install reportlab pillow
+
+      - name: Generar PDFs desde data.js
+        run: python tools/build_cv.py
+
+      - name: Commit de los PDFs actualizados
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: regenerar CV PDFs desde data.js [skip ci]"
+          file_pattern: "assets/CV_Victor_Chavez_Perez_*.pdf"
