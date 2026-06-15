@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0414";
+window.DATA_VERSION = "2026-06-14-2221";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -584,12 +584,12 @@ window.DATA = {
   "experience": [
     {
       "role": {
-        "es": "Profesor de Asignatura «B»",
-        "en": "Lecturer «B»"
+        "es": "Profesor de Asignatura \"B\"",
+        "en": "Lecturer \"B\""
       },
       "org": "Centro Universitario de Tlaquepaque · UdeG",
       "place": {
-        "es": "Tlaquepaque, México",
+        "es": "San Pedro Tlaquepaque, Jalisco. México",
         "en": "Tlaquepaque, Mexico"
       },
       "years": "2025 – actual",
@@ -609,8 +609,8 @@ window.DATA = {
         "es": "En línea",
         "en": "Online"
       },
-      "years": "2025 – actual",
-      "yearsEn": "2025 – present",
+      "years": "2025 – 2026",
+      "yearsEn": "2025 – 2026",
       "detail": {
         "es": "Doctorado en Ingeniería Aeroespacial: Metodología de la Investigación y Mecánica de Fluidos.",
         "en": "PhD in Aerospace Engineering: Research Methodology and Fluid Mechanics."
@@ -618,8 +618,8 @@ window.DATA = {
     },
     {
       "role": {
-        "es": "Profesor de Asignatura «B»",
-        "en": "Lecturer «B»"
+        "es": "Profesor de Asignatura \"B\"",
+        "en": "Lecturer \"B\""
       },
       "org": "Universidad Tecnológica de Jalisco",
       "place": {
