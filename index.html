@@ -63,7 +63,7 @@
 <body>
   <div id="app"></div>
 
-  <script src="data.js"></script>
+  <script>document.write('<scr'+'ipt src="data.js?v='+Date.now()+'"><\/scr'+'ipt>');</script>
   <script>
     /* Usar datos del admin si existen y la versión coincide (o si data.js no tiene versión). */
     const _saved        = localStorage.getItem('vmcp-admin-data');
@@ -80,6 +80,6 @@
       }
     }
   </script>
-  <script src="app.js"></script>
+  <script>document.write('<scr'+'ipt src="app.js?v='+Date.now()+'"><\/scr'+'ipt>');</script>
 </body>
 </html>
