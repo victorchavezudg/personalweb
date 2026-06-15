@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0406";
+window.DATA_VERSION = "2026-06-15-0414";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1283,22 +1283,6 @@ window.DATA = {
       ],
       "link": "http://142.93.192.71:8080",
       "placeholder": false
-    },
-    {
-      "name": {
-        "es": "Plataforma divulgativa Tlakakini",
-        "en": "Tlakakini outreach platform"
-      },
-      "desc": {
-        "es": "Sitio y repositorio de actividades del club de ciencia para difundir experimentos y recursos.",
-        "en": "Site and activity repository for the science club to share experiments and resources."
-      },
-      "stack": [
-        "WordPress",
-        "JavaScript"
-      ],
-      "link": "",
-      "placeholder": true
     }
   ],
   "outreach": [
