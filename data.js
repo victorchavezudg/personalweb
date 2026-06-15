@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0459";
+window.DATA_VERSION = "2026-06-15-0503";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -396,12 +396,12 @@ window.DATA = {
   "about": {
     "bio": {
       "es": [
-        "Soy físico por la Universidad de Guadalajara y Doctor en Física Aplicada por la Universidade de Vigo. Mi investigación combina la física de la atmósfera y el clima con el análisis de grandes volúmenes de datos: estudio los calentamientos súbitos estratosféricos (SSW), la circulación de Brewer–Dobson y su respuesta ante distintos escenarios de cambio climático usando modelos como CMIP5 y WACCM.",
+        "Soy físico por la Universidad de Guadalajara y Doctor en Física Aplicada por la Universidade de Vigo. Mi investigación combina la física de la atmósfera y el clima con el análisis de grandes volúmenes de datos: estudio los calentamientos súbitos estratosféricos (SSW), las olas de calor y su respuesta ante distintos escenarios de cambio climático usando modelos como CMIP5 y WACCM.",
         "Más allá de la investigación básica, llevo la física a problemas reales: desarrollo un sistema de alerta temprana de inundaciones para la Zona Metropolitana de Guadalajara que integra radar meteorológico, modelación hidrológica sobre relieve LiDAR de alta resolución y percepción remota. Mi trabajo también recorre la oceanografía física, la percepción remota y la óptica aplicada.",
         "Me interesa además cómo la IA generativa puede transformar la enseñanza de las ciencias: diseño asistentes de aprendizaje y materiales didácticos que evalúo con los propios estudiantes. En paralelo, soy co-fundador del Club de Ciencia y Tecnología Tlakakini, dedicado a la divulgación científica para niñas y niños. Creo que la mejor ciencia es la que se comparte."
       ],
       "en": [
-        "I am a physicist from the University of Guadalajara and hold a PhD in Applied Physics from the University of Vigo. My research blends atmospheric and climate physics with large-scale data analysis: I study sudden stratospheric warmings (SSW), the Brewer–Dobson circulation and their response under climate-change scenarios using models such as CMIP5 and WACCM.",
+        "I am a physicist from the University of Guadalajara and hold a PhD in Applied Physics from the University of Vigo. My research blends atmospheric and climate physics with large-scale data analysis: I study sudden stratospheric warmings (SSW), heat waves and their response under climate-change scenarios using models such as CMIP5 and WACCM.",
         "Beyond basic research, I bring physics to real-world problems: I am developing a flood early-warning system for the Guadalajara Metropolitan Area that integrates weather radar, hydrological runoff modeling over high-resolution LiDAR terrain and remote sensing. My work also spans physical oceanography, remote sensing and applied optics.",
         "I am also interested in how generative AI can transform science education: I design learning assistants and teaching materials that I evaluate with students themselves. Alongside this, I co-founded the Tlakakini Science & Technology Club, devoted to science outreach for children. I believe the best science is the kind that gets shared."
       ]
