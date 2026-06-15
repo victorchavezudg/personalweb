@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0339";
+window.DATA_VERSION = "2026-06-14-2156";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1270,7 +1270,7 @@ window.DATA = {
         "GDAL",
         "Docker"
       ],
-      "link": "",
+      "link": "http://142.93.192.71:8080",
       "placeholder": false
     },
     {
