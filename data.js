@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-15-0515";
+window.DATA_VERSION = "2026-06-16-0247";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -334,8 +334,8 @@ window.DATA = {
         "en": "Full CV"
       },
       "cv_short": {
-        "es": "CV sintético (1 página)",
-        "en": "One-page CV"
+        "es": "CV sintético (2 páginas)",
+        "en": "Short CV (2 pages)"
       },
       "thesis_h": {
         "es": "Dirección de tesis",
