@@ -77,7 +77,7 @@ T = {  # rótulos de sección
  'outreach':  {'es':'DIVULGACIÓN CIENTÍFICA','en':'SCIENCE OUTREACH'},
  'grants':    {'es':'BECAS Y DISTINCIONES','en':'GRANTS & HONORS'},
  'certs':     {'es':'CERTIFICACIONES','en':'CERTIFICATIONS'},
- 'service':   {'es':'SERVICIO ACADÉMICO','en':'ACADEMIC SERVICE'},
+ 'service':   {'es':'FORTALECIMIENTO DE LA COMUNIDAD','en':'COMMUNITY BUILDING & SERVICE'},
  'training':  {'es':'FORMACIÓN CONTINUA','en':'CONTINUING EDUCATION'},
  'thesis_h':  {'es':'Dirección de tesis','en':'Thesis supervision'},
  'review_h':  {'es':'Arbitraje de revistas','en':'Journal peer review'},
