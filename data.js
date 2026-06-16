@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-16-0247";
+window.DATA_VERSION = "2026-06-16-0253";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -94,8 +94,8 @@ window.DATA = {
         "en": "Conferences"
       },
       "service": {
-        "es": "Servicio académico",
-        "en": "Academic service"
+        "es": "Comunidad",
+        "en": "Community"
       },
       "training": {
         "es": "Formación continua",
@@ -160,8 +160,8 @@ window.DATA = {
         "en": "Talks"
       },
       "service": {
-        "es": "Contribución a la comunidad",
-        "en": "Community contribution"
+        "es": "Fortalecimiento y consolidación",
+        "en": "Strengthening the community"
       },
       "training": {
         "es": "Aprendizaje continuo",
@@ -218,8 +218,8 @@ window.DATA = {
         "en": "Conferences & talks"
       },
       "service": {
-        "es": "Servicio académico",
-        "en": "Academic service"
+        "es": "Fortalecimiento de la comunidad",
+        "en": "Community building & service"
       },
       "training": {
         "es": "Formación continua",
