@@ -6,8 +6,8 @@ build_cv.py — Genera los CV en PDF a partir de data.js (la misma fuente del si
 Salidas (en assets/):
   CV_Victor_Chavez_Perez_es.pdf            CV completo, español
   CV_Victor_Chavez_Perez_en.pdf            Full CV, English
-  CV_Victor_Chavez_Perez_es_sintetico.pdf  Una página, español
-  CV_Victor_Chavez_Perez_en_short.pdf      One page, English
+  CV_Victor_Chavez_Perez_es_sintetico.pdf  CV sintético (~2 págs), español
+  CV_Victor_Chavez_Perez_en_short.pdf      Short CV (~2 pp), English
 
 Uso:  python tools/build_cv.py        (requiere: pip install reportlab)
 """
@@ -298,26 +298,44 @@ def build_short(D, lang, path):
     s.append(Paragraph(esc(a['bio'][lang][0]), ST['body']))
 
     s += sec(T['education'][lang])
-    for e in D['education'][:3]:
+    for e in D['education'][:4]:
         s.append(row(e['years'], [Paragraph(esc(L(e['degree'], lang)) + '  ·  <font color="#4b5a68">'
                                             + esc(e['org']) + '</font>', ST['title'])], 20*mm))
 
     s += sec(T['experience'][lang])
-    cur = [e for e in D['experience'] if 'actual' in e.get('years','') or 'present' in e.get('yearsEn','')]
-    for e in cur[:4]:
+    for e in D['experience'][:5]:
         s.append(row(yrs(e, lang), [Paragraph(esc(L(e['role'], lang)) + '  ·  <font color="#4b5a68">'
                                               + esc(e['org']) + '</font>', ST['title'])], 20*mm))
 
     s += sec(T['pubs'][lang])
     pubs = sorted([p for p in D['publications'] if p['state'] == 'published'],
-                  key=lambda x: x['year'], reverse=True)[:4]
+                  key=lambda x: x['year'], reverse=True)
     for p in pubs:
-        ref = (' · <a href="https://doi.org/%s" color="#0d6e82">DOI: %s</a>' % (p['doi'], esc(p['doi']))) if p.get('doi') else ''
+        ref = (' · <a href="https://doi.org/%s" color="#0d6e82">DOI</a>' % p['doi']) if p.get('doi') else ''
         s.append(row(p['year'], [Paragraph(esc(p['title']) + ' — <i>' + esc(L(p['venue'], lang))
                                            + '</i>' + ref, ST['detail'])], 20*mm))
 
+    if D.get('conferences'):
+        s += sec(T['conferences'][lang])
+        intl = [c for c in D['conferences'] if any(k in c['name'] for k in ('AGU','EGU','SPARC','Geophysical','Geosciences'))][:5]
+        for c in intl:
+            s.append(row(c.get('when',''), [Paragraph(esc(c['name']) + '  ·  <font color="#4b5a68">'
+                                            + esc(L(c['place'], lang)) + '</font>', ST['detail'])], 20*mm))
+
+    svc = D.get('service', {})
+    if svc.get('thesis') or svc.get('review') or svc.get('evaluation'):
+        s += sec(T['service'][lang])
+        for t in svc.get('thesis', []):
+            s.append(row(t.get('year',''), [Paragraph('<b>' + T['thesis_h'][lang] + ':</b> ' + esc(t['title'])
+                                            + ' (' + L(t['role'], lang) + ')', ST['detail'])], 20*mm))
+        if svc.get('review'):
+            orgs = ', '.join(esc(r['org']) for r in svc['review'])
+            s.append(Paragraph('<b>' + T['review_h'][lang] + ':</b> ' + orgs, ST['detail']))
+        if svc.get('evaluation'):
+            s.append(Paragraph('<b>' + T['eval_h'][lang] + ':</b> ' + esc(L(svc['evaluation'][0]['detail'], lang)), ST['detail']))
+
     s += sec(T['interests'][lang])
-    s.append(Paragraph(esc('  ·  '.join(L(i, lang) for i in a['interests'][:8])), ST['chips']))
+    s.append(Paragraph(esc('  ·  '.join(L(i, lang) for i in a['interests'][:9])), ST['chips']))
 
     s += sec(T['tools'][lang])
     s.append(Paragraph(esc(' · '.join(a['toolbox'])), ST['chips']))
