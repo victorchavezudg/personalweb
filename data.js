@@ -1,11 +1,11 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-16-0253";
+window.DATA_VERSION = "2026-06-18-0809";
 window.DATA = {
   "hidden_sections": [
     "resources"
   ],
   "meta": {
-    "name": "Víctor Manuel Chávez Pérez",
+    "name": "Dr. Víctor Manuel Chávez Pérez",
     "short": "VMCP",
     "role": {
       "es": "Profesor–Investigador · Física Aplicada, Ciencia de Datos y Educación Científica",
@@ -27,7 +27,7 @@ window.DATA = {
       "es": "Físico aplicado con enfoque en ciencia de datos. Estudio la atmósfera, el clima y el océano aplicando aprendizaje automático y análisis de grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
       "en": "Applied physicist with a focus on data science. I study the atmosphere, climate and ocean using machine learning and large-scale data analysis; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
     },
-    "email": "victor.chavez@academicos.udg.mx",
+    "email": "Dr. victor.chavez@academicos.udg.mx",
     "cv": {
       "es": "assets/CV_Victor_Chavez_Perez_es.pdf",
       "en": "assets/CV_Victor_Chavez_Perez_en.pdf"
