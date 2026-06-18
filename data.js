@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-18-0809";
+window.DATA_VERSION = "2026-06-18-1421";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -27,7 +27,7 @@ window.DATA = {
       "es": "Físico aplicado con enfoque en ciencia de datos. Estudio la atmósfera, el clima y el océano aplicando aprendizaje automático y análisis de grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
       "en": "Applied physicist with a focus on data science. I study the atmosphere, climate and ocean using machine learning and large-scale data analysis; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
     },
-    "email": "Dr. victor.chavez@academicos.udg.mx",
+    "email": "victor.chavez@academicos.udg.mx",
     "cv": {
       "es": "assets/CV_Victor_Chavez_Perez_es.pdf",
       "en": "assets/CV_Victor_Chavez_Perez_en.pdf"
