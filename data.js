@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-21-2352";
+window.DATA_VERSION = "2026-06-21-2353";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -2302,15 +2302,6 @@ window.DATA = {
       "name": "Formación de Divulgadores de la Ciencia",
       "org": "Universidad de Guadalajara",
       "years": "2005"
-    },
-    {
-      "kind": {
-        "es": "Diplomado",
-        "en": "Diploma"
-      },
-      "name": "Formación de Competencias Docentes",
-      "org": "Universidad de Guadalajara",
-      "years": "2010–2011"
     }
   ]
 };
