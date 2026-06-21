@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-21-1812";
+window.DATA_VERSION = "2026-06-21-2352";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -604,22 +604,6 @@ window.DATA = {
       "detail": {
         "es": "Estacionalidad y anomalías de variables oceanográficas del Golfo de México por percepción remota.",
         "en": "Seasonality and anomalies of oceanographic variables in the Gulf of Mexico via remote sensing."
-      }
-    },
-    {
-      "degree": {
-        "es": "Diplomado en Formación de Competencias Docentes",
-        "en": "Diploma in Teaching Competencies"
-      },
-      "org": "Universidad de Guadalajara",
-      "place": {
-        "es": "México",
-        "en": "Mexico"
-      },
-      "years": "2010 – 2011",
-      "detail": {
-        "es": "Formación pedagógica para la docencia universitaria.",
-        "en": "Pedagogical training for university teaching."
       }
     },
     {
@@ -2318,6 +2302,15 @@ window.DATA = {
       "name": "Formación de Divulgadores de la Ciencia",
       "org": "Universidad de Guadalajara",
       "years": "2005"
+    },
+    {
+      "kind": {
+        "es": "Diplomado",
+        "en": "Diploma"
+      },
+      "name": "Formación de Competencias Docentes",
+      "org": "Universidad de Guadalajara",
+      "years": "2010–2011"
     }
   ]
 };
