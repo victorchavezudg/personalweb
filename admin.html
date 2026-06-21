@@ -164,8 +164,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
     <div class="nav-item" data-sec="publications">📄 Publicaciones</div>
     <div class="nav-item" data-sec="projects">🔬 Proyectos</div>
     <div class="nav-item" data-sec="tech">💻 Desarrollos</div>
+    <div class="nav-item" data-sec="conferences">🎤 Congresos</div>
+    <div class="nav-item" data-sec="service">🤝 Comunidad</div>
+    <div class="nav-item" data-sec="training">📜 Formación</div>
     <div class="nav-item" data-sec="outreach">📢 Divulgación</div>
-    <div class="nav-item" data-sec="teaching">📚 Docencia</div>
     <div class="nav-item" data-sec="resources">📁 Recursos</div>
     <div class="nav-item" data-sec="news">📰 Noticias</div>
   </nav>
@@ -461,6 +463,52 @@ const sections = {
     <div class="entries">${cards}</div>`;
   },
 
+  conferences(){
+    const cards=(D.conferences||[]).map((c,i)=>
+      `<div class="entry-card"><div class="entry-body">
+          <div class="entry-title">${esc(c.name)}</div>
+          <div class="entry-sub">${esc(c.when||'')} · ${esc(bi(c.place))} · ${(c.talks||[]).length} ponencia(s)</div>
+        </div><div class="entry-actions">
+          <button class="btn-edit" onclick="editConference(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.conferences.splice(${i},1);renderSection('conferences');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">🎤 Congresos y ponencias</span>
+      <button class="btn-add" onclick="editConference(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
+  service(){
+    const s=D.service||(D.service={thesis:[],review:[],evaluation:[]});
+    const card=(arr,name,ed,title,sub)=>(arr||[]).map((x,i)=>`<div class="entry-card"><div class="entry-body"><div class="entry-title">${esc(title(x))}</div><div class="entry-sub">${esc(sub(x))}</div></div><div class="entry-actions"><button class="btn-edit" onclick="${ed}(${i})">Editar</button><button class="btn-danger" onclick="D.service.${name}.splice(${i},1);renderSection('service');autoSave()">✕</button></div></div>`).join('');
+    const th=card(s.thesis,'thesis','editThesis',t=>t.title,t=>bi(t.role)+' · '+t.student+' · '+(t.year||''));
+    const rv=card(s.review,'review','editReview',r=>r.org,r=>bi(r.detail)+' · '+(r.years||''));
+    const ev=card(s.evaluation,'evaluation','editEval',r=>r.org,r=>bi(r.detail)+' · '+(r.years||''));
+    return `<div class="panel-header"><span class="panel-title">🤝 Fortalecimiento de la comunidad</span></div>
+      <div class="section-divider">Dirección de tesis</div>
+      <button class="btn-add" style="margin-bottom:12px" onclick="editThesis(-1)">+ Agregar</button>
+      <div class="entries">${th}</div>
+      <div class="section-divider" style="margin-top:24px">Arbitraje de revistas</div>
+      <button class="btn-add" style="margin-bottom:12px" onclick="editReview(-1)">+ Agregar</button>
+      <div class="entries">${rv}</div>
+      <div class="section-divider" style="margin-top:24px">Evaluación de proyectos</div>
+      <button class="btn-add" style="margin-bottom:12px" onclick="editEval(-1)">+ Agregar</button>
+      <div class="entries">${ev}</div>`;
+  },
+
+  training(){
+    const cards=(D.training||[]).map((t,i)=>
+      `<div class="entry-card"><div class="entry-body">
+          <div class="entry-title">${esc(t.name)}</div>
+          <div class="entry-sub">${esc(bi(t.kind))} · ${esc(t.org)} · ${esc(t.years||'')}</div>
+        </div><div class="entry-actions">
+          <button class="btn-edit" onclick="editTraining(${i})">Editar</button>
+          <button class="btn-danger" onclick="D.training.splice(${i},1);renderSection('training');autoSave()">✕</button>
+        </div></div>`).join('');
+    return `<div class="panel-header"><span class="panel-title">📜 Formación continua</span>
+      <button class="btn-add" onclick="editTraining(-1)">+ Agregar</button></div>
+    <div class="entries">${cards}</div>`;
+  },
+
   projects(){
     const cards=D.projects.map((p,i)=>
       `<div class="entry-card">
@@ -647,10 +695,11 @@ function editEducation(i){
 }
 
 function editExperience(i){
-  const e=i>=0?D.experience[i]:{role:{es:'',en:''},org:'',place:{es:'',en:''},years:'',yearsEn:'',detail:{es:'',en:''}};
+  const e=i>=0?D.experience[i]:{role:{es:'',en:''},org:'',place:{es:'',en:''},years:'',yearsEn:'',detail:{es:'',en:''},courses:[]};
+  const courseLines=(e.courses||[]).map(c=>bi(c)+' :: '+biEn(c)+(c.n&&c.n>1?' :: '+c.n:'')).join('\n');
   openModal(i>=0?'Editar experiencia':'Nueva experiencia',
-    fBi('Cargo','ex_r_es','ex_r_en',bi(e.role),biEn(e.role))+fText('Institución','ex_org',e.org)+fBi('Lugar','ex_pl_es','ex_pl_en',bi(e.place),biEn(e.place))+fText('Periodo (ES)','ex_yrs',e.years,'2020 – actual')+fText('Period (EN)','ex_yen',e.yearsEn||'','2020 – present')+fBiArea('Detalle','ex_dt_es','ex_dt_en',bi(e.detail),biEn(e.detail)),
-    ()=>{ const o={role:{es:gv('ex_r_es'),en:gv('ex_r_en')},org:gv('ex_org'),place:{es:gv('ex_pl_es'),en:gv('ex_pl_en')},years:gv('ex_yrs'),yearsEn:gv('ex_yen'),detail:{es:gv('ex_dt_es'),en:gv('ex_dt_en')}}; i>=0?D.experience[i]=o:D.experience.push(o); closeModal();renderSection('experience'); });
+    fBi('Cargo','ex_r_es','ex_r_en',bi(e.role),biEn(e.role))+fText('Institución','ex_org',e.org)+fBi('Lugar','ex_pl_es','ex_pl_en',bi(e.place),biEn(e.place))+fText('Periodo (ES)','ex_yrs',e.years,'2020 – actual')+fText('Period (EN)','ex_yen',e.yearsEn||'','2020 – present')+fBiArea('Detalle','ex_dt_es','ex_dt_en',bi(e.detail),biEn(e.detail))+fArea('Materias (una por línea — formato: Español :: English :: veces)','ex_courses',courseLines),
+    ()=>{ const courses=gv('ex_courses').split('\n').map(s=>s.trim()).filter(Boolean).map(line=>{const p=line.split('::').map(x=>x.trim()); const o={es:p[0]||'',en:p[1]||p[0]||''}; const n=parseInt(p[2]); if(n>1)o.n=n; return o;}); const o={role:{es:gv('ex_r_es'),en:gv('ex_r_en')},org:gv('ex_org'),place:{es:gv('ex_pl_es'),en:gv('ex_pl_en')},years:gv('ex_yrs'),yearsEn:gv('ex_yen'),detail:{es:gv('ex_dt_es'),en:gv('ex_dt_en')}}; if(courses.length)o.courses=courses; i>=0?D.experience[i]=o:D.experience.push(o); closeModal();renderSection('experience'); });
 }
 
 function editPub(i){
@@ -817,6 +866,38 @@ function editCourse(i, ci){
     });
 }
 
+function editConference(i){
+  const c=i>=0?D.conferences[i]:{name:'',place:{es:'',en:''},when:'',date:'',talks:[]};
+  openModal(i>=0?'Editar congreso':'Nuevo congreso',
+    fText('Nombre del congreso','cf_name',c.name)+fBi('Lugar','cf_pl_es','cf_pl_en',bi(c.place),biEn(c.place))+fText('Año','cf_when',c.when||'','2022')+fText('Fecha','cf_date',c.date||'','2–7 oct 2022')+fArea('Ponencias (una por línea)','cf_talks',(c.talks||[]).join('\n')),
+    ()=>{ const talks=gv('cf_talks').split('\n').map(s=>s.trim()).filter(Boolean); const o={name:gv('cf_name'),place:{es:gv('cf_pl_es'),en:gv('cf_pl_en')},when:gv('cf_when'),date:gv('cf_date'),talks:talks}; if(!D.conferences)D.conferences=[]; i>=0?D.conferences[i]=o:D.conferences.push(o); closeModal();renderSection('conferences'); });
+}
+function editTraining(i){
+  if(!D.training)D.training=[];
+  const t=i>=0?D.training[i]:{kind:{es:'Curso',en:'Course'},name:'',org:'',years:''};
+  openModal(i>=0?'Editar formación':'Nueva formación',
+    fBi('Tipo (Curso/Diplomado/Taller/Certificación)','tr_k_es','tr_k_en',bi(t.kind),biEn(t.kind))+fText('Nombre','tr_name',t.name)+fText('Institución','tr_org',t.org)+fText('Año','tr_years',t.years||'','2025'),
+    ()=>{ const o={kind:{es:gv('tr_k_es'),en:gv('tr_k_en')},name:gv('tr_name'),org:gv('tr_org'),years:gv('tr_years')}; i>=0?D.training[i]=o:D.training.push(o); closeModal();renderSection('training'); });
+}
+function svcArr(k){ if(!D.service)D.service={thesis:[],review:[],evaluation:[]}; if(!D.service[k])D.service[k]=[]; return D.service[k]; }
+function editThesis(i){
+  const s=svcArr('thesis'); const t=i>=0?s[i]:{student:'',level:{es:'',en:''},title:'',role:{es:'',en:''},org:'',year:'',state:{es:'',en:''}};
+  openModal(i>=0?'Editar tesis':'Nueva tesis',
+    fText('Estudiante','th_st',t.student)+fText('Título de la tesis','th_ti',t.title)+fBi('Nivel','th_lv_es','th_lv_en',bi(t.level),biEn(t.level))+fBi('Rol','th_ro_es','th_ro_en',bi(t.role),biEn(t.role))+fText('Institución','th_org',t.org)+fText('Año','th_yr',t.year||'')+fBi('Estado','th_se_es','th_se_en',bi(t.state),biEn(t.state)),
+    ()=>{ const o={student:gv('th_st'),level:{es:gv('th_lv_es'),en:gv('th_lv_en')},title:gv('th_ti'),role:{es:gv('th_ro_es'),en:gv('th_ro_en')},org:gv('th_org'),year:gv('th_yr'),state:{es:gv('th_se_es'),en:gv('th_se_en')}}; i>=0?s[i]=o:s.push(o); closeModal();renderSection('service'); });
+}
+function editReview(i){
+  const s=svcArr('review'); const r=i>=0?s[i]:{org:'',detail:{es:'',en:''},years:''};
+  openModal(i>=0?'Editar arbitraje':'Nuevo arbitraje',
+    fText('Revista / Organización','rv_org',r.org)+fBi('Detalle','rv_d_es','rv_d_en',bi(r.detail),biEn(r.detail))+fText('Año(s)','rv_yr',r.years||''),
+    ()=>{ const o={org:gv('rv_org'),detail:{es:gv('rv_d_es'),en:gv('rv_d_en')},years:gv('rv_yr')}; i>=0?s[i]=o:s.push(o); closeModal();renderSection('service'); });
+}
+function editEval(i){
+  const s=svcArr('evaluation'); const r=i>=0?s[i]:{org:'',detail:{es:'',en:''},years:''};
+  openModal(i>=0?'Editar evaluación':'Nueva evaluación',
+    fText('Organización','ev_org',r.org)+fBi('Detalle','ev_d_es','ev_d_en',bi(r.detail),biEn(r.detail))+fText('Año(s)','ev_yr',r.years||''),
+    ()=>{ const o={org:gv('ev_org'),detail:{es:gv('ev_d_es'),en:gv('ev_d_en')},years:gv('ev_yr')}; i>=0?s[i]=o:s.push(o); closeModal();renderSection('service'); });
+}
 function editNews(i){
   const n=i>=0?D.news[i]:{date:'',tag:'Tlakakini',title:{es:'',en:''},desc:{es:'',en:''}};
   openModal(i>=0?'Editar noticia':'Nueva noticia',
