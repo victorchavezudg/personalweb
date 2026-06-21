@@ -154,7 +154,7 @@
         <h3 class="tl-title">${tt(e.role)}</h3>
         <div class="tl-org">${esc(e.org)} <span class="place">· ${tt(e.place)}</span></div>
         <p class="tl-detail">${tt(e.detail)}</p>
-        ${e.courses && e.courses.length ? `<div class="tl-courses" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${e.courses.map(c=>`<span class="tc-chip">${tt(c)}</span>`).join('')}</div>` : ''}
+        ${e.courses && e.courses.length ? `<div class="tl-courses" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${e.courses.map(c=>`<span class="tc-chip">${tt(c)}${c.n>1?` <b class="mult">×${c.n}</b>`:''}</span>`).join('')}</div>` : ''}
       </div>`).join('');
     return `<section class="section" id="experience">
       <div class="wrap">${sectionHead('experience')}<div class="timeline">${items}</div></div>
