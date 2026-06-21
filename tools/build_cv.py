@@ -196,7 +196,7 @@ def build_full(D, lang, path):
                Paragraph(esc(e['org']) + ' · ' + esc(L(e['place'], lang)), ST['org']),
                Paragraph(esc(L(e['detail'], lang)), ST['detail'])]
         if e.get('courses'):
-            mats = ' · '.join(L(co, lang) for co in e['courses'])
+            mats = ' · '.join(L(co, lang) + ((' \u00d7%d' % co['n']) if co.get('n',1) > 1 else '') for co in e['courses'])
             blk.append(Paragraph('<b>' + T['courses_h'][lang] + ':</b> ' + esc(mats), ST['small']))
         s.append(row(yrs(e, lang), blk))
 
