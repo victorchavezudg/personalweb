@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-18-1421";
+window.DATA_VERSION = "2026-06-21-1812";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -650,13 +650,28 @@ window.DATA = {
         "es": "San Pedro Tlaquepaque, Jalisco. México",
         "en": "Tlaquepaque, Mexico"
       },
-      "years": "2025 – actual",
-      "yearsEn": "2025 – present",
+      "years": "2024 – actual",
+      "yearsEn": "2024 – present",
       "detail": {
         "es": "Departamento de Ciencias Básicas. Presidente de la Academia de Ciencias Básicas.",
         "en": "Department of Basic Sciences. Chair of the Basic Sciences Academic Board."
       },
       "courses": [
+        {
+          "es": "Cálculo",
+          "en": "Calculus",
+          "n": 2
+        },
+        {
+          "es": "Cálculo Avanzado",
+          "en": "Advanced Calculus",
+          "n": 2
+        },
+        {
+          "es": "Métodos Numéricos",
+          "en": "Numerical Methods",
+          "n": 2
+        },
         {
           "es": "Probabilidad",
           "en": "Probability"
@@ -668,18 +683,6 @@ window.DATA = {
         {
           "es": "Matemáticas Discretas",
           "en": "Discrete Mathematics"
-        },
-        {
-          "es": "Métodos Numéricos",
-          "en": "Numerical Methods"
-        },
-        {
-          "es": "Cálculo",
-          "en": "Calculus"
-        },
-        {
-          "es": "Cálculo Avanzado",
-          "en": "Advanced Calculus"
         }
       ]
     },
@@ -702,7 +705,8 @@ window.DATA = {
       "courses": [
         {
           "es": "Metodología de la Investigación",
-          "en": "Research Methodology"
+          "en": "Research Methodology",
+          "n": 2
         },
         {
           "es": "Mecánica de Fluidos",
@@ -729,19 +733,37 @@ window.DATA = {
       "courses": [
         {
           "es": "Física para Ingeniería",
-          "en": "Engineering Physics"
-        },
-        {
-          "es": "Matemáticas para Ingeniería I y II",
-          "en": "Engineering Mathematics I & II"
+          "en": "Engineering Physics",
+          "n": 10
         },
         {
           "es": "Probabilidad y Estadística",
-          "en": "Probability & Statistics"
+          "en": "Probability & Statistics",
+          "n": 8
+        },
+        {
+          "es": "Matemáticas para Ingeniería II",
+          "en": "Engineering Mathematics II",
+          "n": 6
+        },
+        {
+          "es": "Cálculo Diferencial",
+          "en": "Differential Calculus",
+          "n": 5
         },
         {
           "es": "Cálculo Integral",
-          "en": "Integral Calculus"
+          "en": "Integral Calculus",
+          "n": 3
+        },
+        {
+          "es": "Matemáticas para Ingeniería I",
+          "en": "Engineering Mathematics I",
+          "n": 2
+        },
+        {
+          "es": "Cálculo de Varias Variables",
+          "en": "Multivariable Calculus"
         },
         {
           "es": "Estadística Aplicada a la Ingeniería",
@@ -771,12 +793,21 @@ window.DATA = {
       },
       "courses": [
         {
-          "es": "Materia y Energía",
-          "en": "Matter & Energy"
+          "es": "Cálculo Integral",
+          "en": "Integral Calculus",
+          "n": 2
         },
         {
-          "es": "Cálculo Integral",
-          "en": "Integral Calculus"
+          "es": "Cálculo Diferencial",
+          "en": "Differential Calculus"
+        },
+        {
+          "es": "Matemáticas (Lenguaje de la Ciencia)",
+          "en": "Mathematics (Language of Science)"
+        },
+        {
+          "es": "Materia y Energía",
+          "en": "Matter & Energy"
         },
         {
           "es": "Ciencia y Tecnología",
@@ -925,19 +956,23 @@ window.DATA = {
       "courses": [
         {
           "es": "Cálculo Diferencial e Integral",
-          "en": "Differential & Integral Calculus"
+          "en": "Differential & Integral Calculus",
+          "n": 2
         },
         {
           "es": "Estática",
-          "en": "Statics"
+          "en": "Statics",
+          "n": 2
         },
         {
           "es": "Dinámica",
-          "en": "Dynamics"
+          "en": "Dynamics",
+          "n": 2
         },
         {
           "es": "Matemáticas",
-          "en": "Mathematics"
+          "en": "Mathematics",
+          "n": 2
         }
       ]
     },
@@ -959,16 +994,14 @@ window.DATA = {
       },
       "courses": [
         {
-          "es": "Física (Mecánica, Electricidad y Magnetismo)",
-          "en": "Physics (Mechanics, E&M)"
+          "es": "Física (Mecánica, Electricidad y Magnetismo, Termodinámica)",
+          "en": "Physics (Mechanics, E&M, Thermodynamics)",
+          "n": 11
         },
         {
-          "es": "Cálculo Diferencial e Integral",
-          "en": "Differential & Integral Calculus"
-        },
-        {
-          "es": "Ecuaciones Diferenciales",
-          "en": "Differential Equations"
+          "es": "Matemáticas y Cálculo (Diferencial, Integral, Vectorial, Ec. Diferenciales)",
+          "en": "Mathematics & Calculus (Differential, Integral, Vector, ODEs)",
+          "n": 17
         },
         {
           "es": "Dinámica",
