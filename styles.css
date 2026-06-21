@@ -732,3 +732,6 @@ a.out-badge:hover   { opacity:.8; transform:translateY(-1px); }
 .train-card .tr-row .tag{ font-size:.68rem; }
 .train-card .tr-name{ font-size:.86rem; line-height:1.38; }
 .train-card .tr-yr{ color:var(--accent); font-size:.76rem; font-weight:600; white-space:nowrap; }
+
+/* contador de veces impartida */
+.tc-chip .mult{ color:var(--accent); font-weight:700; margin-left:3px; }
