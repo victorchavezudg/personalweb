@@ -124,6 +124,7 @@
           </div>
           <div class="about-side reveal" data-d="1">
             <div class="panel"><h4>${tt(D.ui.labels.toolbox)}</h4><div class="chips">${tools}</div></div>
+            ${(a.languages||[]).length?`<div class="panel"><h4>${tt(D.ui.labels.languages||{es:'Idiomas',en:'Languages'})}</h4><div class="chips">${a.languages.map(l=>`<span class="chip">${tt(l)}</span>`).join('')}</div></div>`:''}
             <div class="panel"><h4>${tt(D.ui.labels.distinctions)}</h4><div class="dist-list">${dist}</div></div>
           </div>
         </div>
