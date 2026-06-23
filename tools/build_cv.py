@@ -83,6 +83,7 @@ T = {  # rótulos de sección
  'review_h':  {'es':'Arbitraje de revistas','en':'Journal peer review'},
  'eval_h':    {'es':'Evaluación de proyectos','en':'Project evaluation'},
  'courses_h': {'es':'Materias','en':'Courses'},
+ 'languages': {'es':'IDIOMAS','en':'LANGUAGES'},
  'tools':     {'es':'HERRAMIENTAS','en':'TOOLBOX'},
  'thesis':    {'es':'Tesis','en':'Thesis'},
  'funding':   {'es':'Financiamiento','en':'Funding'},
@@ -283,6 +284,10 @@ def build_full(D, lang, path):
             s.append(row(t.get('years',''), [Paragraph('<b>' + L(t['kind'],lang) + '</b> — ' + esc(t['name'])
                                              + ' · <font color="#4b5a68">' + esc(t['org']) + '</font>', ST['detail'])]))
 
+    if a.get('languages'):
+        s += sec(T['languages'][lang])
+        s.append(Paragraph(esc(' · '.join(L(l, lang) for l in a['languages'])), ST['chips']))
+
     s += sec(T['tools'][lang])
     s.append(Paragraph(esc(' · '.join(a['toolbox'])), ST['chips']))
 
@@ -336,6 +341,10 @@ def build_short(D, lang, path):
 
     s += sec(T['interests'][lang])
     s.append(Paragraph(esc('  ·  '.join(L(i, lang) for i in a['interests'][:9])), ST['chips']))
+
+    if a.get('languages'):
+        s += sec(T['languages'][lang])
+        s.append(Paragraph(esc(' · '.join(L(l, lang) for l in a['languages'])), ST['chips']))
 
     s += sec(T['tools'][lang])
     s.append(Paragraph(esc(' · '.join(a['toolbox'])), ST['chips']))
