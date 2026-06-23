@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-21-2353";
+window.DATA_VERSION = "2026-06-23-0538";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -352,6 +352,10 @@ window.DATA = {
       "courses_h": {
         "es": "Materias",
         "en": "Courses taught"
+      },
+      "languages": {
+        "es": "Idiomas",
+        "en": "Languages"
       }
     },
     "contact": {
@@ -532,6 +536,16 @@ window.DATA = {
           "es": "Jalisco, México",
           "en": "Jalisco, Mexico"
         }
+      },
+      {
+        "org": "SEP",
+        "es": "Beca de Tesis de Licenciatura",
+        "en": "Bachelor's Thesis Scholarship",
+        "years": "2009",
+        "place": {
+          "es": "México",
+          "en": "Mexico"
+        }
       }
     ],
     "certifications": [
@@ -554,6 +568,16 @@ window.DATA = {
           "es": "En línea",
           "en": "Online"
         }
+      }
+    ],
+    "languages": [
+      {
+        "es": "Español — Nativo",
+        "en": "Spanish — Native"
+      },
+      {
+        "es": "Inglés — Intermedio",
+        "en": "English — Intermediate"
       }
     ]
   },
@@ -2302,6 +2326,33 @@ window.DATA = {
       "name": "Formación de Divulgadores de la Ciencia",
       "org": "Universidad de Guadalajara",
       "years": "2005"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Funciones Matemáticas para Data Science e IA",
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": "Desarrollo Teórico Conceptual del Electromagnetismo (Parte I)",
+      "org": "Universidad de Guadalajara",
+      "years": "2005"
+    },
+    {
+      "kind": {
+        "es": "Capacitación",
+        "en": "Training"
+      },
+      "name": "Módulo I del DOCA: El Sistema Nacional de Educación Tecnológica",
+      "org": "Universidad de Guadalajara",
+      "years": "2009"
     }
   ]
 };
