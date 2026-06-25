@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movimiento circular — Cinemática y Dinámica</title>
+<style>
+  :root{
+    --bg:#EEF1F5; --panel:#FFFFFF; --ink:#161A22; --ink-soft:#5A6473;
+    --line:#D5DBE3; --v:#1F6FEB; --a:#E0322B; --force:#0E8A6B; --ghost:#E0322B;
+    --accent:#1F6FEB; --warn:#E8A33D; --danger:#E0322B; --rope:#9AA4B2;
+    --shadow:0 1px 2px rgba(20,26,34,.06),0 8px 24px rgba(20,26,34,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;padding:18px;}
+  .wrap{max-width:1180px;margin:0 auto}
+  header.top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:13px;}
+  .title h1{font-size:clamp(18px,2.4vw,24px);margin:0;font-weight:680;letter-spacing:-.01em;}
+  .title .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:650;margin-bottom:4px;}
+  .title .by{font-size:12px;color:var(--ink-soft);margin-top:5px;font-weight:550}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:6px;font-weight:550}
+  .swatch{width:16px;height:3px;border-radius:2px;display:inline-block}
+
+  /* scenario switch */
+  .switch{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#E3E7EE;border:1px solid var(--line);
+    border-radius:12px;padding:5px;margin-bottom:14px;}
+  .switch button{border:none;background:transparent;border-radius:8px;padding:11px 8px;font-size:13.5px;font-weight:620;
+    color:var(--ink-soft);cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;}
+  .switch button .ic{font-size:18px;line-height:1}
+  .switch button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+
+  .grid{display:grid;grid-template-columns:1.35fr .9fr;gap:16px}
+  @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:10px;position:relative;}
+  canvas{width:100%;height:auto;display:block;border-radius:8px}
+  .stage .flag{position:absolute;left:16px;top:16px;background:rgba(255,255,255,.84);backdrop-filter:blur(4px);
+    border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12px;color:var(--ink-soft);max-width:64%;line-height:1.35;}
+  .panel{display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 15px;}
+  .card h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 11px;font-weight:680;}
+
+  .readout{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .metric{background:#F4F6FA;border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+  .metric .k{font-size:11px;color:var(--ink-soft);font-weight:600;letter-spacing:.02em}
+  .metric .val{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:19px;font-weight:600;margin-top:2px;letter-spacing:-.02em;}
+  .metric .u{font-size:11px;color:var(--ink-soft);font-weight:500;margin-left:3px}
+
+  .gauge{margin-top:10px;background:#F4F6FA;border:1px solid var(--line);border-radius:9px;padding:10px 11px}
+  .gauge .head{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;color:var(--ink-soft);font-weight:600}
+  .gauge .head .now{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;font-weight:600;color:var(--ink)}
+  .bar{height:10px;border-radius:6px;background:#E2E7F0;margin-top:7px;overflow:hidden}
+  .bar .fill{height:100%;width:30%;background:var(--force);border-radius:6px;transition:width .08s linear,background .2s}
+  .gauge .sub{font-size:11px;color:var(--ink-soft);margin-top:5px;text-align:right;font-family:ui-monospace,Menlo,Consolas,monospace}
+
+  .status{margin-top:4px;border-radius:10px;padding:12px 13px;border:1px solid var(--line);background:#F4F6FA;text-align:center}
+  .status .st{font-size:16px;font-weight:700;letter-spacing:-.01em}
+  .status .stsub{font-size:12px;color:var(--ink-soft);margin-top:3px}
+
+  .ctl{margin-bottom:12px}.ctl:last-child{margin-bottom:0}
+  .ctl label{display:flex;justify-content:space-between;font-size:13px;font-weight:560;margin-bottom:6px}
+  .ctl label .num{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--accent);font-weight:600;}
+  input[type=range]{width:100%;accent-color:var(--accent);height:22px;cursor:pointer}
+  .hint{font-size:11.5px;color:var(--ink-soft);margin:-4px 0 0;line-height:1.4}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:#F4F6FA;color:var(--ink);border-radius:999px;padding:7px 12px;font-size:12.5px;
+    font-weight:580;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.15s;user-select:none;}
+  .chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c,#999);opacity:.35;transition:.15s}
+  .chip[aria-pressed="true"]{background:#fff;border-color:var(--c,#999);color:var(--ink)}
+  .chip[aria-pressed="true"] .dot{opacity:1}
+
+  .verdict{margin-top:11px;font-size:13px;line-height:1.45;padding:11px 12px;border-radius:10px;background:#F4F6FA;border:1px solid var(--line);display:none;}
+  .verdict.show{display:block}.verdict b{font-weight:680}
+  .row{display:flex;gap:9px;margin-top:11px}
+  .btn{flex:1;border:none;border-radius:10px;padding:11px 12px;font-size:13.5px;font-weight:650;cursor:pointer;transition:.15s;font-family:inherit;}
+  .btn.primary{background:var(--accent);color:#fff}.btn.primary:hover{background:#1a5fd0}
+  .btn.primary:disabled{background:#A9BEDF;cursor:not-allowed}
+  .btn.ghost{background:#EDEFF4;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{background:#E4E8EF}
+  .foot{margin-top:14px;font-size:11.5px;color:var(--ink-soft);text-align:center;line-height:1.6}
+  .foot b{color:var(--ink);font-weight:650}
+
+  /* per-mode visibility */
+  .sim.m-rope  .only-car,.sim.m-rope  .only-orbit{display:none}
+  .sim.m-car   .only-rope,.sim.m-car  .only-orbit{display:none}
+  .sim.m-orbit .only-rope,.sim.m-orbit .only-car,.sim.m-orbit .for-mech{display:none}
+  .sim.m-car #tg-v,.sim.m-car #tg-a{display:none}
+  .sim.m-orbit #tg-a{display:none}
+</style>
+</head>
+<body>
+<div class="wrap sim m-rope" id="sim">
+  <header class="top">
+    <div class="title">
+      <div class="eyebrow">Fuerza centrípeta en acción · Ingeniería</div>
+      <h1 id="maintitle">La cuerda que obliga a girar</h1>
+      <div class="by">Dr. Víctor Manuel Chávez Pérez</div>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--v)"></i>Velocidad <b>v</b></span>
+      <span><i class="swatch" style="background:var(--force)"></i>Fuerza centrípeta</span>
+      <span><i class="swatch" style="background:var(--a)"></i>Aceleración <b>a<sub>c</sub></b></span>
+    </div>
+  </header>
+
+  <div class="switch" role="tablist">
+    <button data-mode="rope"  aria-selected="true"><span class="ic">🪢</span>Cuerda y pelota</button>
+    <button data-mode="orbit" aria-selected="false"><span class="ic">🪐</span>Órbita planetaria</button>
+    <button data-mode="car"   aria-selected="false"><span class="ic">🚗</span>Curva con peralte</button>
+  </div>
+
+  <div class="grid">
+    <div class="stage">
+      <canvas id="cv" width="1120" height="1120"></canvas>
+      <div class="flag" id="flag"></div>
+    </div>
+
+    <div class="panel">
+      <div class="card">
+        <h2>Mediciones en vivo</h2>
+        <div class="readout">
+          <div class="metric for-mech"><div class="k">Rapidez v</div><div class="val"><span id="m-v">3.0</span><span class="u" id="m-v-u">m/s</span></div></div>
+          <div class="metric for-mech"><div class="k">Acel. centríp. a<sub>c</sub> = v²/r</div><div class="val"><span id="m-a">6.0</span><span class="u">m/s²</span></div></div>
+          <div class="metric only-rope"><div class="k">Periodo T = 2π/ω</div><div class="val"><span id="m-T">3.14</span><span class="u">s</span></div></div>
+          <div class="metric only-rope"><div class="k">Vel. angular ω</div><div class="val"><span id="m-w">2.0</span><span class="u">rad/s</span></div></div>
+          <div class="metric only-orbit"><div class="k">Distancia al Sol</div><div class="val"><span id="m-d">1.00</span><span class="u">× r₀</span></div></div>
+          <div class="metric only-orbit"><div class="k">Masa del Sol</div><div class="val"><span id="m-g">1.00</span><span class="u">×</span></div></div>
+        </div>
+
+        <!-- rope: tension gauge -->
+        <div class="gauge only-rope">
+          <div class="head"><span>Tensión en la cuerda&nbsp; T = m·ω²·r</span><span class="now"><span id="m-tn">3.0</span> N</span></div>
+          <div class="bar"><div class="fill" id="bar-t"></div></div>
+          <div class="sub">resistencia máx: <span id="m-tmax">8.0</span> N</div>
+        </div>
+
+        <!-- car: banked-curve safe speed window -->
+        <div class="only-car">
+          <div class="status" style="margin:4px 0 8px">
+            <div class="st" id="bank-st">Toma la curva con seguridad</div>
+            <div class="stsub" id="bank-sub">El peralte aporta fuerza hacia el centro</div>
+          </div>
+          <div class="gauge">
+            <div class="head"><span>Ventana de rapidez segura</span><span class="now"><span id="bk-v">20</span> m/s</span></div>
+            <div class="bar" id="bk-track" style="height:14px;position:relative;background:#E2E7F0">
+              <div id="bk-band" style="position:absolute;top:0;bottom:0;left:0;width:30%;background:rgba(14,138,107,.4);border-radius:6px"></div>
+              <div id="bk-mark" style="position:absolute;top:-4px;width:3px;height:22px;left:40%;background:var(--ink);border-radius:2px"></div>
+            </div>
+            <div class="sub">v<sub>mín</sub> <span id="bk-min">–</span> · diseño <span id="bk-des">–</span> · v<sub>máx</sub> <span id="bk-max">–</span> (m/s)</div>
+          </div>
+        </div>
+
+        <!-- orbit: status -->
+        <div class="status only-orbit">
+          <div class="st" id="orb-st">Órbita circular estable</div>
+          <div class="stsub" id="orb-sub">La gravedad iguala justo a m·v²/r</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Parámetros</h2>
+        <!-- rope -->
+        <div class="only-rope">
+          <div class="ctl"><label>Velocidad angular ω <span class="num"><span id="lw">2.0</span> rad/s</span></label>
+            <input type="range" id="w" min="0.3" max="4.5" step="0.1" value="2.0"></div>
+          <div class="ctl"><label>Radio r <span class="num"><span id="lr">1.50</span> m</span></label>
+            <input type="range" id="r" min="0.6" max="2.2" step="0.05" value="1.5"></div>
+          <div class="ctl"><label>Masa m <span class="num"><span id="lm">0.50</span> kg</span></label>
+            <input type="range" id="m" min="0.2" max="2.0" step="0.05" value="0.5"></div>
+          <div class="ctl"><label>Resistencia de la cuerda T<sub>máx</sub> <span class="num"><span id="lt">8.0</span> N</span></label>
+            <input type="range" id="tmax" min="3" max="20" step="0.5" value="8"></div>
+        </div>
+        <!-- orbit -->
+        <div class="only-orbit">
+          <div class="ctl"><label>Masa del Sol (gravedad) <span class="num"><span id="lg">1.00</span> ×</span></label>
+            <input type="range" id="grav" min="0.40" max="2.60" step="0.02" value="1.00"></div>
+          <div class="ctl"><label>Rapidez de lanzamiento <span class="num"><span id="lov">1.00</span> × circular</span></label>
+            <input type="range" id="orb-v" min="0.30" max="1.50" step="0.02" value="1.00"></div>
+          <div class="ctl"><label>Masa de la Tierra <span class="num"><span id="lom">1.0</span> ×</span></label>
+            <input type="range" id="orb-m" min="0.3" max="3.0" step="0.1" value="1.0"></div>
+          <p class="hint"><b>Círculo solo cuando rapidez = √(masa del Sol).</b> Baja la rapidez (o sube la masa del Sol) y la Tierra <b>se acerca al Sol hasta impactarlo</b>. La masa de la Tierra <b>no</b> cambia la órbita: se cancela en F = ma.</p>
+        </div>
+        <!-- car -->
+        <div class="only-car">
+          <div class="ctl"><label>Rapidez v <span class="num"><span id="lv">12</span> m/s</span></label>
+            <input type="range" id="cv-v" min="5" max="45" step="1" value="12"></div>
+          <div class="ctl"><label>Radio de la curva r <span class="num"><span id="lrc">60</span> m</span></label>
+            <input type="range" id="cv-r" min="20" max="120" step="2" value="60"></div>
+          <div class="ctl"><label>Peralte (pendiente transversal) <span class="num"><span id="lb">8.0</span> %</span></label>
+            <input type="range" id="cv-b" min="0" max="12" step="0.5" value="8"></div>
+          <div class="ctl"><label>Coef. de fricción μ <span class="num"><span id="lmu">0.40</span></span></label>
+            <input type="range" id="cv-mu" min="0" max="1.0" step="0.01" value="0.40"></div>
+          <p class="hint">El <b>peralte</b> es la pendiente transversal de la calzada en la curva, en %. En México el máximo de proyecto (SCT) es ~10%. Inclina la pista para que la <b>componente horizontal de la Normal</b> apunte al centro: la ventana segura sube. El dibujo exagera la inclinación ×5 para verse.</p>
+        </div>
+
+        <div class="chips" style="margin-top:6px">
+          <button class="chip" id="tg-v" style="--c:var(--v)" aria-pressed="true"><i class="dot"></i>Vector v</button>
+          <button class="chip" id="tg-f" style="--c:var(--force)" aria-pressed="true"><i class="dot"></i><span id="tg-f-l">Tensión</span></button>
+          <button class="chip" id="tg-a" style="--c:var(--a)" aria-pressed="false"><i class="dot"></i>Vector a<sub>c</sub></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 id="act-h">El momento de la verdad</h2>
+        <p id="act-p" style="margin:0 0 4px;font-size:13px;color:var(--ink-soft);line-height:1.45"></p>
+        <div class="verdict" id="verdict"></div>
+        <div class="row">
+          <button class="btn primary only-rope" id="release">Romper la cuerda</button>
+          <button class="btn ghost" id="reset">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><b>Simulación desarrollada por el Dr. Víctor Manuel Chávez Pérez</b><br>
+  Idealizaciones · vectores a escala ilustrativa · al soltar/derrapar la trayectoria es recta (MRU, 1ª ley de Newton)</div>
+</div>
+
+<script>
+(()=>{
+  const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  const DPR=Math.min(window.devicePixelRatio||1,2);
+  const CSS=560; cv.width=CSS*DPR; cv.height=CSS*DPR; ctx.scale(DPR,DPR);
+  const cx=CSS/2, cy=CSS/2;
+  const $=id=>document.getElementById(id);
+
+  let mode='rope';
+  const show={v:true,f:true,a:false};
+
+  // ---- shared state ----
+  const R={ theta:0, omega:2.0, r:1.5, mass:0.5, tmax:8, released:false, reason:null,
+            velDir:[0,0], flight:[], ghost:[], snapT:0 };
+  const C={ v:12, r:60, peralte:8, beta:Math.atan(0.08), mu:0.40, g:9.8, slide:0, slideV:0, roadT:0, marks:[], state:'ok' };
+  const G={ wx:0, wy:0, vx:0, vy:0, g:1.0, vfac:1.0, emass:1.0, trace:[], status:'circular', impact:false };
+  const GM=2.73e6, ORB_R=150, V0=Math.sqrt(GM/ORB_R), SUNR=16, TILT=0.52;
+  const stars=[]; for(let i=0;i<150;i++) stars.push({x:Math.random()*CSS,y:Math.random()*CSS,r:Math.random()*1.3+0.3,a:Math.random()*0.6+0.2});
+
+  // ---------- helpers ----------
+  function clear(){ ctx.clearRect(0,0,CSS,CSS); ctx.fillStyle='#FBFCFE'; ctx.fillRect(0,0,CSS,CSS); }
+  function grid(){
+    ctx.strokeStyle='#E2E7F0'; ctx.lineWidth=1; const s=47.5;
+    ctx.beginPath();
+    for(let x=cx%s;x<CSS;x+=s){ctx.moveTo(x,0);ctx.lineTo(x,CSS);}
+    for(let y=cy%s;y<CSS;y+=s){ctx.moveTo(0,y);ctx.lineTo(CSS,y);}
+    ctx.stroke();
+  }
+  function arrow(x1,y1,x2,y2,color,w){
+    const a=Math.atan2(y2-y1,x2-x1), h=10+w;
+    ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=w; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-h*Math.cos(a-0.42),y2-h*Math.sin(a-0.42));
+    ctx.lineTo(x2-h*Math.cos(a+0.42),y2-h*Math.sin(a+0.42));
+    ctx.closePath(); ctx.fill();
+  }
+  function tag(txt,x,y,color){
+    ctx.font='600 14px ui-monospace,Menlo,Consolas,monospace';
+    ctx.fillStyle='#fff'; ctx.strokeStyle='#fff'; ctx.lineWidth=4; ctx.lineJoin='round';
+    ctx.strokeText(txt,x,y); ctx.fillStyle=color; ctx.fillText(txt,x,y);
+  }
+  function wavy(x1,y1,x2,y2,amp,color){
+    const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,seg=10;
+    ctx.strokeStyle=color; ctx.lineWidth=2.4; ctx.lineCap='round'; ctx.beginPath();
+    for(let i=0;i<=seg;i++){const f=i/seg,w=Math.sin(f*Math.PI*3+R.snapT*8)*amp*(1-f);
+      const px=x1+dx*f+nx*w,py=y1+dy*f+ny*w; i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+    ctx.stroke();
+  }
+  function ball(x,y,col){ ctx.fillStyle=col||'#161A22'; ctx.beginPath(); ctx.arc(x,y,11,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x-3,y-3,3,0,Math.PI*2); ctx.fill(); }
+  function watermark(){ ctx.font='600 11px system-ui,sans-serif'; ctx.fillStyle = mode==='orbit'?'rgba(200,212,230,.55)':'rgba(90,100,115,.5)';
+    ctx.textAlign='right'; ctx.fillText('© Dr. V. M. Chávez Pérez', CSS-10, CSS-9); ctx.textAlign='left'; }
+
+  // =================================================================== ROPE
+  const ROPE_DRAW=95;
+  function ropeStep(dt){
+    if(!R.released){
+      R.theta+=R.omega*dt;
+      if(R.mass*R.omega*R.omega*R.r >= R.tmax) ropeBreak('overload');
+    } else {
+      const b=R.flight[R.flight.length-1], sp=R.omega*R.r*ROPE_DRAW;
+      const nx=b[0]+R.velDir[0]*sp*dt, ny=b[1]+R.velDir[1]*sp*dt;
+      if(nx>-40&&nx<CSS+40&&ny>-40&&ny<CSS+40) R.flight.push([nx,ny]);
+    }
+  }
+  function ropeDraw(){
+    const dR=R.r*ROPE_DRAW;
+    ctx.strokeStyle='#C3CCDA'; ctx.setLineDash([5,6]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.arc(cx,cy,dR,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='#8A95A6'; ctx.beginPath(); ctx.arc(cx,cy,5,0,Math.PI*2); ctx.fill();
+    const v=R.omega*R.r, ac=R.omega*R.omega*R.r;
+    if(!R.released){
+      const px=cx+dR*Math.cos(R.theta), py=cy-dR*Math.sin(R.theta);
+      // ROPE (physical cord) — neutral, thin, separate from the force arrow
+      const load=Math.min(R.mass*R.omega*R.omega*R.r/R.tmax,1);
+      ctx.strokeStyle = load>0.85 ? '#E0322B' : 'var(--rope)'; ctx.strokeStyle = load>0.85?'#E0322B':'#9AA4B2';
+      ctx.lineWidth=2.2; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+      // TENSION force vector — offset to the side so it reads as a force, not the cord
+      if(show.f){
+        const ux=-Math.cos(R.theta), uy=Math.sin(R.theta);      // toward centre (screen)
+        const ox=-Math.sin(R.theta)*16, oy=-Math.cos(R.theta)*16; // perpendicular offset
+        const L=Math.min(ac*15+24,150);
+        arrow(px+ox,py+oy, px+ox+ux*L, py+oy+uy*L, '#0E8A6B',4.5);
+        tag('T',px+ox+ux*L-2,py+oy+uy*L-9,'#0E8A6B');
+      }
+      if(show.a){const ax=-Math.cos(R.theta),ay=Math.sin(R.theta),L=Math.min(ac*15+18,140);
+        arrow(px,py, px+ax*L, py+ay*L,'#E0322B',4); tag('a',px+ax*L-2,py+ay*L+14,'#E0322B');}
+      if(show.v){const vx=-Math.sin(R.theta),vy=-Math.cos(R.theta),L=Math.min(v*24+18,150);
+        arrow(px,py, px+vx*L, py+vy*L,'#1F6FEB',4.5); tag('v',px+vx*L+8,py+vy*L,'#1F6FEB');}
+      ball(px,py);
+    } else {
+      if(R.ghost.length>1){ ctx.strokeStyle='#E0322B'; ctx.setLineDash([7,7]); ctx.lineWidth=2; ctx.globalAlpha=.55;
+        ctx.beginPath(); ctx.moveTo(R.ghost[0][0],R.ghost[0][1]); R.ghost.forEach(p=>ctx.lineTo(p[0],p[1])); ctx.stroke();
+        ctx.setLineDash([]); ctx.globalAlpha=1; const g=R.ghost[R.ghost.length-1]; tag('predicción común',g[0]-150,g[1]+4,'#E0322B'); }
+      const r0=R.flight[0], b=R.flight[R.flight.length-1];
+      wavy(cx,cy, cx+(r0[0]-cx)*0.45, cy+(r0[1]-cy)*0.45, 5, '#9AA4B2');
+      wavy(b[0],b[1], b[0]-R.velDir[0]*22, b[1]-R.velDir[1]*22, 6, '#9AA4B2');
+      ctx.strokeStyle='#1F6FEB'; ctx.lineWidth=3.5; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(r0[0],r0[1]); R.flight.forEach(p=>ctx.lineTo(p[0],p[1])); ctx.stroke();
+      arrow(r0[0],r0[1], r0[0]+R.velDir[0]*70, r0[1]+R.velDir[1]*70,'#1F6FEB',4);
+      ctx.strokeStyle='#8A95A6'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(r0[0],r0[1],14,0,Math.PI*2); ctx.stroke();
+      ball(b[0],b[1]);
+    }
+  }
+  function ropeBreak(reason){
+    if(R.released) return;
+    R.released=true; R.reason=reason; $('release').disabled=true;
+    const Fb=R.mass*R.omega*R.omega*R.r, dR=R.r*ROPE_DRAW;
+    const px=cx+dR*Math.cos(R.theta), py=cy-dR*Math.sin(R.theta);
+    R.velDir=[-Math.sin(R.theta), -Math.cos(R.theta)]; R.flight=[[px,py]];
+    R.ghost=[[px,py],[px+Math.cos(R.theta)*210, py-Math.sin(R.theta)*210]];
+    const vd=$('verdict'); vd.classList.add('show');
+    const tail=' Sin la fuerza hacia el centro, la masa cumple la <b>1ª ley</b> y se va recta, por la <b>tangente</b>. Nunca hubo fuerza hacia afuera.';
+    if(reason==='overload'){
+      vd.innerHTML='<b>¡La cuerda se rompió por exceso de tensión!</b> La fuerza necesaria T = m·ω²·r = '+Fb.toFixed(1)+
+        ' N superó la resistencia ('+R.tmax.toFixed(1)+' N).'+tail;
+      $('flag').innerHTML='La cuerda cedió: T = m·ω²·r rebasó su resistencia. La masa sale por la tangente (en rojo, la intuición equivocada).';
+    } else {
+      vd.innerHTML='<b>Se cortó la cuerda.</b> La fuerza neta es cero.'+tail;
+      $('flag').innerHTML='La masa se aleja en línea recta (MRU). En rojo punteado, la predicción intuitiva (radial), que es incorrecta.';
+    }
+  }
+
+  // =================================================================== CAR
+  function carDrawBeta(){ return Math.atan(Math.min(C.peralte/100*5, 0.72)); }
+  function carGeom(){
+    const b=carDrawBeta();
+    return {bx:cx+10, by:cy+74, sux:Math.cos(b), suy:-Math.sin(b), nx:-Math.sin(b), ny:-Math.cos(b)};
+  }
+  function carPos(){ const g=carGeom(); return [g.bx+g.sux*C.slide, g.by+g.suy*C.slide]; }
+  function carCalc(){
+    const tb=Math.tan(C.beta), g=C.g, r=C.r;
+    const v0=Math.sqrt(Math.max(r*g*tb,0));
+    const dMax=1-C.mu*tb;
+    const vmax=dMax>1e-3?Math.sqrt(Math.max(r*g*(tb+C.mu)/dMax,0)):Infinity;
+    const num=tb-C.mu;
+    const vmin=num>0?Math.sqrt(r*g*num/(1+C.mu*tb)):0;
+    return {tb,v0,vmin,vmax};
+  }
+  function carState(k){
+    if(C.v>k.vmax) return 'out';
+    if(C.v<k.vmin) return 'in';
+    if(Math.abs(C.v-k.v0)<0.6) return 'design';
+    return 'ok';
+  }
+  function carStep(dt){
+    const k=carCalc(), st=carState(k);
+    const entering=(st!==C.state); C.state=st;
+    if(entering && (st==='out'||st==='in')){ C.slide=0; C.slideV=0; C.roadT=0.55; }
+    if(st==='out'){ C.slideV += 175*dt; C.slide += C.slideV*dt; if(C.slide>240){C.slide=240;C.slideV=0;} }
+    else if(st==='in'){ C.slideV -= 160*dt; C.slide += C.slideV*dt; if(C.slide<-210){C.slide=-210;C.slideV=0;} }
+    else { C.slideV += (-C.slide*7 - C.slideV*4.8)*dt; C.slide += C.slideV*dt; C.roadT=(C.roadT+dt*0.15)%1; }
+  }
+  function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+  function bez(x0,y0,x1,y1,x2,y2,t){ const u=1-t; return [u*u*x0+2*u*t*x1+t*t*x2, u*u*y0+2*u*t*y1+t*t*y2]; }
+  function strokePoly(pts){ ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])); ctx.stroke(); }
+  function tagS(txt,x,y,color,size){ ctx.font='600 '+(size||11)+'px ui-monospace,Menlo,Consolas,monospace';
+    ctx.fillStyle='#fff'; ctx.strokeStyle='#fff'; ctx.lineWidth=3.5; ctx.lineJoin='round';
+    ctx.strokeText(txt,x,y); ctx.fillStyle=color; ctx.fillText(txt,x,y); }
+  function drawCarSprite(px,py,ang,scale,col,skew){
+    ctx.save(); ctx.translate(px,py); ctx.rotate(ang); if(skew) ctx.transform(1,0,skew,1,0,0); ctx.scale(scale,scale);
+    ctx.fillStyle=col; ctx.strokeStyle='#1b2430'; ctx.lineWidth=1.5/scale;
+    roundRect(-18,-11,36,22,6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#9cc4e8'; roundRect(-11,-8,8,16,3); ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.85)'; roundRect(7,-8,6,16,3); ctx.fill();
+    ctx.restore();
+  }
+  function drawCarRear(px,py,roadAng,scale,col,bank){
+    ctx.save(); ctx.translate(px,py); ctx.rotate(roadAng+Math.PI/2);
+    if(bank) ctx.transform(1,0,bank,1,0,0);
+    ctx.scale(scale,scale);
+    ctx.fillStyle='rgba(0,0,0,.16)'; ctx.beginPath(); ctx.ellipse(0,15,16,5,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=col; ctx.strokeStyle='#1b2430'; ctx.lineWidth=1.4/scale;
+    roundRect(-15,-13,30,26,7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#cdd6e0'; roundRect(-11,-12,22,10,4); ctx.fill();
+    ctx.fillStyle='#8fb6dd'; roundRect(-9,-10,18,7,3); ctx.fill();
+    ctx.fillStyle='#e23b2e'; roundRect(-14,6,6,5,2); ctx.fill(); roundRect(8,6,6,5,2); ctx.fill();
+    ctx.fillStyle='rgba(0,0,0,.3)'; roundRect(-15,10,30,4,2); ctx.fill();
+    ctx.restore();
+  }
+  function drawCarFront(px,py,rot,scale,col){
+    ctx.save(); ctx.translate(px,py); ctx.rotate(rot); ctx.scale(scale,scale);
+    ctx.fillStyle='#1b2430'; roundRect(-17,5,7,10,2); ctx.fill(); roundRect(10,5,7,10,2); ctx.fill();
+    ctx.fillStyle=col; ctx.strokeStyle='#1b2430'; ctx.lineWidth=1.4/scale;
+    roundRect(-16,-14,32,26,6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#9cc4e8'; roundRect(-12,-12,24,9,3); ctx.fill();
+    ctx.fillStyle='#ffe9a8'; roundRect(-14,3,6,4,2); ctx.fill(); roundRect(8,3,6,4,2); ctx.fill();
+    ctx.fillStyle='rgba(0,0,0,.3)'; roundRect(-6,2,12,5,2); ctx.fill();
+    ctx.restore();
+  }
+  function drawCurveRoad(x0,w){
+    const sky=ctx.createLinearGradient(0,0,0,160); sky.addColorStop(0,'#cfe3f2'); sky.addColorStop(1,'#cfe0cd');
+    ctx.fillStyle=sky; ctx.fillRect(x0,0,w,160);
+    ctx.fillStyle='#cfe0cd'; ctx.fillRect(x0,150,w,CSS-150);
+    const N=46, bx=x0+w*0.44, by=548, c1x=x0+w*0.76, c1y=300, vpx=x0+w*0.42, vpy=135;
+    const L=[],R=[],Cn=[],HW=[];
+    for(let i=0;i<=N;i++){
+      const t=i/N, P=bez(bx,by,c1x,c1y,vpx,vpy,t), Pn=bez(bx,by,c1x,c1y,vpx,vpy,Math.min(t+0.012,1));
+      let dx=Pn[0]-P[0], dy=Pn[1]-P[1], dl=Math.hypot(dx,dy)||1; dx/=dl; dy/=dl;
+      const nx=-dy, ny=dx, hw=58*(1-t)+5, lift=(C.peralte/100)*hw*1.5;
+      R.push([P[0]+nx*hw, P[1]+ny*hw-lift]); L.push([P[0]-nx*hw, P[1]-ny*hw]); Cn.push([P[0],P[1]-lift*0.5]); HW.push(hw);
+    }
+    ctx.beginPath(); ctx.moveTo(L[0][0],L[0][1]);
+    for(const p of L) ctx.lineTo(p[0],p[1]);
+    for(let i=R.length-1;i>=0;i--) ctx.lineTo(R[i][0],R[i][1]); ctx.closePath();
+    ctx.fillStyle='#7c828c'; ctx.fill();
+    ctx.lineWidth=2.5; ctx.strokeStyle='#eef0f3'; strokePoly(L); strokePoly(R);
+    ctx.strokeStyle='#b54b3a'; ctx.lineWidth=3.5; strokePoly(R); // raised outer edge (peralte alto)
+    ctx.setLineDash([14,12]); ctx.strokeStyle='#f5c542'; ctx.lineWidth=2.5; strokePoly(Cn); ctx.setLineDash([]);
+    // moving car
+    const t0=0.14+C.roadT*0.46, idx=Math.round(t0*N);
+    const P=Cn[idx], Pn=Cn[Math.min(idx+1,N)]; const ang=Math.atan2(Pn[1]-P[1],Pn[0]-P[0]);
+    const off=C.state==='out'||C.state==='in';
+    let dx=Pn[0]-P[0],dy=Pn[1]-P[1],dl=Math.hypot(dx,dy)||1; const tx=dx/dl,ty=dy/dl, nrx=-ty,nry=tx;
+    const prog=Math.min(Math.abs(C.slide)/240,1), dir=Math.sign(C.slide);
+    let cxp=P[0], cyp=P[1], head=ang;
+    if(dir>0){ cxp=P[0]+tx*prog*120+nrx*prog*HW[idx]*0.5; cyp=P[1]+ty*prog*120+nry*prog*HW[idx]*0.5; head=ang+0.24*prog; }
+    else if(dir<0){ cxp=P[0]-nrx*prog*HW[idx]*1.0; cyp=P[1]-nry*prog*HW[idx]*1.0; head=ang-0.14*prog; }
+    cxp=Math.max(18,Math.min(cxp,x0+w-18)); cyp=Math.max(18,Math.min(cyp,CSS-18));
+    if(prog>0.05 && off){ ctx.strokeStyle='rgba(40,44,52,.4)'; ctx.lineWidth=3; ctx.setLineDash([3,6]); ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(P[0],P[1]); ctx.lineTo(cxp,cyp); ctx.stroke(); ctx.setLineDash([]); }
+    drawCarRear(cxp,cyp,head, 0.95*(1-t0)+0.34, off?'#d24b39':'#f1f3f6', (C.peralte/100)*0.9);
+    tagS('Curva peraltada · vista en perspectiva', x0+10, 22, '#2b3340', 12);
+    if(off) tagS('¡DERRAPA!', Math.max(x0+6,Math.min(cxp-26,x0+w-86)), Math.max(18,cyp-26), '#d24b39', 13);
+  }
+  function drawCrossSection(x0,w){
+    ctx.fillStyle='#eef2f7'; ctx.fillRect(x0,0,w,CSS);
+    tagS('Corte transversal', x0+12, 22, '#2b3340', 12);
+    const aD=carDrawBeta(), baseY=372, innerX=x0+34, RL=w-110;
+    const sux=Math.cos(aD), suy=-Math.sin(aD), nx=-Math.sin(aD), ny=-Math.cos(aD);
+    const ox=innerX+sux*RL, oy=baseY+suy*RL;
+    ctx.strokeStyle='#cfd6df'; ctx.setLineDash([4,6]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(x0+10,baseY); ctx.lineTo(x0+w-12,baseY); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='#c9cfd8'; ctx.beginPath(); ctx.moveTo(innerX,baseY); ctx.lineTo(ox,oy); ctx.lineTo(ox,baseY); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle='#9aa3af'; ctx.lineWidth=1.4; ctx.stroke();
+    ctx.strokeStyle='#5b6470'; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(innerX,baseY); ctx.lineTo(ox,oy); ctx.stroke();
+    ctx.strokeStyle='#f4f6fa'; ctx.lineWidth=1.5; ctx.setLineDash([8,7]); ctx.beginPath(); ctx.moveTo(innerX,baseY); ctx.lineTo(ox,oy); ctx.stroke(); ctx.setLineDash([]);
+    ctx.strokeStyle='#5A6473'; ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(ox,baseY); ctx.lineTo(ox,oy); ctx.stroke(); ctx.setLineDash([]);
+    tagS('e='+C.peralte.toFixed(1)+'%', ox-2, (baseY+oy)/2, '#5A6473', 10);
+    ctx.strokeStyle='#161A22'; ctx.lineWidth=1.4; ctx.beginPath(); ctx.arc(innerX,baseY,28,-aD,0); ctx.stroke();
+    tagS('α', innerX+32, baseY-5, '#161A22', 13);
+    arrow(x0+92,44, x0+22,44, '#8A95A6', 2); tagS('Centro de la curva', x0+20, 36, '#5A6473', 10);
+    const sl=Math.max(-120,Math.min(C.slide,120)), sp=RL*0.42 + sl*0.40;
+    const bxp=innerX+sux*sp, byp=baseY+suy*sp; let ccx=Math.min(bxp+nx*14, x0+w-86); const ccy=byp+ny*14;
+    const off=C.state==='out'||C.state==='in';
+    drawCarFront(ccx,ccy, Math.atan2(ny,nx)+Math.PI/2, 0.72, off?'#d24b39':'#2b3340');
+    if(off){ const d=C.state==='out'?1:-1; ctx.setLineDash([5,4]);
+      arrow(ccx,ccy, ccx+sux*30*d, ccy+suy*30*d, '#d24b39', 3); ctx.setLineDash([]); }
+    if(show.f){
+      const aD2=carDrawBeta(), acc=C.v*C.v/C.r, g=C.g, S=4.4;
+      const Nm=g*Math.cos(aD2)+acc*Math.sin(aD2);   // N/m  (equilibrio vertical+horizontal)
+      const fm=acc*Math.cos(aD2)-g*Math.sin(aD2);   // f/m  (signo: + abajo, - arriba; 0 en v diseño)
+      const cl=(x,a,b)=>Math.max(a,Math.min(x,b));
+      const Lw=cl(g*S,8,58);  arrow(ccx,ccy, ccx, ccy+Lw, '#1f9d55', 3.5); tagS('W', ccx+5, ccy+Lw, '#1f9d55', 11);
+      const Ln=cl(Nm*S,8,70); arrow(ccx,ccy, ccx+nx*Ln, ccy+ny*Ln, '#6c5ce7', 3.5); tagS('N', ccx+nx*Ln-3, ccy+ny*Ln-5, '#6c5ce7', 12);
+      const Lf=cl(Math.abs(fm)*S,0,52), s=Math.sign(fm)||1, fdx=-sux*s, fdy=-suy*s;
+      if(Lf>4){ arrow(ccx,ccy, ccx+fdx*Lf, ccy+fdy*Lf, '#E8A33D', 2.5); tagS('f', ccx+fdx*Lf+3, ccy+fdy*Lf, '#E8A33D', 11); }
+      const Lc=cl(acc*S,8,56);
+      arrow(ccx,ccy, ccx-Lc, ccy, '#E0322B', 4); tagS('Fc', ccx-Lc-14, ccy+4, '#E0322B', 11);
+      ctx.setLineDash([5,5]); arrow(ccx,ccy, ccx+Lc, ccy, '#1F6FEB', 2); ctx.setLineDash([]); tagS('centrífuga', ccx+10, ccy-8, '#1F6FEB', 9);
+    }
+  }
+  function carDraw(){
+    const LW=300;
+    drawCurveRoad(0,LW);
+    drawCrossSection(LW,CSS-LW);
+    ctx.strokeStyle='#cfd6df'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(LW,8); ctx.lineTo(LW,CSS-8); ctx.stroke();
+  }
+  function setBankStatus(st){
+    const map={
+      design:['Equilibrio perfecto ✓','Solo el peralte: no hace falta fricción','#0E8A6B'],
+      ok:['Toma la curva con seguridad','La fricción complementa al peralte','#0E8A6B'],
+      in:['Resbala hacia adentro / abajo','Va muy lento para este peralte','#E8A33D'],
+      out:['¡Derrapa hacia afuera!','Rebasó v_máx: peralte + fricción no alcanzan','#E0322B']
+    };
+    const s=map[st]||map.ok; $('bank-st').textContent=s[0]; $('bank-st').style.color=s[2]; $('bank-sub').textContent=s[1];
+    if(st==='out') $('flag').innerHTML='Demasiado rápido para el peralte: el auto sube por la pista y <b>derrapa hacia afuera</b> (lateral).';
+    else if(st==='in') $('flag').innerHTML='Demasiado lento: tiende a resbalar hacia el interior, ladera abajo.';
+    else $('flag').innerHTML='Corte transversal de una curva peraltada. El auto avanza hacia ti (⊙); las fuerzas lo mantienen en la curva.';
+  }
+
+  // =================================================================== ORBIT
+  function orbReset(){
+    G.wx=ORB_R; G.wy=0; G.vx=0; G.vy=-V0*G.vfac; G.trace=[]; G.impact=false;
+    const q=G.vfac/Math.sqrt(G.g);
+    G.status = q>=1.41 ? 'escape' : (Math.abs(q-1)<=0.03 ? 'circular' : (q<1 ? 'infall' : 'wide'));
+    setOrbStatus();
+  }
+  function setOrbStatus(){
+    const map={
+      circular:['Órbita circular estable ✓','La gravedad iguala justo a m·v²/r'],
+      wide:['Órbita elíptica · se aleja','Menos gravedad → afelio más lejano'],
+      escape:['Escapa al espacio','Gravedad insuficiente para retenerla'],
+      infall:['Órbita elíptica · se acerca al Sol','Más gravedad → perihelio más cercano'],
+      impact:['Impacto con el Sol','La gravedad excesiva colapsó la órbita']
+    };
+    const s=map[G.status]||map.circular;
+    $('orb-st').textContent=s[0]; $('orb-sub').textContent=s[1];
+    const st=$('orb-st');
+    st.style.color = G.status==='circular' ? '#0E8A6B' : (G.status==='impact'||G.status==='escape'?'#E0322B':'#E8A33D');
+  }
+  function orbStep(dt){
+    if(G.impact) return;
+    const SUB=6, h=dt/SUB;
+    for(let i=0;i<SUB;i++){
+      const d=Math.hypot(G.wx,G.wy);
+      if(d<SUNR){ G.impact=true; G.status='impact'; setOrbStatus(); break; }
+      const aMag=-GM*G.g/(d*d);
+      G.vx+=aMag*G.wx/d*h; G.vy+=aMag*G.wy/d*h;
+      G.wx+=G.vx*h; G.wy+=G.vy*h;
+    }
+    G.trace.push([G.wx,G.wy]); if(G.trace.length>1600) G.trace.shift();
+  }
+  function P(wx,wy){ return [cx+wx, cy+wy*TILT]; }
+  function drawSun(){
+    const glow=ctx.createRadialGradient(cx,cy,4,cx,cy,74);
+    glow.addColorStop(0,'rgba(255,233,165,.95)'); glow.addColorStop(.45,'rgba(255,178,60,.45)'); glow.addColorStop(1,'rgba(255,150,30,0)');
+    ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(cx,cy,74,0,Math.PI*2); ctx.fill();
+    const core=ctx.createRadialGradient(cx-4,cy-4,2,cx,cy,SUNR);
+    core.addColorStop(0,'#fff8d8'); core.addColorStop(.55,'#ffd35a'); core.addColorStop(1,'#f3971f');
+    ctx.fillStyle=core; ctx.beginPath(); ctx.arc(cx,cy,SUNR,0,Math.PI*2); ctx.fill();
+  }
+  function drawEarth(sx,sy,rad){
+    const at=ctx.createRadialGradient(sx,sy,rad*0.85,sx,sy,rad*1.6);
+    at.addColorStop(0,'rgba(110,180,255,.45)'); at.addColorStop(1,'rgba(110,180,255,0)');
+    ctx.fillStyle=at; ctx.beginPath(); ctx.arc(sx,sy,rad*1.6,0,Math.PI*2); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(sx,sy,rad,0,Math.PI*2); ctx.clip();
+    const dx=cx-sx, dy=cy-sy, dd=Math.hypot(dx,dy)||1, lx=sx+dx/dd*rad*0.5, ly=sy+dy/dd*rad*0.5;
+    const oc=ctx.createRadialGradient(lx,ly,rad*0.2, sx,sy,rad*1.2);
+    oc.addColorStop(0,'#7bb8f2'); oc.addColorStop(.55,'#2b72b8'); oc.addColorStop(1,'#0a2138');
+    ctx.fillStyle=oc; ctx.fillRect(sx-rad,sy-rad,rad*2,rad*2);
+    ctx.fillStyle='rgba(74,150,86,.72)';
+    ctx.beginPath(); ctx.ellipse(sx-rad*.25,sy-rad*.15,rad*.4,rad*.26,0.6,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(sx+rad*.3,sy+rad*.3,rad*.3,rad*.2,-0.4,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(sx+rad*.05,sy-rad*.5,rad*.18,rad*.13,0.2,0,Math.PI*2); ctx.fill();
+    const ax=sx-dx/dd*rad*0.7, ay=sy-dy/dd*rad*0.7;
+    const sh=ctx.createRadialGradient(ax,ay,rad*0.15, ax,ay,rad*1.7);
+    sh.addColorStop(0,'rgba(4,8,16,.82)'); sh.addColorStop(.6,'rgba(4,8,16,.32)'); sh.addColorStop(1,'rgba(4,8,16,0)');
+    ctx.fillStyle=sh; ctx.fillRect(sx-rad,sy-rad,rad*2,rad*2);
+    ctx.restore();
+    ctx.strokeStyle='rgba(150,200,255,.5)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(sx,sy,rad,0,Math.PI*2); ctx.stroke();
+  }
+  function orbDraw(){
+    const bg=ctx.createRadialGradient(cx,cy-30,40,cx,cy,CSS*0.85);
+    bg.addColorStop(0,'#12233f'); bg.addColorStop(1,'#04060c');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,CSS,CSS);
+    for(const s of stars){ ctx.globalAlpha=s.a; ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
+    ctx.globalAlpha=1;
+    ctx.strokeStyle='rgba(150,170,210,.4)'; ctx.setLineDash([4,7]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.ellipse(cx,cy,ORB_R,ORB_R*TILT,0,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+    if(G.trace.length>1){ ctx.strokeStyle='rgba(120,180,255,.55)'; ctx.lineWidth=2; ctx.beginPath();
+      const p0=P(G.trace[0][0],G.trace[0][1]); ctx.moveTo(p0[0],p0[1]);
+      for(const tp of G.trace){ const p=P(tp[0],tp[1]); ctx.lineTo(p[0],p[1]); } ctx.stroke(); }
+    const pp=P(G.wx,G.wy), psx=pp[0], psy=pp[1];
+    const rad=9*(1+0.24*(G.wy/ORB_R))*(0.55+0.45*G.emass), behind=G.wy<0;
+    if(behind && !G.impact) drawEarth(psx,psy,rad);
+    drawSun();
+    if(G.impact){ ctx.fillStyle='rgba(255,120,40,.32)'; ctx.beginPath(); ctx.arc(cx,cy,30,0,Math.PI*2); ctx.fill(); }
+    if(!behind && !G.impact) drawEarth(psx,psy,rad);
+    if(!G.impact){
+      const dx=cx-psx, dy=cy-psy, dd=Math.hypot(dx,dy)||1, dw=Math.hypot(G.wx,G.wy)||1;
+      if(show.f){ const acc=GM*G.g/(dw*dw), L=Math.max(14,Math.min(acc*0.36,84));
+        arrow(psx,psy, psx+dx/dd*L, psy+dy/dd*L,'#2fd49a',3.5); tag('g',psx+dx/dd*L-4,psy+dy/dd*L-8,'#2fd49a'); }
+      if(show.v){ const vsx=G.vx,vsy=G.vy*TILT,sp=Math.hypot(vsx,vsy)||1, speed=Math.hypot(G.vx,G.vy), L=Math.max(14,Math.min(speed*0.33,84));
+        arrow(psx,psy, psx+vsx/sp*L, psy+vsy/sp*L,'#5aa0ff',3.5); tag('v',psx+vsx/sp*L+6,psy+vsy/sp*L,'#5aa0ff'); }
+    }
+  }
+
+  // ---------- main loop ----------
+  let last=performance.now();
+  function loop(t){
+    const dt=Math.min((t-last)/1000,0.05); last=t; R.snapT+=dt;
+    clear();
+    if(mode==='orbit'){ orbStep(dt); orbDraw(); }
+    else { grid();
+      if(mode==='rope'){ ropeStep(dt); ropeDraw(); }
+      else { carStep(dt); carDraw(); }
+    }
+    watermark();
+    requestAnimationFrame(loop);
+  }
+
+  // ---------- readouts ----------
+  function updateReadout(){
+    if(mode==='rope'){
+      const v=R.omega*R.r, ac=R.omega*R.omega*R.r, T=2*Math.PI/R.omega, F=R.mass*R.omega*R.omega*R.r;
+      $('m-v').textContent=v.toFixed(1); $('m-a').textContent=ac.toFixed(1);
+      $('m-T').textContent=T.toFixed(2); $('m-w').textContent=R.omega.toFixed(1);
+      $('m-tn').textContent=F.toFixed(1); $('m-tmax').textContent=R.tmax.toFixed(1);
+      const ld=Math.min(F/R.tmax,1), b=$('bar-t'); b.style.width=(ld*100).toFixed(0)+'%';
+      b.style.background=ld<0.6?'#0E8A6B':ld<0.85?'#E8A33D':'#E0322B';
+    } else if(mode==='car'){
+      const ac=C.v*C.v/C.r, k=carCalc(), SC=45;
+      $('m-v').textContent=C.v.toFixed(0); $('m-a').textContent=ac.toFixed(1);
+      const minP=Math.min(k.vmin/SC*100,100);
+      const maxV=isFinite(k.vmax)?Math.min(k.vmax,SC):SC;
+      $('bk-band').style.left=minP+'%';
+      $('bk-band').style.width=Math.max(maxV/SC*100-minP,0)+'%';
+      $('bk-mark').style.left=Math.min(C.v/SC*100,100)+'%';
+      $('bk-v').textContent=C.v.toFixed(0);
+      $('bk-min').textContent=k.vmin.toFixed(0);
+      $('bk-des').textContent=k.v0.toFixed(0);
+      $('bk-max').textContent=isFinite(k.vmax)?k.vmax.toFixed(0):'∞';
+      setBankStatus(carState(k));
+    } else {
+      $('m-g').textContent=G.g.toFixed(2);
+      const d=Math.hypot(G.wx,G.wy)/ORB_R; $('m-d').textContent=d.toFixed(2);
+    }
+  }
+
+  // ---------- controls ----------
+  $('w').oninput=e=>{R.omega=+e.target.value;$('lw').textContent=R.omega.toFixed(1);updateReadout();};
+  $('r').oninput=e=>{R.r=+e.target.value;$('lr').textContent=R.r.toFixed(2);updateReadout();};
+  $('m').oninput=e=>{R.mass=+e.target.value;$('lm').textContent=R.mass.toFixed(2);updateReadout();};
+  $('tmax').oninput=e=>{R.tmax=+e.target.value;$('lt').textContent=R.tmax.toFixed(1);updateReadout();};
+  $('cv-v').oninput=e=>{C.v=+e.target.value;$('lv').textContent=C.v.toFixed(0);updateReadout();};
+  $('cv-r').oninput=e=>{C.r=+e.target.value;$('lrc').textContent=C.r.toFixed(0);updateReadout();};
+  $('cv-mu').oninput=e=>{C.mu=+e.target.value;$('lmu').textContent=C.mu.toFixed(2);updateReadout();};
+  $('cv-b').oninput=e=>{C.peralte=+e.target.value;C.beta=Math.atan(C.peralte/100);$('lb').textContent=C.peralte.toFixed(1);updateReadout();};
+  $('grav').oninput=e=>{G.g=+e.target.value;$('lg').textContent=G.g.toFixed(2);orbReset();updateReadout();};
+  $('orb-v').oninput=e=>{G.vfac=+e.target.value;$('lov').textContent=G.vfac.toFixed(2);orbReset();updateReadout();};
+  $('orb-m').oninput=e=>{G.emass=+e.target.value;$('lom').textContent=G.emass.toFixed(1);updateReadout();};
+
+  $('tg-v').onclick=e=>tog(e.currentTarget,'v');
+  $('tg-f').onclick=e=>tog(e.currentTarget,'f');
+  $('tg-a').onclick=e=>tog(e.currentTarget,'a');
+  function tog(el,k){show[k]=!show[k];el.setAttribute('aria-pressed',show[k]);}
+
+  $('release').onclick=()=>ropeBreak('manual');
+  $('reset').onclick=()=>resetMode();
+
+  function resetMode(){
+    $('verdict').classList.remove('show');
+    if(mode==='rope'){ R.released=false; R.reason=null; R.flight=[]; R.ghost=[]; $('release').disabled=false;
+      $('flag').innerHTML='Vista superior, plano horizontal (sin gravedad). Rapidez constante; la <b>dirección</b> de v cambia siempre.'; }
+    else if(mode==='car'){ C.slide=0; C.slideV=0; C.marks=[]; C.state='ok';
+      $('flag').innerHTML='Izquierda: la curva peraltada en perspectiva. Derecha: el corte transversal con las fuerzas. Sube el peralte y ambos cambian.'; }
+    else { orbReset(); $('flag').innerHTML='La Tierra orbita al Sol. La gravedad es la fuerza centrípeta: solo el valor exacto da un círculo.'; }
+    updateReadout();
+  }
+
+  // ---------- scenario switch ----------
+  const switchBtns=[...document.querySelectorAll('.switch button')];
+  switchBtns.forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+  function setMode(m){
+    mode=m;
+    switchBtns.forEach(b=>b.setAttribute('aria-selected', b.dataset.mode===m));
+    $('sim').className='wrap sim m-'+m;
+    $('maintitle').textContent={rope:'La cuerda que obliga a girar',orbit:'La gravedad que sostiene la órbita',car:'La fricción que vence la curva'}[m];
+    // adapt action card + force toggle label
+    const fl=$('tg-f-l');
+    if(m==='rope'){ fl.textContent='Tensión';
+      $('act-h').textContent='El momento de la verdad';
+      $('act-p').textContent='Sube ω, el radio o la masa hasta que la tensión rebase la resistencia: la cuerda se rompe y la pelota sale por la tangente.'; }
+    else if(m==='car'){ fl.textContent='Vectores';
+      $('act-h').textContent='¿Para qué sirve el peralte?';
+      $('act-p').textContent='Sube el peralte (%) y verás crecer la ventana de rapidez segura: la Normal inclinada aporta fuerza al centro. Si rebasas v_máx, el auto derrapa lateralmente hacia afuera.'; }
+    else { fl.textContent='Gravedad';
+      $('act-h').textContent='El equilibrio de la órbita';
+      $('act-p').textContent='La gravedad es la fuerza centrípeta. Mueve la gravedad: solo el valor exacto (1.00) mantiene el círculo.'; }
+    resetMode();
+  }
+
+  // init
+  $('flag').innerHTML='Vista superior, plano horizontal (sin gravedad). Rapidez constante; la <b>dirección</b> de v cambia siempre.';
+  orbReset(); updateReadout(); requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
