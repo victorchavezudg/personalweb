@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1629";
+window.DATA_VERSION = "2026-08-31-1632";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -530,7 +530,7 @@ window.DATA = {
       {
         "org": "COECYTJAL",
         "es": "Incorporación al Sistema Estatal de Investigación",
-        "en": "Admission to the State Research System",
+        "en": "Admission to the Sistema Estatal de Investigación (Jalisco State Research System)",
         "years": "2009",
         "place": {
           "es": "Jalisco, México",
@@ -1190,7 +1190,7 @@ window.DATA = {
         "en": "Generative AI for lab practice reports (Google Gems)"
       },
       "org": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara",
-      "years": "2026 -",
+      "years": "2026 – actual",
       "active": true,
       "desc": {
         "es": "Implementación de Google Gems como asistente de escritura y retroalimentación para que los estudiantes redacten y autoevalúen sus reportes de prácticas de laboratorio en cursos de física.",
@@ -1312,7 +1312,7 @@ window.DATA = {
       ],
       "funding": {
         "es": "Universidad Tecnológica de Jalisco",
-        "en": "Technological University of Jalisco"
+        "en": "Universidad Tecnológica de Jalisco"
       },
       "outputs": [
         {
@@ -1637,7 +1637,7 @@ window.DATA = {
       },
       "title": {
         "es": "Red Temática de Medio Ambiente y Sustentabilidad",
-        "en": "Environment & Sustainability Thematic Network"
+        "en": "Red Temática de Medio Ambiente y Sustentabilidad (Environment & Sustainability Thematic Network)"
       },
       "desc": {
         "es": "Miembro de la red CONACYT de medio ambiente y sustentabilidad.",
