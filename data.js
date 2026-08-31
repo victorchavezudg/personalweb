@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-06-23-0538";
+window.DATA_VERSION = "2026-08-31-1455";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -12,7 +12,7 @@ window.DATA = {
       "en": "Professor–Researcher · Applied Physics, Data Science & Science Education"
     },
     "institution": {
-      "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Universidad Tecnológica de Jalisco",
+      "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Tecnológico de Monterrey Campus Guadalajara",
       "en": "Tlaquepaque University Center, University of Guadalajara · Technological University of Jalisco"
     },
     "location": {
