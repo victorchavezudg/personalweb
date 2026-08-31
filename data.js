@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1619";
+window.DATA_VERSION = "2026-08-31-1624";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -12,8 +12,8 @@ window.DATA = {
       "en": "Professor–Researcher · Applied Physics, Data Science & Science Education"
     },
     "institution": {
-      "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Tecnológico de Monterrey Campus Guadalajara",
-      "en": "Tlaquepaque University Center, University of Guadalajara · Technological University of Jalisco"
+      "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Tecnológico de Monterrey, Campus Guadalajara",
+      "en": "Tlaquepaque University Center, University of Guadalajara · Tecnológico de Monterrey, Guadalajara Campus"
     },
     "location": {
       "es": "Zapopan, Jalisco · México",
@@ -21,7 +21,7 @@ window.DATA = {
     },
     "sni": {
       "es": "SNII · Candidato (SECIHTI) 2025–2029",
-      "en": "National Researcher System · Candidate (SECIHTI) 2025–2029"
+      "en": "SNII · Candidate (SECIHTI) 2025–2029"
     },
     "tagline": {
       "es": "Físico aplicado con enfoque en ciencia de datos. Estudio la atmósfera, el clima y el océano aplicando aprendizaje automático y análisis de grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
@@ -725,15 +725,15 @@ window.DATA = {
     {
       "role": {
         "es": "Profesor de Asignatura \"B\"",
-        "en": "Lecturer \"B\""
+        "en": "Adjunct Professor (\"Profesor de Asignatura B\")"
       },
       "org": "Universidad Tecnológica de Jalisco",
       "place": {
         "es": "Guadalajara, México",
         "en": "Guadalajara, Mexico"
       },
-      "years": "2019 – actual",
-      "yearsEn": "2019 – present",
+      "years": "2019 – 2026",
+      "yearsEn": "2019 – 2026",
       "detail": {
         "es": "División de Mecatrónica — Ciencias Básicas.",
         "en": "Mechatronics Division — Basic Sciences."
@@ -1016,6 +1016,23 @@ window.DATA = {
           "en": "Dynamics"
         }
       ]
+    },
+    {
+      "role": {
+        "es": "Profesor de Cátedra",
+        "en": "Adjunct Professor (\"Profesor de Cátedra\")"
+      },
+      "org": "Tecnológico de Monterrey · Campus Guadalajara",
+      "place": {
+        "es": "Zapopan, Jalisco · México",
+        "en": "Zapopan, Jalisco · Mexico"
+      },
+      "years": "2026 – actual",
+      "yearsEn": "2026 – present",
+      "detail": {
+        "es": "",
+        "en": ""
+      }
     }
   ],
   "publications": [
