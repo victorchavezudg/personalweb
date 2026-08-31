@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1455";
+window.DATA_VERSION = "2026-08-31-1618";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -725,15 +725,15 @@ window.DATA = {
     {
       "role": {
         "es": "Profesor de Asignatura \"B\"",
-        "en": "Lecturer \"B\""
+        "en": "Adjunct Professor (\"Profesor de Asignatura B\")"
       },
       "org": "Universidad Tecnológica de Jalisco",
       "place": {
         "es": "Guadalajara, México",
         "en": "Guadalajara, Mexico"
       },
-      "years": "2019 – actual",
-      "yearsEn": "2019 – present",
+      "years": "2019 – 2026",
+      "yearsEn": "2019 – 2026",
       "detail": {
         "es": "División de Mecatrónica — Ciencias Básicas.",
         "en": "Mechatronics Division — Basic Sciences."
@@ -1016,6 +1016,23 @@ window.DATA = {
           "en": "Dynamics"
         }
       ]
+    },
+    {
+      "role": {
+        "es": "Profesor de Cátedra",
+        "en": "Adjunct Professor (\"Profesor de Cátedra\")"
+      },
+      "org": "Tecnológico de Monterrey · Campus Guadalajara",
+      "place": {
+        "es": "Zapopan, Jalisco · México",
+        "en": "Zapopan, Jalisco · Mexico"
+      },
+      "years": "2026 – actual",
+      "yearsEn": "2026 – present",
+      "detail": {
+        "es": "",
+        "en": ""
+      }
     }
   ],
   "publications": [
