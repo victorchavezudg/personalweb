@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1624";
+window.DATA_VERSION = "2026-08-31-1629";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -13,7 +13,7 @@ window.DATA = {
     },
     "institution": {
       "es": "Centro Universitario de Tlaquepaque de la Universidad de Guadalajara · Tecnológico de Monterrey, Campus Guadalajara",
-      "en": "Tlaquepaque University Center, University of Guadalajara · Tecnológico de Monterrey, Guadalajara Campus"
+      "en": "Centro Universitario de Tlaquepaque (Tlaquepaque University Center), Universidad de Guadalajara · Tecnológico de Monterrey, Guadalajara Campus"
     },
     "location": {
       "es": "Zapopan, Jalisco · México",
