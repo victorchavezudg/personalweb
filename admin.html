@@ -466,7 +466,7 @@ const sections = {
   conferences(){
     const cards=(D.conferences||[]).map((c,i)=>
       `<div class="entry-card"><div class="entry-body">
-          <div class="entry-title">${esc(c.name)}</div>
+          <div class="entry-title">${esc(bi(c.name))}</div>
           <div class="entry-sub">${esc(c.when||'')} · ${esc(bi(c.place))} · ${(c.talks||[]).length} ponencia(s)</div>
         </div><div class="entry-actions">
           <button class="btn-edit" onclick="editConference(${i})">Editar</button>
@@ -498,7 +498,7 @@ const sections = {
   training(){
     const cards=(D.training||[]).map((t,i)=>
       `<div class="entry-card"><div class="entry-body">
-          <div class="entry-title">${esc(t.name)}</div>
+          <div class="entry-title">${esc(bi(t.name))}</div>
           <div class="entry-sub">${esc(bi(t.kind))} · ${esc(t.org)} · ${esc(t.years||'')}</div>
         </div><div class="entry-actions">
           <button class="btn-edit" onclick="editTraining(${i})">Editar</button>
@@ -723,7 +723,7 @@ function editPub(i){
 }
 
 function editProject(i){
-  const p=i>=0?D.projects[i]:{name:{es:'',en:''},org:'',years:'',active:true,desc:{es:'',en:''},collaborators:[],funding:{es:'',en:''}};
+  const p=i>=0?D.projects[i]:{name:{es:'',en:''},org:'',years:'',yearsEn:'',active:true,desc:{es:'',en:''},collaborators:[],funding:{es:'',en:''}};
   // _tc es global para que los onclick del HTML puedan accederla
   window._tc = deepCopy(p.collaborators);
 
@@ -762,7 +762,8 @@ function editProject(i){
   openModal(i>=0?'Editar proyecto':'Nuevo proyecto',
     fBi('Nombre del proyecto','pr_n_es','pr_n_en',bi(p.name),biEn(p.name))+
     fText('Institución principal','pr_org',p.org)+
-    fText('Años','pr_yrs',p.years,'2024 – actual')+
+    fText('Años (ES)','pr_yrs',p.years,'2024 – actual')+
+    fText('Years (EN)','pr_yen',p.yearsEn||'','2024 – present')+
     fSel('Estado','pr_act',[{v:'true',l:'Activo'},{v:'false',l:'Concluido'}],String(p.active))+
     fBiArea('Descripción','pr_d_es','pr_d_en',bi(p.desc),biEn(p.desc))+
     fBi('Financiamiento','pr_f_es','pr_f_en',bi(p.funding),biEn(p.funding))+
@@ -783,7 +784,7 @@ function editProject(i){
         type: document.getElementById(`ot_${oi}_type`)?.value||'article',
         title: gv(`ot_${oi}_title`), venue: gv(`ot_${oi}_venue`), doi: gv(`ot_${oi}_doi`)
       }));
-      const o={name:{es:gv('pr_n_es'),en:gv('pr_n_en')},org:gv('pr_org'),years:gv('pr_yrs'),active:gv('pr_act')==='true',desc:{es:gv('pr_d_es'),en:gv('pr_d_en')},collaborators:window._tc,funding:{es:gv('pr_f_es'),en:gv('pr_f_en')},outputs:window._to};
+      const o={name:{es:gv('pr_n_es'),en:gv('pr_n_en')},org:gv('pr_org'),years:gv('pr_yrs'),yearsEn:gv('pr_yen')||gv('pr_yrs').replace('actual','present'),active:gv('pr_act')==='true',desc:{es:gv('pr_d_es'),en:gv('pr_d_en')},collaborators:window._tc,funding:{es:gv('pr_f_es'),en:gv('pr_f_en')},outputs:window._to};
       i>=0?D.projects[i]=o:D.projects.push(o);
       closeModal();renderSection('projects');
     });
@@ -867,17 +868,17 @@ function editCourse(i, ci){
 }
 
 function editConference(i){
-  const c=i>=0?D.conferences[i]:{name:'',place:{es:'',en:''},when:'',date:'',talks:[]};
+  const c=i>=0?D.conferences[i]:{name:{es:'',en:''},place:{es:'',en:''},when:'',date:'',talks:[]};
   openModal(i>=0?'Editar congreso':'Nuevo congreso',
-    fText('Nombre del congreso','cf_name',c.name)+fBi('Lugar','cf_pl_es','cf_pl_en',bi(c.place),biEn(c.place))+fText('Año','cf_when',c.when||'','2022')+fText('Fecha','cf_date',c.date||'','2–7 oct 2022')+fArea('Ponencias (una por línea)','cf_talks',(c.talks||[]).join('\n')),
-    ()=>{ const talks=gv('cf_talks').split('\n').map(s=>s.trim()).filter(Boolean); const o={name:gv('cf_name'),place:{es:gv('cf_pl_es'),en:gv('cf_pl_en')},when:gv('cf_when'),date:gv('cf_date'),talks:talks}; if(!D.conferences)D.conferences=[]; i>=0?D.conferences[i]=o:D.conferences.push(o); closeModal();renderSection('conferences'); });
+    fBi('Nombre del congreso','cf_n_es','cf_n_en',bi(c.name),biEn(c.name))+fBi('Lugar','cf_pl_es','cf_pl_en',bi(c.place),biEn(c.place))+fText('Año','cf_when',c.when||'','2022')+fText('Fecha','cf_date',c.date||'','2–7 oct 2022')+fArea('Ponencias (una por línea — formato: Español :: English)','cf_talks',(c.talks||[]).map(t=>bi(t)+' :: '+biEn(t)).join('\n')),
+    ()=>{ const talks=gv('cf_talks').split('\n').map(s=>s.trim()).filter(Boolean).map(s=>{ const p=s.split('::'); const es=(p[0]||'').trim(); const en=(p[1]||'').trim(); return {es:es,en:en||es}; }); const o={name:{es:gv('cf_n_es'),en:gv('cf_n_en')},place:{es:gv('cf_pl_es'),en:gv('cf_pl_en')},when:gv('cf_when'),date:gv('cf_date'),talks:talks}; if(!D.conferences)D.conferences=[]; i>=0?D.conferences[i]=o:D.conferences.push(o); closeModal();renderSection('conferences'); });
 }
 function editTraining(i){
   if(!D.training)D.training=[];
-  const t=i>=0?D.training[i]:{kind:{es:'Curso',en:'Course'},name:'',org:'',years:''};
+  const t=i>=0?D.training[i]:{kind:{es:'Curso',en:'Course'},name:{es:'',en:''},org:'',years:''};
   openModal(i>=0?'Editar formación':'Nueva formación',
-    fBi('Tipo (Curso/Diplomado/Taller/Certificación)','tr_k_es','tr_k_en',bi(t.kind),biEn(t.kind))+fText('Nombre','tr_name',t.name)+fText('Institución','tr_org',t.org)+fText('Año','tr_years',t.years||'','2025'),
-    ()=>{ const o={kind:{es:gv('tr_k_es'),en:gv('tr_k_en')},name:gv('tr_name'),org:gv('tr_org'),years:gv('tr_years')}; i>=0?D.training[i]=o:D.training.push(o); closeModal();renderSection('training'); });
+    fBi('Tipo (Curso/Diplomado/Taller/Certificación)','tr_k_es','tr_k_en',bi(t.kind),biEn(t.kind))+fBi('Nombre','tr_n_es','tr_n_en',bi(t.name),biEn(t.name))+fText('Institución','tr_org',t.org)+fText('Año','tr_years',t.years||'','2025'),
+    ()=>{ const o={kind:{es:gv('tr_k_es'),en:gv('tr_k_en')},name:{es:gv('tr_n_es'),en:gv('tr_n_en')},org:gv('tr_org'),years:gv('tr_years')}; i>=0?D.training[i]=o:D.training.push(o); closeModal();renderSection('training'); });
 }
 function svcArr(k){ if(!D.service)D.service={thesis:[],review:[],evaluation:[]}; if(!D.service[k])D.service[k]=[]; return D.service[k]; }
 function editThesis(i){
