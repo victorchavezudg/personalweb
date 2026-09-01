@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-2056";
+window.DATA_VERSION = "2026-08-31-2102";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1030,9 +1030,20 @@ window.DATA = {
       "years": "2026 – actual",
       "yearsEn": "2026 – present",
       "detail": {
-        "es": "",
-        "en": ""
-      }
+        "es": "Unidad de formación F1025B «Leyes del movimiento y de conservación»: dos grupos de clase y un grupo de reto.",
+        "en": "Course unit F1025B, The Laws of Motion and Conservation: two class groups and one challenge group."
+      },
+      "courses": [
+        {
+          "es": "Leyes del movimiento y de conservación (Clase)",
+          "en": "The Laws of Motion and Conservation (Class)",
+          "n": 2
+        },
+        {
+          "es": "Leyes del movimiento y de conservación (Reto)",
+          "en": "The Laws of Motion and Conservation (Challenge)"
+        }
+      ]
     },
     {
       "role": {
