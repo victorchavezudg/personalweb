@@ -33,22 +33,29 @@ def load_data():
     src = (ROOT / 'data.js').read_text(encoding='utf-8')
     m = re.search(r'window\.DATA\s*=\s*(\{.*\});', src, re.S)
     D = json.loads(m.group(1))
-    # Mismo orden cronológico inverso que usa el sitio (app.js): primero el año
-    # de inicio más reciente; a igual inicio, primero el que sigue vigente.
+    # Mismo orden que usa el sitio (app.js): primero todo lo vigente («actual» /
+    # «present»), de lo más reciente a lo más antiguo; después lo concluido.
     # Así una entrada nueva del panel —que siempre se añade al final del arreglo—
     # aparece en su lugar en el PDF y no al final.
     D['experience'] = sorted(D.get('experience', []),
-                             key=lambda e: (_start_y(e), _end_y(e)), reverse=True)
+                             key=lambda e: (_live(e), _start_y(e), _end_y(e)), reverse=True)
     return D
+
+def _live(e):
+    # e['current'] (casilla «¿Puesto vigente?» del panel) manda; si la entrada es
+    # vieja y no la tiene, se deduce del texto del periodo.
+    if isinstance(e.get('current'), bool):
+        return 1 if e['current'] else 0
+    s = str(e.get('years', '')) + ' ' + str(e.get('yearsEn', ''))
+    return 1 if re.search(r'actual|present', s, re.I) else 0
 
 def _start_y(e):
     m = re.search(r'\d{4}', str(e.get('years', '')))
     return int(m.group(0)) if m else 0
 
 def _end_y(e):
-    s = str(e.get('years', ''))
-    if re.search(r'actual|present', s, re.I): return 9999
-    all_y = re.findall(r'\d{4}', s)
+    if _live(e): return 9999
+    all_y = re.findall(r'\d{4}', str(e.get('years', '')))
     return int(all_y[-1]) if all_y else 0
 
 def L(v, lang):
