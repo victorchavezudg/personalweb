@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1634";
+window.DATA_VERSION = "2026-08-31-1826";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -793,8 +793,8 @@ window.DATA = {
         "es": "Guadalajara, México",
         "en": "Guadalajara, Mexico"
       },
-      "years": "2019 – 2020",
-      "yearsEn": "2019 – 2020",
+      "years": "2019",
+      "yearsEn": "2019",
       "detail": {
         "es": "Bachillerato: Materia y Energía, Cálculo Integral, Ciencia y Tecnología.",
         "en": "High school: Matter & Energy, Integral Calculus, Science & Technology."
@@ -856,8 +856,8 @@ window.DATA = {
         "es": "Ourense, España",
         "en": "Ourense, Spain"
       },
-      "years": "2016 – 2024",
-      "yearsEn": "2016 – 2024",
+      "years": "2024 – actual",
+      "yearsEn": "2024 – present",
       "detail": {
         "es": "Investigación doctoral sobre calentamientos súbitos estratosféricos en modelos CMIP5 y WACCM; análisis estadístico de grandes volúmenes de datos climáticos.",
         "en": "Doctoral research on sudden stratospheric warmings in CMIP5 and WACCM models; statistical analysis of large climate datasets."
@@ -907,8 +907,8 @@ window.DATA = {
         "es": "Ourense, España",
         "en": "Ourense, Spain"
       },
-      "years": "2012 – 2016",
-      "yearsEn": "2012 – 2016",
+      "years": "2013 – 2017",
+      "yearsEn": "2013 – 2017",
       "detail": {
         "es": "Análisis estadístico de datos de gran volumen para el estudio del cambio climático con modelos de circulación general.",
         "en": "Statistical analysis of large-volume data for climate-change research with general circulation models."
@@ -924,8 +924,8 @@ window.DATA = {
         "es": "Guadalajara, México",
         "en": "Guadalajara, Mexico"
       },
-      "years": "2012 – 2013",
-      "yearsEn": "2012 – 2013",
+      "years": "2010 – 2011",
+      "yearsEn": "2010 – 2011",
       "detail": {
         "es": "Mecánica, Introducción a la Física y Electromagnetismo.",
         "en": "Mechanics, Introduction to Physics and Electromagnetism."
@@ -955,8 +955,8 @@ window.DATA = {
         "es": "Guadalajara, México",
         "en": "Guadalajara, Mexico"
       },
-      "years": "2010 – 2011",
-      "yearsEn": "2010 – 2011",
+      "years": "2010 – 2012",
+      "yearsEn": "2010 – 2012",
       "detail": {
         "es": "Ingenierías.",
         "en": "Engineering programs."
@@ -1032,6 +1032,40 @@ window.DATA = {
       "detail": {
         "es": "",
         "en": ""
+      }
+    },
+    {
+      "role": {
+        "es": "Auxiliar de Investigación",
+        "en": "Research Assistant"
+      },
+      "org": "Universidad de Guadalajara · CUCEI, Departamento de Física",
+      "place": {
+        "es": "Guadalajara, Jalisco · México",
+        "en": "Guadalajara, Jalisco · Mexico"
+      },
+      "years": "2006 – 2007",
+      "yearsEn": "2006 – 2007",
+      "detail": {
+        "es": "Proyecto «Oceanografía de la Costa de Nayarit» (CONACYT-SEP-2003-C02-44870F). Programas PAY y PITAI.",
+        "en": "\"Oceanografía de la Costa de Nayarit\" project (CONACYT-SEP-2003-C02-44870F). PAY and PITAI programmes."
+      }
+    },
+    {
+      "role": {
+        "es": "Docente de Física, Química y Matemáticas",
+        "en": "Physics, Chemistry and Mathematics Teacher"
+      },
+      "org": "Centro Universitario UTEG",
+      "place": {
+        "es": "Guadalajara, Jalisco · México",
+        "en": "Guadalajara, Jalisco · Mexico"
+      },
+      "years": "2005 – 2006",
+      "yearsEn": "2005 – 2006",
+      "detail": {
+        "es": "Bachillerato Intensivo Semiescolarizado (BIS).",
+        "en": "Intensive semi-schooled high school programme (BIS)."
       }
     }
   ],
