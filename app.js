@@ -540,8 +540,11 @@
       $$('#lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
       const cv = D.meta.cv, cvs = D.meta.cv_short;
       const full = $('#cvFull'), short = $('#cvShort');
-      if(full && cv)  full.href  = typeof cv==='string'  ? cv  : (cv[l]  || cv.es);
-      if(short && cvs) short.href = typeof cvs==='string' ? cvs : (cvs[l] || cvs.es);
+      /* ?v= evita que el navegador sirva un PDF viejo en caché: los PDFs los
+         regenera GitHub Actions con la misma ruta cada vez que cambia data.js. */
+      const bust = u => u + (u.includes('?') ? '&' : '?') + 'v=' + (window.DATA_VERSION || Date.now());
+      if(full && cv)  full.href  = bust(typeof cv==='string'  ? cv  : (cv[l]  || cv.es));
+      if(short && cvs) short.href = bust(typeof cvs==='string' ? cvs : (cvs[l] || cvs.es));
     };
     $$('#lang button').forEach(b=> b.addEventListener('click', ()=>setLang(b.dataset.lang)));
     setLang(LANG);
