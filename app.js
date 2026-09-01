@@ -149,7 +149,18 @@
   /* ====================== EXPERIENCE ====================== */
   function renderExperience(){
     const yrs = e => `<span class="i18n"><span data-l="es">${esc(e.years)}</span><span data-l="en">${esc(e.yearsEn||e.years)}</span></span>`;
-    const items = D.experience.map((e,i)=>`<div class="tl-item reveal" data-d="${Math.min(i%5,4)}">
+    /* Orden cronológico inverso: primero el año de inicio (más reciente arriba);
+       a igual inicio, primero el que sigue vigente o terminó después.
+       Así una entrada nueva del panel —que siempre se añade al final— cae sola en su lugar. */
+    const startY = e => { const m = String(e.years||'').match(/\d{4}/); return m ? +m[0] : 0; };
+    const endY = e => {
+      const s = String(e.years||'');
+      if (/actual|present/i.test(s)) return 9999;          // vigente
+      const all = s.match(/\d{4}/g) || [];
+      return all.length ? +all[all.length-1] : 0;
+    };
+    const ordered = D.experience.slice().sort((a,b)=> startY(b)-startY(a) || endY(b)-endY(a));
+    const items = ordered.map((e,i)=>`<div class="tl-item reveal" data-d="${Math.min(i%5,4)}">
         <span class="node"></span>
         <span class="tl-yr">${yrs(e)}</span>
         <h3 class="tl-title">${tt(e.role)}</h3>
