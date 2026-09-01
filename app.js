@@ -223,7 +223,7 @@
       }
 
       return `<article class="card reveal" data-d="${Math.min(i%3,4)}">
-        <div class="c-top">${stateTag}<span class="c-years">${esc(p.years)}</span></div>
+        <div class="c-top">${stateTag}<span class="c-years"><span class="i18n"><span data-l="es">${esc(p.years)}</span><span data-l="en">${esc(p.yearsEn||p.years)}</span></span></span></div>
         <h3>${tt(p.name)}</h3>
         <div class="c-org">${esc(p.org)}</div>
         <p class="c-desc">${tt(p.desc)}</p>
@@ -261,10 +261,10 @@
   /* ====================== CONFERENCES ====================== */
   function renderConferences(){
     const cards = (D.conferences||[]).map((c,i)=>{
-      const talks = c.talks.map(t=>`<li>${esc(t)}</li>`).join('');
+      const talks = (c.talks||[]).map(t=>`<li>${tt(t)}</li>`).join('');
       return `<article class="card conf-card reveal" data-d="${Math.min(i%3,4)}">
         <div class="c-top"><span class="tag">${esc(c.when)}</span><span class="c-years">${tt(c.place)}</span></div>
-        <h3>${esc(c.name)}</h3>
+        <h3>${tt(c.name)}</h3>
         <ul class="conf-talks">${talks}</ul>
       </article>`;
     }).join('');
@@ -299,7 +299,7 @@
     const cards = Object.keys(groups).map((org,i)=>{
       const rows = groups[org].map(t=>`<div class="tr-row">
           <span class="tag">${tt(t.kind)}</span>
-          <span class="tr-name">${esc(t.name)}</span>
+          <span class="tr-name">${tt(t.name)}</span>
           <span class="tr-yr">${esc(t.years)}</span>
         </div>`).join('');
       return `<article class="card train-card reveal" data-d="${Math.min(i%3,4)}">
