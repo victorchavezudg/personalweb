@@ -32,7 +32,24 @@ LINE   = HexColor('#d5dde4')
 def load_data():
     src = (ROOT / 'data.js').read_text(encoding='utf-8')
     m = re.search(r'window\.DATA\s*=\s*(\{.*\});', src, re.S)
-    return json.loads(m.group(1))
+    D = json.loads(m.group(1))
+    # Mismo orden cronológico inverso que usa el sitio (app.js): primero el año
+    # de inicio más reciente; a igual inicio, primero el que sigue vigente.
+    # Así una entrada nueva del panel —que siempre se añade al final del arreglo—
+    # aparece en su lugar en el PDF y no al final.
+    D['experience'] = sorted(D.get('experience', []),
+                             key=lambda e: (_start_y(e), _end_y(e)), reverse=True)
+    return D
+
+def _start_y(e):
+    m = re.search(r'\d{4}', str(e.get('years', '')))
+    return int(m.group(0)) if m else 0
+
+def _end_y(e):
+    s = str(e.get('years', ''))
+    if re.search(r'actual|present', s, re.I): return 9999
+    all_y = re.findall(r'\d{4}', s)
+    return int(all_y[-1]) if all_y else 0
 
 def L(v, lang):
     """Valor bilingüe {es,en} o string → string en el idioma pedido."""
@@ -224,17 +241,17 @@ def build_full(D, lang, path):
     if D.get('conferences'):
         s += sec(T['conferences'][lang])
         for c in D['conferences']:
-            blk = [Paragraph(esc(c['name']), ST['title']),
+            blk = [Paragraph(esc(L(c['name'], lang)), ST['title']),
                    Paragraph(esc(c.get('date','')) + ' · ' + esc(L(c['place'], lang)), ST['org'])]
             for tk in c.get('talks', []):
-                blk.append(Paragraph('• ' + esc(tk), ST['detail']))
+                blk.append(Paragraph('• ' + esc(L(tk, lang)), ST['detail']))
             s.append(KeepTogether(row(c.get('when',''), blk)))
 
     s += sec(T['projects'][lang])
     for p in [x for x in D['projects'] if x.get('active')]:
         me = next((c for c in p.get('collaborators', []) if 'Chávez' in c.get('name','')), None)
         role = (' — ' + L(me['role'], lang)) if me else ''
-        s.append(KeepTogether(row(p['years'], [
+        s.append(KeepTogether(row(yrs(p, lang), [
             Paragraph(esc(L(p['name'], lang)) + esc(role), ST['title']),
             Paragraph(esc(p['org']) + ' · ' + T['funding'][lang] + ': ' + esc(L(p.get('funding',''), lang)), ST['org']),
             Paragraph(esc(L(p['desc'], lang)), ST['detail'])])))
@@ -281,7 +298,7 @@ def build_full(D, lang, path):
     if D.get('training'):
         s += sec(T['training'][lang])
         for t in D['training']:
-            s.append(row(t.get('years',''), [Paragraph('<b>' + L(t['kind'],lang) + '</b> — ' + esc(t['name'])
+            s.append(row(t.get('years',''), [Paragraph('<b>' + L(t['kind'],lang) + '</b> — ' + esc(L(t['name'],lang))
                                              + ' · <font color="#4b5a68">' + esc(t['org']) + '</font>', ST['detail'])]))
 
     if a.get('languages'):
@@ -322,9 +339,9 @@ def build_short(D, lang, path):
 
     if D.get('conferences'):
         s += sec(T['conferences'][lang])
-        intl = [c for c in D['conferences'] if any(k in c['name'] for k in ('AGU','EGU','SPARC','Geophysical','Geosciences'))][:5]
+        intl = [c for c in D['conferences'] if any(k in L(c['name'],'en') for k in ('AGU','EGU','SPARC','Geophysical','Geosciences'))][:5]
         for c in intl:
-            s.append(row(c.get('when',''), [Paragraph(esc(c['name']) + '  ·  <font color="#4b5a68">'
+            s.append(row(c.get('when',''), [Paragraph(esc(L(c['name'],lang)) + '  ·  <font color="#4b5a68">'
                                             + esc(L(c['place'], lang)) + '</font>', ST['detail'])], 20*mm))
 
     svc = D.get('service', {})
