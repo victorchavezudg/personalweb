@@ -694,12 +694,32 @@ function editEducation(i){
     ()=>{ const o={degree:{es:gv('ed_dg_es'),en:gv('ed_dg_en')},org:gv('ed_org'),place:{es:gv('ed_pl_es'),en:gv('ed_pl_en')},years:gv('ed_yrs'),detail:{es:gv('ed_dt_es'),en:gv('ed_dt_en')}}; i>=0?D.education[i]=o:D.education.push(o); closeModal();renderSection('education'); });
 }
 
+/* Periodo: se captura como año de inicio + año de término + casilla «vigente».
+   Las palabras «actual» / «present» ya no se escriben a mano: las genera el
+   panel a partir de la casilla, así nunca se desincronizan entre idiomas ni se
+   escriben con otra forma («Actual», «a la fecha») que el orden no reconocería. */
+function expYears(e){
+  const s=String(e.years||'');
+  const cur = (e.current===true) || /actual|present/i.test(s+' '+String(e.yearsEn||''));
+  const y=s.match(/\d{4}/g)||[];
+  return {y0:y[0]||'', y1:(!cur && y.length>1)?y[y.length-1]:'', cur:cur?'si':'no'};
+}
 function editExperience(i){
   const e=i>=0?D.experience[i]:{role:{es:'',en:''},org:'',place:{es:'',en:''},years:'',yearsEn:'',detail:{es:'',en:''},courses:[]};
   const courseLines=(e.courses||[]).map(c=>bi(c)+' :: '+biEn(c)+(c.n&&c.n>1?' :: '+c.n:'')).join('\n');
+  const P=expYears(e);
   openModal(i>=0?'Editar experiencia':'Nueva experiencia',
-    fBi('Cargo','ex_r_es','ex_r_en',bi(e.role),biEn(e.role))+fText('Institución','ex_org',e.org)+fBi('Lugar','ex_pl_es','ex_pl_en',bi(e.place),biEn(e.place))+fText('Periodo (ES)','ex_yrs',e.years,'2020 – actual')+fText('Period (EN)','ex_yen',e.yearsEn||'','2020 – present')+fBiArea('Detalle','ex_dt_es','ex_dt_en',bi(e.detail),biEn(e.detail))+fArea('Materias (una por línea — formato: Español :: English :: veces)','ex_courses',courseLines),
-    ()=>{ const courses=gv('ex_courses').split('\n').map(s=>s.trim()).filter(Boolean).map(line=>{const p=line.split('::').map(x=>x.trim()); const o={es:p[0]||'',en:p[1]||p[0]||''}; const n=parseInt(p[2]); if(n>1)o.n=n; return o;}); const o={role:{es:gv('ex_r_es'),en:gv('ex_r_en')},org:gv('ex_org'),place:{es:gv('ex_pl_es'),en:gv('ex_pl_en')},years:gv('ex_yrs'),yearsEn:gv('ex_yen'),detail:{es:gv('ex_dt_es'),en:gv('ex_dt_en')}}; if(courses.length)o.courses=courses; i>=0?D.experience[i]=o:D.experience.push(o); closeModal();renderSection('experience'); });
+    fBi('Cargo','ex_r_es','ex_r_en',bi(e.role),biEn(e.role))+fText('Institución','ex_org',e.org)+fBi('Lugar','ex_pl_es','ex_pl_en',bi(e.place),biEn(e.place))
+    +fSel('¿Puesto vigente?','ex_cur',[{v:'no',l:'No — ya concluyó'},{v:'si',l:'Sí — en curso (actual / present)'}],P.cur)
+    +fText('Año de inicio','ex_y0',P.y0,'2026')
+    +fText('Año de término (déjalo vacío si sigue vigente o si duró un solo año)','ex_y1',P.y1,'2026')
+    +fBiArea('Detalle','ex_dt_es','ex_dt_en',bi(e.detail),biEn(e.detail))+fArea('Materias (una por línea — formato: Español :: English :: veces)','ex_courses',courseLines),
+    ()=>{ const courses=gv('ex_courses').split('\n').map(s=>s.trim()).filter(Boolean).map(line=>{const p=line.split('::').map(x=>x.trim()); const o={es:p[0]||'',en:p[1]||p[0]||''}; const n=parseInt(p[2]); if(n>1)o.n=n; return o;});
+      const cur=gv('ex_cur')==='si', y0=gv('ex_y0'), y1=gv('ex_y1');
+      const years  = cur ? (y0+' – actual')  : (y1&&y1!==y0 ? y0+' – '+y1 : y0);
+      const yearsEn= cur ? (y0+' – present') : years;
+      const o={role:{es:gv('ex_r_es'),en:gv('ex_r_en')},org:gv('ex_org'),place:{es:gv('ex_pl_es'),en:gv('ex_pl_en')},current:cur,years:years,yearsEn:yearsEn,detail:{es:gv('ex_dt_es'),en:gv('ex_dt_en')}};
+      if(courses.length)o.courses=courses; i>=0?D.experience[i]=o:D.experience.push(o); closeModal();renderSection('experience'); });
 }
 
 function editPub(i){
