@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-2116";
+window.DATA_VERSION = "2026-08-31-2113";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1227,7 +1227,8 @@ window.DATA = {
         "es": "Sin financiamiento externo",
         "en": "No external funding"
       },
-      "outputs": []
+      "outputs": [],
+      "yearsEn": "2026 – present"
     },
     {
       "name": {
@@ -1287,7 +1288,8 @@ window.DATA = {
         "es": "Sin Financiamiento",
         "en": "No external funding"
       },
-      "outputs": []
+      "outputs": [],
+      "yearsEn": "2026 – present"
     },
     {
       "name": {
@@ -1331,7 +1333,8 @@ window.DATA = {
         "es": "Sin financiamiento",
         "en": "No external funding"
       },
-      "outputs": []
+      "outputs": [],
+      "yearsEn": "2025 – present"
     },
     {
       "name": {
@@ -1366,7 +1369,8 @@ window.DATA = {
           "venue": "En preparación · Computers & Education",
           "doi": ""
         }
-      ]
+      ],
+      "yearsEn": "2025 – present"
     },
     {
       "name": {
@@ -1399,7 +1403,8 @@ window.DATA = {
         }
       ],
       "funding": "Universidad de Guadalajara",
-      "outputs": []
+      "outputs": [],
+      "yearsEn": "2025 – 2028"
     },
     {
       "name": {
@@ -1442,7 +1447,8 @@ window.DATA = {
           "venue": "En preparación · Research in Geographies",
           "doi": ""
         }
-      ]
+      ],
+      "yearsEn": "2025 – present"
     },
     {
       "name": {
@@ -1485,7 +1491,8 @@ window.DATA = {
           "venue": "En preparación · Research in Science Education",
           "doi": ""
         }
-      ]
+      ],
+      "yearsEn": "2024 – present"
     },
     {
       "name": {
@@ -1510,7 +1517,8 @@ window.DATA = {
         }
       ],
       "funding": "Xunta de Galicia",
-      "outputs": []
+      "outputs": [],
+      "yearsEn": "2014 – 2017"
     },
     {
       "name": {
@@ -1569,7 +1577,8 @@ window.DATA = {
           "venue": "AGU · EGU · SMF",
           "year": "2013–2017"
         }
-      ]
+      ],
+      "yearsEn": "2013 – 2017"
     },
     {
       "name": {
@@ -1602,7 +1611,8 @@ window.DATA = {
           "doi": "",
           "isbn": "979-8-88676-642-4"
         }
-      ]
+      ],
+      "yearsEn": "2009 – 2011"
     }
   ],
   "tech": [
@@ -2059,7 +2069,10 @@ window.DATA = {
   ],
   "conferences": [
     {
-      "name": "LXV Congreso Nacional de Física",
+      "name": {
+        "es": "LXV Congreso Nacional de Física",
+        "en": "65th Mexican National Physics Congress"
+      },
       "place": {
         "es": "Zacatecas, México",
         "en": "Zacatecas, Mexico"
@@ -2067,12 +2080,21 @@ window.DATA = {
       "when": "2022",
       "date": "2–7 oct 2022",
       "talks": [
-        "Análisis de la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos en el Hemisferio Sur en los modelos de altura estratosférica del CMIP5",
-        "Caracterización óptica de resina transparente de impresión 3D"
+        {
+          "es": "Análisis de la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos en el Hemisferio Sur en los modelos de altura estratosférica del CMIP5",
+          "en": "Analysis of the occurrence frequency of Southern Hemisphere stratospheric sudden warmings in high-top CMIP5 models"
+        },
+        {
+          "es": "Caracterización óptica de resina transparente de impresión 3D",
+          "en": "Optical characterisation of transparent 3D-printing resin"
+        }
       ]
     },
     {
-      "name": "LXIII Congreso Nacional de Física",
+      "name": {
+        "es": "LXIII Congreso Nacional de Física",
+        "en": "63rd Mexican National Physics Congress"
+      },
       "place": {
         "es": "En línea",
         "en": "Online"
@@ -2080,12 +2102,21 @@ window.DATA = {
       "when": "2020",
       "date": "4–9 oct 2020",
       "talks": [
-        "Impacto en las significancias de las características básicas de los SSW al comparar modelos del CMIP5 con datos de reanálisis en periodos pre-satelital y pos-satelital",
-        "Impacto en la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos principales en distintos escenarios de cambio climático usando CMIP5"
+        {
+          "es": "Impacto en las significancias de las características básicas de los SSW al comparar modelos del CMIP5 con datos de reanálisis en periodos pre-satelital y pos-satelital",
+          "en": "Significance of basic SSW characteristics when comparing CMIP5 models with reanalysis data over pre-satellite and post-satellite periods"
+        },
+        {
+          "es": "Impacto en la frecuencia de ocurrencia de los calentamientos súbitos estratosféricos principales en distintos escenarios de cambio climático usando CMIP5",
+          "en": "Impact on the occurrence frequency of major stratospheric sudden warmings under different climate change scenarios using CMIP5"
+        }
       ]
     },
     {
-      "name": "American Geophysical Union (AGU) Fall Meeting 2018",
+      "name": {
+        "es": "American Geophysical Union (AGU) Fall Meeting 2018",
+        "en": "American Geophysical Union (AGU) Fall Meeting 2018"
+      },
       "place": {
         "es": "Washington, EE. UU.",
         "en": "Washington, USA"
@@ -2093,11 +2124,17 @@ window.DATA = {
       "when": "2018",
       "date": "10–14 dic 2018",
       "talks": [
-        "Impact of Increased Vertical Resolution in WACCM on the Climatology of Major Stratospheric Sudden Warmings"
+        {
+          "es": "Impact of Increased Vertical Resolution in WACCM on the Climatology of Major Stratospheric Sudden Warmings",
+          "en": "Impact of Increased Vertical Resolution in WACCM on the Climatology of Major Stratospheric Sudden Warmings"
+        }
       ]
     },
     {
-      "name": "Reunión Anual de la Unión Geofísica Mexicana",
+      "name": {
+        "es": "Reunión Anual de la Unión Geofísica Mexicana",
+        "en": "Mexican Geophysical Union Annual Meeting"
+      },
       "place": {
         "es": "Puerto Vallarta, México",
         "en": "Puerto Vallarta, Mexico"
@@ -2105,13 +2142,25 @@ window.DATA = {
       "when": "2018",
       "date": "28 oct–2 nov 2018",
       "talks": [
-        "Cambios en la climatología de los calentamientos súbitos estratosféricos principales usando WACCM con alta resolución vertical",
-        "Evaluación de la capacidad de reproducción de los calentamientos súbitos estratosféricos principales en el conjunto de datos históricos de CMIP5",
-        "Calentamientos súbitos estratosféricos principales bajo escenarios de cambio climático con CMIP5"
+        {
+          "es": "Cambios en la climatología de los calentamientos súbitos estratosféricos principales usando WACCM con alta resolución vertical",
+          "en": "Changes in the climatology of major stratospheric sudden warmings using WACCM with high vertical resolution"
+        },
+        {
+          "es": "Evaluación de la capacidad de reproducción de los calentamientos súbitos estratosféricos principales en el conjunto de datos históricos de CMIP5",
+          "en": "Assessment of the ability to reproduce major stratospheric sudden warmings in the CMIP5 historical dataset"
+        },
+        {
+          "es": "Calentamientos súbitos estratosféricos principales bajo escenarios de cambio climático con CMIP5",
+          "en": "Major stratospheric sudden warmings under climate change scenarios with CMIP5"
+        }
       ]
     },
     {
-      "name": "European Geosciences Union (EGU) General Assembly 2017",
+      "name": {
+        "es": "European Geosciences Union (EGU) General Assembly 2017",
+        "en": "European Geosciences Union (EGU) General Assembly 2017"
+      },
       "place": {
         "es": "Viena, Austria",
         "en": "Vienna, Austria"
@@ -2119,11 +2168,17 @@ window.DATA = {
       "when": "2017",
       "date": "23–28 abr 2017",
       "talks": [
-        "Estimation of the variability of dust aerosol optical depth over several European regions based on forecast model data"
+        {
+          "es": "Estimation of the variability of dust aerosol optical depth over several European regions based on forecast model data",
+          "en": "Estimation of the variability of dust aerosol optical depth over several European regions based on forecast model data"
+        }
       ]
     },
     {
-      "name": "LIX Congreso Nacional de Física (SMF)",
+      "name": {
+        "es": "LIX Congreso Nacional de Física (SMF)",
+        "en": "59th Mexican National Physics Congress (SMF)"
+      },
       "place": {
         "es": "León, México",
         "en": "León, Mexico"
@@ -2131,13 +2186,25 @@ window.DATA = {
       "when": "2016",
       "date": "2–7 oct 2016",
       "talks": [
-        "Teleconexión estratosférica y los calentamientos súbitos estratosféricos",
-        "Patrones característicos en las variables estratosféricas de la Oscilación Cuasi-Bienal",
-        "Anomalías estratosféricas antes y después de los calentamientos súbitos estratosféricos para las distintas fases de la Oscilación Cuasi-Bienal"
+        {
+          "es": "Teleconexión estratosférica y los calentamientos súbitos estratosféricos",
+          "en": "Stratospheric teleconnection and stratospheric sudden warmings"
+        },
+        {
+          "es": "Patrones característicos en las variables estratosféricas de la Oscilación Cuasi-Bienal",
+          "en": "Characteristic patterns in the stratospheric variables of the Quasi-Biennial Oscillation"
+        },
+        {
+          "es": "Anomalías estratosféricas antes y después de los calentamientos súbitos estratosféricos para las distintas fases de la Oscilación Cuasi-Bienal",
+          "en": "Stratospheric anomalies before and after stratospheric sudden warmings for the different phases of the Quasi-Biennial Oscillation"
+        }
       ]
     },
     {
-      "name": "SPARC Workshop SHARP 2016 — Stratospheric Change and its Role for Climate Prediction",
+      "name": {
+        "es": "SPARC Workshop SHARP 2016 — Stratospheric Change and its Role for Climate Prediction",
+        "en": "SPARC Workshop SHARP 2016 — Stratospheric Change and its Role for Climate Prediction"
+      },
       "place": {
         "es": "Berlín, Alemania",
         "en": "Berlin, Germany"
@@ -2145,12 +2212,21 @@ window.DATA = {
       "when": "2016",
       "date": "11–15 jul 2016",
       "talks": [
-        "Changes in the stratosphere before and after SSW events in the different phases of the Equatorial QBO",
-        "Differences in the detection and classification of the Stratospheric Sudden Warming over the three reanalyses for the period 1979–2014"
+        {
+          "es": "Changes in the stratosphere before and after SSW events in the different phases of the Equatorial QBO",
+          "en": "Changes in the stratosphere before and after SSW events in the different phases of the Equatorial QBO"
+        },
+        {
+          "es": "Differences in the detection and classification of the Stratospheric Sudden Warming over the three reanalyses for the period 1979–2014",
+          "en": "Differences in the detection and classification of the Stratospheric Sudden Warming over the three reanalyses for the period 1979–2014"
+        }
       ]
     },
     {
-      "name": "European Geosciences Union (EGU) General Assembly",
+      "name": {
+        "es": "European Geosciences Union (EGU) General Assembly",
+        "en": "European Geosciences Union (EGU) General Assembly"
+      },
       "place": {
         "es": "Viena, Austria",
         "en": "Vienna, Austria"
@@ -2158,11 +2234,17 @@ window.DATA = {
       "when": "2015",
       "date": "12–17 abr 2015",
       "talks": [
-        "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+        {
+          "es": "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings",
+          "en": "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+        }
       ]
     },
     {
-      "name": "SPARC Regional Workshop — Role of the stratosphere in climate variability and prediction",
+      "name": {
+        "es": "SPARC Regional Workshop — Role of the stratosphere in climate variability and prediction",
+        "en": "SPARC Regional Workshop — Role of the stratosphere in climate variability and prediction"
+      },
       "place": {
         "es": "Granada, España",
         "en": "Granada, Spain"
@@ -2170,11 +2252,17 @@ window.DATA = {
       "when": "2015",
       "date": "12–13 ene 2015",
       "talks": [
-        "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+        {
+          "es": "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings",
+          "en": "Variability of the Brewer–Dobson circulation during Stratospheric Sudden Warmings"
+        }
       ]
     },
     {
-      "name": "Reunión Anual de la Unión Geofísica Mexicana",
+      "name": {
+        "es": "Reunión Anual de la Unión Geofísica Mexicana",
+        "en": "Mexican Geophysical Union Annual Meeting"
+      },
       "place": {
         "es": "Puerto Vallarta, México",
         "en": "Puerto Vallarta, Mexico"
@@ -2182,13 +2270,25 @@ window.DATA = {
       "when": "2010",
       "date": "7–12 nov 2010",
       "talks": [
-        "Estacionalidad y anomalías de las variables de percepción remota oceanográficas en el Golfo de México",
-        "Estacionalidad y anomalías de la superficie del nivel del mar en el Mar Caribe por medio de datos de altimetría",
-        "Alternativa para el procesamiento de datos oceanográficos de gran cómputo mediante programación en paralelo con MatLab"
+        {
+          "es": "Estacionalidad y anomalías de las variables de percepción remota oceanográficas en el Golfo de México",
+          "en": "Seasonality and anomalies of oceanographic remote-sensing variables in the Gulf of Mexico"
+        },
+        {
+          "es": "Estacionalidad y anomalías de la superficie del nivel del mar en el Mar Caribe por medio de datos de altimetría",
+          "en": "Seasonality and anomalies of sea surface height in the Caribbean Sea using altimetry data"
+        },
+        {
+          "es": "Alternativa para el procesamiento de datos oceanográficos de gran cómputo mediante programación en paralelo con MatLab",
+          "en": "An alternative for computationally intensive oceanographic data processing through parallel programming in MATLAB"
+        }
       ]
     },
     {
-      "name": "LIII Congreso Nacional de Física",
+      "name": {
+        "es": "LIII Congreso Nacional de Física",
+        "en": "53rd Mexican National Physics Congress"
+      },
       "place": {
         "es": "Boca del Río, Veracruz, México",
         "en": "Boca del Río, Veracruz, Mexico"
@@ -2196,11 +2296,17 @@ window.DATA = {
       "when": "2010",
       "date": "25–29 oct 2010",
       "talks": [
-        "Supercómputo aplicado a programación en paralelo para optimizar procesos en Astrofísica y Oceanografía Física"
+        {
+          "es": "Supercómputo aplicado a programación en paralelo para optimizar procesos en Astrofísica y Oceanografía Física",
+          "en": "High-performance computing applied to parallel programming to optimise processes in Astrophysics and Physical Oceanography"
+        }
       ]
     },
     {
-      "name": "LII Congreso Nacional de Física (SMF)",
+      "name": {
+        "es": "LII Congreso Nacional de Física (SMF)",
+        "en": "52nd Mexican National Physics Congress (SMF)"
+      },
       "place": {
         "es": "Acapulco, Guerrero, México",
         "en": "Acapulco, Guerrero, Mexico"
@@ -2208,8 +2314,14 @@ window.DATA = {
       "when": "2009",
       "date": "26–30 oct 2009",
       "talks": [
-        "Espectros de frecuencias de datos meteorológicos de Isla María Madre",
-        "Comparación del viento costero y marino de la zona costera de San Blas, Nayarit (1999–2002)"
+        {
+          "es": "Espectros de frecuencias de datos meteorológicos de Isla María Madre",
+          "en": "Frequency spectra of meteorological data from María Madre Island"
+        },
+        {
+          "es": "Comparación del viento costero y marino de la zona costera de San Blas, Nayarit (1999–2002)",
+          "en": "Comparison of coastal and marine winds in the coastal zone of San Blas, Nayarit (1999–2002)"
+        }
       ]
     }
   ],
@@ -2277,7 +2389,10 @@ window.DATA = {
         "es": "Diplomado",
         "en": "Diploma"
       },
-      "name": "Estrategias tecnopedagógicas para el desarrollo de habilidades del siglo XXI",
+      "name": {
+        "es": "Estrategias tecnopedagógicas para el desarrollo de habilidades del siglo XXI",
+        "en": "Techno-pedagogical strategies for developing 21st-century skills"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2025"
     },
@@ -2286,7 +2401,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Inteligencia Artificial para la docencia",
+      "name": {
+        "es": "Inteligencia Artificial para la docencia",
+        "en": "Artificial Intelligence for teaching"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2025"
     },
@@ -2295,7 +2413,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Inteligencia Artificial Generativa para Docentes",
+      "name": {
+        "es": "Inteligencia Artificial Generativa para Docentes",
+        "en": "Generative Artificial Intelligence for teachers"
+      },
       "org": "Universidad Anáhuac",
       "years": "2025"
     },
@@ -2304,7 +2425,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "IA Generativa en el aula",
+      "name": {
+        "es": "IA Generativa en el aula",
+        "en": "Generative AI in the classroom"
+      },
       "org": "UNAM",
       "years": "2025"
     },
@@ -2313,7 +2437,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Python for Data Science, AI & Development",
+      "name": {
+        "es": "Python for Data Science, AI & Development",
+        "en": "Python for Data Science, AI & Development"
+      },
       "org": "IBM",
       "years": "2025"
     },
@@ -2322,7 +2449,10 @@ window.DATA = {
         "es": "Certificación",
         "en": "Certification"
       },
-      "name": "What is Data Science?",
+      "name": {
+        "es": "What is Data Science?",
+        "en": "What is Data Science?"
+      },
       "org": "IBM",
       "years": "2025"
     },
@@ -2331,7 +2461,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Cálculo Diferencial para Data Science e IA",
+      "name": {
+        "es": "Cálculo Diferencial para Data Science e IA",
+        "en": "Differential Calculus for Data Science and AI"
+      },
       "org": "Platzi",
       "years": "2025"
     },
@@ -2340,7 +2473,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Estadística y Probabilidad",
+      "name": {
+        "es": "Estadística y Probabilidad",
+        "en": "Statistics and Probability"
+      },
       "org": "Platzi",
       "years": "2025"
     },
@@ -2349,7 +2485,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Fundamentos de Ingeniería de Software",
+      "name": {
+        "es": "Fundamentos de Ingeniería de Software",
+        "en": "Foundations of Software Engineering"
+      },
       "org": "Platzi",
       "years": "2025"
     },
@@ -2358,7 +2497,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Introducción a la Terminal y Línea de Comandos",
+      "name": {
+        "es": "Introducción a la Terminal y Línea de Comandos",
+        "en": "Introduction to the Terminal and Command Line"
+      },
       "org": "Platzi",
       "years": "2025"
     },
@@ -2367,7 +2509,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "OOP in Atmospheric and Oceanic Model Development",
+      "name": {
+        "es": "OOP in Atmospheric and Oceanic Model Development",
+        "en": "OOP in Atmospheric and Oceanic Model Development"
+      },
       "org": "Universidade de Vigo",
       "years": "2014"
     },
@@ -2376,7 +2521,10 @@ window.DATA = {
         "es": "Diplomado",
         "en": "Diploma"
       },
-      "name": "Competencias Docentes: Inducción al Bachillerato General",
+      "name": {
+        "es": "Competencias Docentes: Inducción al Bachillerato General",
+        "en": "Teaching Competencies: Introduction to General High School Education"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2011"
     },
@@ -2385,7 +2533,10 @@ window.DATA = {
         "es": "Taller",
         "en": "Workshop"
       },
-      "name": "Formación de Divulgadores de la Ciencia",
+      "name": {
+        "es": "Formación de Divulgadores de la Ciencia",
+        "en": "Training for Science Communicators"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2005"
     },
@@ -2394,7 +2545,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Funciones Matemáticas para Data Science e IA",
+      "name": {
+        "es": "Funciones Matemáticas para Data Science e IA",
+        "en": "Mathematical Functions for Data Science and AI"
+      },
       "org": "Platzi",
       "years": "2025"
     },
@@ -2403,7 +2557,10 @@ window.DATA = {
         "es": "Curso",
         "en": "Course"
       },
-      "name": "Desarrollo Teórico Conceptual del Electromagnetismo (Parte I)",
+      "name": {
+        "es": "Desarrollo Teórico Conceptual del Electromagnetismo (Parte I)",
+        "en": "Theoretical and Conceptual Development of Electromagnetism (Part I)"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2005"
     },
@@ -2412,7 +2569,10 @@ window.DATA = {
         "es": "Capacitación",
         "en": "Training"
       },
-      "name": "Módulo I del DOCA: El Sistema Nacional de Educación Tecnológica",
+      "name": {
+        "es": "Módulo I del DOCA: El Sistema Nacional de Educación Tecnológica",
+        "en": "DOCA Module I: The National System of Technological Education"
+      },
       "org": "Universidad de Guadalajara",
       "years": "2009"
     }
