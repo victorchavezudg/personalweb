@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-1826";
+window.DATA_VERSION = "2026-08-31-1917";
 window.DATA = {
   "hidden_sections": [
     "resources"
