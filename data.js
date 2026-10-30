@@ -2453,11 +2453,35 @@ window.DATA = {
         "en": "Course"
       },
       "name": {
+        "es": "Inglés Básico A2: Preguntas y respuestas comunes",
+        "en": "Basic English A2: Common questions and answers"
+      },
+      "org": "Platzi",
+      "years": "2026"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inteligencia Artificial Generativa para Docentes",
+        "en": "Generative Artificial Intelligence for teachers"
+      },
+      "org": "Universidad Anáhuac",
+      "years": "2026"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
         "es": "Inglés Básico A1: Verbos comunes",
         "en": "Basic English A1: Common verbs"
       },
       "org": "Platzi",
-      "years": "2026"
+      "years": "2025"
     },
     {
       "kind": {
@@ -2469,19 +2493,7 @@ window.DATA = {
         "en": "English vocabulary and expressions"
       },
       "org": "Platzi",
-      "years": "2026"
-    },
-    {
-      "kind": {
-        "es": "Curso",
-        "en": "Course"
-      },
-      "name": {
-        "es": "Inglés Básico A2: Preguntas y respuestas comunes",
-        "en": "Basic English A2: Common questions and answers"
-      },
-      "org": "Platzi",
-      "years": "2026"
+      "years": "2025"
     },
     {
       "kind": {
@@ -2505,18 +2517,6 @@ window.DATA = {
         "en": "Artificial Intelligence for teaching"
       },
       "org": "Universidad de Guadalajara",
-      "years": "2025"
-    },
-    {
-      "kind": {
-        "es": "Curso",
-        "en": "Course"
-      },
-      "name": {
-        "es": "Inteligencia Artificial Generativa para Docentes",
-        "en": "Generative Artificial Intelligence for teachers"
-      },
-      "org": "Universidad Anáhuac",
       "years": "2025"
     },
     {
