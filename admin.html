@@ -351,6 +351,7 @@ const sections = {
     <div class="fields-grid">
       ${fText('Nombre completo','m_name',m.name)}
       ${fText('Email','m_email',m.email)}
+      ${fText('Email 2 (Tec)','m_email2',m.email2||'')}
     </div>
     <div style="margin-top:12px">${fBi('Cargo / Rol','m_role_es','m_role_en',bi(m.role),biEn(m.role))}</div>
     <div style="margin-top:12px">${fBi('Institución','m_inst_es','m_inst_en',bi(m.institution),biEn(m.institution))}</div>
@@ -647,7 +648,7 @@ function afterRender(sec){
 // ─── COLLECT ─────────────────────────────────────────────────────────────────
 function collectMeta(){
   const m=D.meta;
-  m.name=gv('m_name'); m.email=gv('m_email');
+  m.name=gv('m_name'); m.email=gv('m_email'); m.email2=gv('m_email2');
   m.role={es:gv('m_role_es'),en:gv('m_role_en')};
   m.institution={es:gv('m_inst_es'),en:gv('m_inst_en')};
   m.location={es:gv('m_loc_es'),en:gv('m_loc_en')};

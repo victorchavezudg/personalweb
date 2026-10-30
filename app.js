@@ -431,9 +431,14 @@
         <span><span class="ci-lab">${tt(D.ui.contact.mail)}</span><br><span class="ci-val">${esc(m.email)}</span></span>
         <button class="copy-btn" data-copy="${m.email}" type="button">${tt(D.ui.contact.copy)}</button>
       </a>
+      ${m.email2 ? `<a class="ci-row" href="mailto:${m.email2}">
+        <span class="ci-ico">${I.mail}</span>
+        <span><span class="ci-lab">${tt(D.ui.contact.mail)} · Tec de Monterrey</span><br><span class="ci-val">${esc(m.email2)}</span></span>
+        <button class="copy-btn" data-copy="${m.email2}" type="button">${tt(D.ui.contact.copy)}</button>
+      </a>` : ''}
       <div class="ci-row">
         <span class="ci-ico">${I.inst}</span>
-        <span><span class="ci-lab">${plain({es:'Institución',en:'Institution'})}</span><br><span class="ci-val">${plain({es:'Centro Universitario de Tlaquepaque · UdeG',en:'Tlaquepaque University Center · UdeG'})}</span></span>
+        <span><span class="ci-lab">${plain({es:'Institución',en:'Institution'})}</span><br><span class="ci-val">${plain({es:'Centro Universitario de Tlaquepaque · UdeG',en:'Tlaquepaque University Center · UdeG'})}<br>${plain({es:'Tecnológico de Monterrey · Campus Guadalajara',en:'Tecnológico de Monterrey · Guadalajara Campus'})}</span></span>
       </div>
       <div class="ci-row">
         <span class="ci-ico">${I.pin}</span>

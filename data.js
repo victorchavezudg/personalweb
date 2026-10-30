@@ -20,14 +20,15 @@ window.DATA = {
       "en": "Zapopan, Jalisco · Mexico"
     },
     "sni": {
-      "es": "SNII · Candidato (SECIHTI) 2025–2029",
-      "en": "SNII · Candidate (SECIHTI) 2025–2029"
+      "es": "SNII · Candidato (SECIHTI) 2025–2028",
+      "en": "SNII · Candidate (SECIHTI) 2025–2028"
     },
     "tagline": {
       "es": "Físico aplicado con enfoque en ciencia de datos. Estudio la atmósfera, el clima y el océano aplicando aprendizaje automático y análisis de grandes volúmenes de datos; trabajo en óptica aplicada y sistemas de alerta temprana, y exploro la IA generativa para transformar la enseñanza de las ciencias — acercando la ciencia a las nuevas generaciones.",
       "en": "Applied physicist with a focus on data science. I study the atmosphere, climate and ocean using machine learning and large-scale data analysis; I work on applied optics and early-warning systems, and explore generative AI to transform science education — bringing science closer to new generations."
     },
     "email": "victor.chavez@academicos.udg.mx",
+    "email2": "victor.chavez@tec.mx",
     "cv": {
       "es": "assets/CV_Victor_Chavez_Perez_es.pdf",
       "en": "assets/CV_Victor_Chavez_Perez_en.pdf"
@@ -402,12 +403,12 @@ window.DATA = {
       "es": [
         "Soy físico por la Universidad de Guadalajara y Doctor en Física Aplicada por la Universidade de Vigo. Mi investigación combina la física de la atmósfera y el clima con el análisis de grandes volúmenes de datos: estudio los calentamientos súbitos estratosféricos (SSW), las olas de calor y su respuesta ante distintos escenarios de cambio climático usando modelos como CMIP5 y WACCM.",
         "Más allá de la investigación básica, llevo la física a problemas reales: desarrollo un sistema de alerta temprana de inundaciones para la Zona Metropolitana de Guadalajara que integra radar meteorológico, modelación hidrológica sobre relieve LiDAR de alta resolución y percepción remota. Mi trabajo también recorre la oceanografía física, la percepción remota y la óptica aplicada.",
-        "Me interesa además cómo la IA generativa puede transformar la enseñanza de las ciencias: diseño asistentes de aprendizaje y materiales didácticos que evalúo con los propios estudiantes. En paralelo, soy co-fundador del Club de Ciencia y Tecnología Tlakakini, dedicado a la divulgación científica para niñas y niños. Creo que la mejor ciencia es la que se comparte."
+        "Me interesa además cómo la IA generativa puede transformar la enseñanza de las ciencias: diseño asistentes de aprendizaje y materiales didácticos que evalúo con los propios estudiantes. En paralelo, soy co-fundador y coordinador del Club de Ciencia y Tecnología Tlakakini, dedicado a la divulgación científica para niñas y niños. Creo que la mejor ciencia es la que se comparte."
       ],
       "en": [
         "I am a physicist from the University of Guadalajara and hold a PhD in Applied Physics from the University of Vigo. My research blends atmospheric and climate physics with large-scale data analysis: I study sudden stratospheric warmings (SSW), heat waves and their response under climate-change scenarios using models such as CMIP5 and WACCM.",
         "Beyond basic research, I bring physics to real-world problems: I am developing a flood early-warning system for the Guadalajara Metropolitan Area that integrates weather radar, hydrological runoff modeling over high-resolution LiDAR terrain and remote sensing. My work also spans physical oceanography, remote sensing and applied optics.",
-        "I am also interested in how generative AI can transform science education: I design learning assistants and teaching materials that I evaluate with students themselves. Alongside this, I co-founded the Tlakakini Science & Technology Club, devoted to science outreach for children. I believe the best science is the kind that gets shared."
+        "I am also interested in how generative AI can transform science education: I design learning assistants and teaching materials that I evaluate with students themselves. Alongside this, I co-founded and coordinate the Tlakakini Science & Technology Club, devoted to science outreach for children. I believe the best science is the kind that gets shared."
       ]
     },
     "interests": [
@@ -481,7 +482,7 @@ window.DATA = {
         "org": "SECIHTI",
         "es": "SNII · Candidato a Investigador",
         "en": "National Researcher System · Candidate",
-        "years": "2025–2029",
+        "years": "2025–2028",
         "place": {
           "es": "México",
           "en": "Mexico"
@@ -661,8 +662,8 @@ window.DATA = {
       "years": "2024 – actual",
       "yearsEn": "2024 – present",
       "detail": {
-        "es": "Departamento de Ciencias Básicas. Presidente de la Academia de Ciencias Básicas.",
-        "en": "Department of Basic Sciences. Chair of the Basic Sciences Academic Board."
+        "es": "Departamento de Ciencias Básicas. Academia de Ciencias Básicas: Secretario (2026 – actual); Presidente (2025).",
+        "en": "Department of Basic Sciences. Basic Sciences Academic Board: Secretary (2026 – present); Chair (2025)."
       },
       "courses": [
         {
@@ -1650,8 +1651,8 @@ window.DATA = {
         "en": "Tlakakini Science & Technology Club"
       },
       "desc": {
-        "es": "Co-fundador. Sesiones mensuales de divulgación para niñas y niños en días no escolares.",
-        "en": "Co-founder. Monthly outreach sessions for children on national non-school days."
+        "es": "Co-fundador y coordinador. Sesiones mensuales de divulgación para niñas y niños en días no escolares.",
+        "en": "Co-founder and coordinator. Monthly outreach sessions for children on national non-school days."
       },
       "when": "2024 –"
     },
