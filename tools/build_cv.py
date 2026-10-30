@@ -162,6 +162,8 @@ def header(D, lang, story):
     site = 'https://victorchavezudg.github.io/personalweb/'
     parts = [esc(L(m['institution'], lang)), esc(L(m['location'], lang)),
              '<a href="mailto:%s" color="#0d6e82">%s</a>' % (m['email'], esc(m['email']))]
+    if m.get('email2'):
+        parts.append('<a href="mailto:%s" color="#0d6e82">%s</a>' % (m['email2'], esc(m['email2'])))
     if links.get('orcid'):
         parts.append('<a href="%s" color="#0d6e82">ORCID: %s</a>' % (links['orcid'], esc(links['orcid'].split('orcid.org/')[-1])))
     parts.append('<a href="%s" color="#0d6e82">victorchavezudg.github.io/personalweb</a>' % site)
