@@ -2071,6 +2071,24 @@ window.DATA = {
   "conferences": [
     {
       "name": {
+        "es": "Encuentro de Innovación Educativa INNOVA FORUM 2026 «Educación flexible y transformación digital» — Universidad de Guadalajara (UDG Virtual)",
+        "en": "INNOVA FORUM 2026 Educational Innovation Meeting “Flexible Education and Digital Transformation” — Universidad de Guadalajara (UDG Virtual)"
+      },
+      "place": {
+        "es": "Guadalajara, México",
+        "en": "Guadalajara, Mexico"
+      },
+      "when": "2026",
+      "date": "10–11 sep 2026",
+      "talks": [
+        {
+          "es": "Cómics educativos generados con IA como estrategia didáctica en la Educación Superior",
+          "en": "AI-generated educational comics as a teaching strategy in higher education"
+        }
+      ]
+    },
+    {
+      "name": {
         "es": "LXV Congreso Nacional de Física",
         "en": "65th Mexican National Physics Congress"
       },
