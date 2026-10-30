@@ -1,5 +1,5 @@
 /* data.js — editado desde admin panel */
-window.DATA_VERSION = "2026-08-31-2159";
+window.DATA_VERSION = "2026-10-30-0030";
 window.DATA = {
   "hidden_sections": [
     "resources"
@@ -1638,6 +1638,42 @@ window.DATA = {
       ],
       "link": "http://142.93.192.71:8080",
       "placeholder": false
+    },
+    {
+      "name": {
+        "es": "Sistema de Pronóstico Climatológico CU Tlaquepaque",
+        "en": "CU Tlaquepaque Climatological Forecast System"
+      },
+      "desc": {
+        "es": "Aplicación web de pronóstico meteorológico en tiempo real para México. Visualiza datos del modelo numérico GFS 0.25° (NOAA/NOMADS) y temperatura satelital (NASA GIBS/MODIS) sobre un mapa interactivo con capas de temperatura, precipitación, humedad, viento, índice UV, calidad del aire y actividad eléctrica atmosférica (WWLLN). Genera automáticamente un boletín climatológico diario y alertas visuales. Obra registrada ante INDAUTOR (núm. 03-2026-042712265900-01, 28 abr 2026; coautores: C. Almaguer Gómez, J. Durán Curiel) y licenciada al CU Tlaquepaque (mayo 2026) para beneficio de su comunidad universitaria.",
+        "en": "Real-time weather forecast web application for Mexico. It displays GFS 0.25° numerical model data (NOAA/NOMADS) and satellite temperature (NASA GIBS/MODIS) on an interactive map with temperature, precipitation, humidity, wind, UV index, air quality and atmospheric electrical activity (WWLLN) layers. It automatically generates a daily climatological bulletin and visual alerts. Work registered with INDAUTOR (no. 03-2026-042712265900-01, 28 Apr 2026; co-authors: C. Almaguer Gómez, J. Durán Curiel) and licensed to CU Tlaquepaque (May 2026) for the benefit of its university community."
+      },
+      "stack": [
+        "GFS 0.25° (NOAA/NOMADS)",
+        "NASA GIBS/MODIS",
+        "WWLLN"
+      ],
+      "link": "",
+      "placeholder": false
+    },
+    {
+      "name": {
+        "es": "Sistema web Tlakakini para la gestión de ferias de ciencia",
+        "en": "Tlakakini web system for science fair management"
+      },
+      "desc": {
+        "es": "Aplicación web para la gestión integral de las ferias de ciencia del Club de Ciencia y Tecnología Tlakakini (UdeG). Coordina administradores, talleristas (investigadores, posgrados, empresas y student chapters) y participantes (niños y adultos): registro y autenticación, propuesta y aprobación de talleres con horario y cupo, inscripción con validación automática de traslapes, control de asistencia con puntos en tiempo real y un sistema gamificado de seis categorías, más un panel administrativo. Arquitectura serverless. Obra registrada ante INDAUTOR (núm. 03-2026-042712282100-01, 28 abr 2026; coautora: C. Almaguer Gómez) y licenciada al CU Tlaquepaque (mayo 2026).",
+        "en": "Web application for end-to-end management of the science fairs of the Tlakakini Science and Technology Club (UdeG). It coordinates administrators, workshop leaders (researchers, graduate programs, companies and student chapters) and participants (children and adults): registration and authentication, workshop proposal and approval with schedule and capacity, enrollment with automatic overlap validation, attendance tracking with real-time points and a six-category gamified system, plus an admin dashboard. Serverless architecture. Work registered with INDAUTOR (no. 03-2026-042712282100-01, 28 Apr 2026; co-author: C. Almaguer Gómez) and licensed to CU Tlaquepaque (May 2026)."
+      },
+      "stack": [
+        "HTML5",
+        "CSS3",
+        "JavaScript ES6+",
+        "Google Apps Script",
+        "Google Sheets"
+      ],
+      "link": "",
+      "placeholder": false
     }
   ],
   "outreach": [
@@ -2413,6 +2449,42 @@ window.DATA = {
   "training": [
     {
       "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A1: Verbos comunes",
+        "en": "Basic English A1: Common verbs"
+      },
+      "org": "Platzi",
+      "years": "2026"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Vocabulario y expresiones en inglés",
+        "en": "English vocabulary and expressions"
+      },
+      "org": "Platzi",
+      "years": "2026"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A2: Preguntas y respuestas comunes",
+        "en": "Basic English A2: Common questions and answers"
+      },
+      "org": "Platzi",
+      "years": "2026"
+    },
+    {
+      "kind": {
         "es": "Diplomado",
         "en": "Diploma"
       },
@@ -2537,6 +2609,174 @@ window.DATA = {
         "en": "Course"
       },
       "name": {
+        "es": "Funciones Matemáticas para Data Science e IA",
+        "en": "Mathematical Functions for Data Science and AI"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Igualdad de género, prevención de acoso y hostigamiento",
+        "en": "Gender equality and prevention of harassment"
+      },
+      "org": "Universidad de Guadalajara",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Capacitación para la aplicación y supervisión de la PAA de UdeG",
+        "en": "Training for administering and supervising the UdeG admission test (PAA)"
+      },
+      "org": "Universidad de Guadalajara",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Computadores e Informática",
+        "en": "Computers and Informatics"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Computación Básica",
+        "en": "Basic Computing"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Fundamentos de Matemáticas",
+        "en": "Fundamentals of Mathematics"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Lenguaje y Notación Matemática",
+        "en": "Mathematical Language and Notation"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A1 para principiantes",
+        "en": "Basic English A1 for beginners"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A1: Verbo to be",
+        "en": "Basic English A1: The verb to be"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A1: Presente simple",
+        "en": "Basic English A1: Present simple"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Inglés Básico A1: Fechas, horas y expresiones simples",
+        "en": "Basic English A1: Dates, times and simple expressions"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Estrategias para aprender inglés en línea",
+        "en": "Strategies for learning English online"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Pronunciación en inglés",
+        "en": "English pronunciation"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
+        "es": "Escritura en inglés",
+        "en": "English writing"
+      },
+      "org": "Platzi",
+      "years": "2025"
+    },
+    {
+      "kind": {
+        "es": "Curso",
+        "en": "Course"
+      },
+      "name": {
         "es": "OOP in Atmospheric and Oceanic Model Development",
         "en": "OOP in Atmospheric and Oceanic Model Development"
       },
@@ -2557,6 +2797,18 @@ window.DATA = {
     },
     {
       "kind": {
+        "es": "Capacitación",
+        "en": "Training"
+      },
+      "name": {
+        "es": "Módulo I del DOCA: El Sistema Nacional de Educación Tecnológica",
+        "en": "DOCA Module I: The National System of Technological Education"
+      },
+      "org": "Universidad de Guadalajara",
+      "years": "2009"
+    },
+    {
+      "kind": {
         "es": "Taller",
         "en": "Workshop"
       },
@@ -2573,35 +2825,11 @@ window.DATA = {
         "en": "Course"
       },
       "name": {
-        "es": "Funciones Matemáticas para Data Science e IA",
-        "en": "Mathematical Functions for Data Science and AI"
-      },
-      "org": "Platzi",
-      "years": "2025"
-    },
-    {
-      "kind": {
-        "es": "Curso",
-        "en": "Course"
-      },
-      "name": {
         "es": "Desarrollo Teórico Conceptual del Electromagnetismo (Parte I)",
         "en": "Theoretical and Conceptual Development of Electromagnetism (Part I)"
       },
       "org": "Universidad de Guadalajara",
       "years": "2005"
-    },
-    {
-      "kind": {
-        "es": "Capacitación",
-        "en": "Training"
-      },
-      "name": {
-        "es": "Módulo I del DOCA: El Sistema Nacional de Educación Tecnológica",
-        "en": "DOCA Module I: The National System of Technological Education"
-      },
-      "org": "Universidad de Guadalajara",
-      "years": "2009"
     }
   ]
 };
