@@ -2367,6 +2367,14 @@ window.DATA = {
     ],
     "review": [
       {
+        "org": "Theoretical and Applied Climatology (Springer Nature)",
+        "detail": {
+          "es": "Revisor — revista internacional",
+          "en": "Reviewer — international journal"
+        },
+        "years": "2026"
+      },
+      {
         "org": "IEEE Latin America Transactions",
         "detail": {
           "es": "Revisor — revista Q2, doble ciego",
